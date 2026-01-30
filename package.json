@@ -1,0 +1,26 @@
+{
+  "name": "fidufi",
+  "version": "1.0.0",
+  "description": "Capa de cumplimiento técnico para fideicomisos irrevocables",
+  "private": true,
+  "packageManager": "yarn@4.5.0",
+  "workspaces": [
+    "api",
+    "app"
+  ],
+  "scripts": {
+    "dev:api": "cd api && yarn dev",
+    "dev:app": "cd app && yarn dev",
+    "dev": "yarn dev:api & yarn dev:app",
+    "build": "yarn workspace @fidufi/api build && yarn workspace @fidufi/app build",
+    "test": "yarn workspaces foreach run test"
+  },
+  "keywords": [
+    "fideicomiso",
+    "blockchain",
+    "ssi",
+    "compliance"
+  ],
+  "author": "",
+  "license": "UNLICENSED"
+}

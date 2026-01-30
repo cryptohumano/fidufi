@@ -1,0 +1,255 @@
+// Prisma Schema para fidufi
+// Base de datos: PostgreSQL
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // La URL de conexión ahora se configura en prisma.config.ts
+}
+
+// Roles de actores en el sistema
+enum ActorRole {
+  SUPER_ADMIN     // Superusuario - puede hacer todo, gestionar usuarios y reglas
+  FIDUCIARIO      // Reporta activos, recibe alertas
+  COMITE_TECNICO  // Aprueba excepciones, modifica reglas
+  AUDITOR         // Solo lectura, consulta historial
+  REGULADOR       // Solo lectura, verifica cumplimiento
+  BENEFICIARIO    // Fideicomisario - solo lectura, recibe alertas sobre sus fideicomisos
+}
+
+// Tipos de activos según el contrato
+enum AssetType {
+  GovernmentBond      // Bonos federales o instrumentos de renta fija
+  MortgageLoan        // Préstamos hipotecarios
+  InsuranceReserve    // Reservas de seguros
+  CNBVApproved        // Valores aprobados por CNBV
+  SocialHousing       // Vivienda social
+}
+
+// Estado de cumplimiento de un activo
+enum ComplianceStatus {
+  COMPLIANT           // Cumple todas las reglas
+  NON_COMPLIANT       // No cumple alguna regla
+  PENDING_REVIEW      // Requiere revisión del Comité Técnico
+  EXCEPTION_APPROVED  // Excepción aprobada por Comité Técnico
+}
+
+// Actor del sistema (Fiduciario, Comité Técnico, Auditor, Regulador, Super Admin)
+model Actor {
+  id                 String    @id @default(uuid())
+  name               String?
+  email              String?   @unique // Email para autenticación
+  passwordHash       String?   // Hash de contraseña (bcrypt)
+  role               ActorRole
+  isSuperAdmin       Boolean   @default(false) // Flag para superusuario (no puede ser eliminado)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Identidad principal (SSI) - Opcional
+  primaryDid         String?   @unique
+  
+  // Identidades alternativas (fallbacks) - Opcionales
+  ethereumAddress    String?   @unique
+  polkadotAccountId  String?   @unique
+  ensName            String?
+  
+  // Proof of Personhood (almacenado como JSON)
+  popCredentials     Json?
+  
+  // Relaciones
+  registeredAssets   Asset[]
+  beneficiaryAssets  Asset[]       @relation("BeneficiaryAssets") // Activos asociados como beneficiario
+  alerts             Alert[]
+  ruleModifications  RuleModification[]
+  trustMemberships   ActorTrust[]  // Pertenencia a fideicomisos
+  
+  @@index([primaryDid])
+  @@index([ethereumAddress])
+  @@index([email])
+  @@index([role])
+  @@index([isSuperAdmin])
+}
+
+// Activo registrado en el fideicomiso
+model Asset {
+  id                String          @id @default(uuid())
+  trustId           String          // ID del fideicomiso (ej. "10045")
+  assetType         AssetType
+  valueMxn          Decimal         @db.Decimal(18, 2) // Monto en MXN
+  
+  // Metadatos del activo
+  description       String?
+  documentHash      String?         // Hash del documento PDF adjunto
+  registeredAt      DateTime        @default(now())
+  
+  // Estado de cumplimiento
+  complianceStatus  ComplianceStatus
+  compliant         Boolean         // true si cumple todas las reglas
+  
+  // Validación de reglas (almacenado como JSON para flexibilidad)
+  validationResults Json?            // Resultados detallados de cada regla
+  
+  // Evidencia blockchain
+  vcHash            String?         // Hash del Verifiable Credential
+  blockchainTxHash  String?         // Hash de la transacción en blockchain
+  blockchainNetwork String?         // Red utilizada (ej. "polygon-zkevm")
+  anchoredAt        DateTime?
+  
+  // Actor que registró el activo
+  registeredBy      String          // Actor.id
+  actor             Actor            @relation(fields: [registeredBy], references: [id])
+  
+  // Beneficiario asociado (opcional, para préstamos hipotecarios y vivienda social)
+  beneficiaryId     String?         // Actor.id del beneficiario (solo si aplica)
+  beneficiary       Actor?          @relation("BeneficiaryAssets", fields: [beneficiaryId], references: [id])
+  
+  // Relaciones
+  alerts            Alert[]
+  
+  @@index([trustId])
+  @@index([assetType])
+  @@index([registeredBy])
+  @@index([beneficiaryId])
+  @@index([complianceStatus])
+  @@index([registeredAt])
+}
+
+// Alertas generadas por incumplimiento
+model Alert {
+  id                String    @id @default(uuid())
+  assetId           String
+  asset             Asset     @relation(fields: [assetId], references: [id])
+  
+  actorId           String    // Actor que debe recibir la alerta
+  actor             Actor     @relation(fields: [actorId], references: [id])
+  
+  message           String
+  severity          String    // "warning", "error", "info"
+  acknowledged      Boolean   @default(false)
+  acknowledgedAt    DateTime?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([assetId])
+  @@index([actorId])
+  @@index([acknowledged])
+}
+
+// Modificaciones de reglas por el Comité Técnico
+model RuleModification {
+  id                String    @id @default(uuid())
+  trustId           String
+  ruleName          String    // Nombre de la regla modificada
+  previousValue     Json?     // Valor anterior
+  newValue          Json      // Nuevo valor
+  reason            String?
+  
+  approvedBy        String    // Actor.id del miembro del Comité que aprobó
+  actor             Actor      @relation(fields: [approvedBy], references: [id])
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([trustId])
+  @@index([approvedBy])
+}
+
+// Configuración de fideicomiso
+model Trust {
+  id                String    @id @default(uuid())
+  trustId           String    @unique // ID del contrato (ej. "10045")
+  name              String?
+  
+  // Patrimonio inicial
+  initialCapital    Decimal   @db.Decimal(18, 2)
+  
+  // Límites de inversión (configurables)
+  bondLimitPercent  Decimal   @default(30) @db.Decimal(5, 2) // 30% para bonos
+  otherLimitPercent Decimal   @default(70) @db.Decimal(5, 2) // 70% para otros
+  
+  // Relaciones
+  fiduciarioFee     FiduciarioFee?
+  members           ActorTrust[]  // Usuarios asignados a este fideicomiso
+  
+  // Estado
+  active            Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([trustId])
+}
+
+// Honorarios del Fiduciario según Cláusula Decima Segunda
+model FiduciarioFee {
+  id                String    @id @default(uuid())
+  trustId           String
+  trust             Trust?    @relation(fields: [trustId], references: [trustId])
+  
+  // Tipos de honorarios según contrato
+  studyFee          Decimal   @default(5000) @db.Decimal(18, 2) // Por estudio y aceptación ($5,000 una vez)
+  annualFee         Decimal   @default(18000) @db.Decimal(18, 2) // Por manejo anual ($18,000)
+  modificationFee   Decimal   @default(5000) @db.Decimal(18, 2) // Por modificación ($5,000)
+  
+  // Estado de pagos
+  studyFeePaid      Boolean   @default(false)
+  studyFeePaidAt    DateTime?
+  
+  // Pagos mensuales del honorario anual (proporcional)
+  monthlyPayments   MonthlyFeePayment[]
+  
+  // Estado general
+  allFeesPaid       Boolean   @default(false) // true si todos los honorarios están pagos
+  lastUpdated       DateTime  @default(now())
+  
+  @@index([trustId])
+  @@unique([trustId])
+}
+
+// Pagos mensuales del honorario anual
+model MonthlyFeePayment {
+  id                String    @id @default(uuid())
+  fiduciarioFeeId   String
+  fiduciarioFee     FiduciarioFee @relation(fields: [fiduciarioFeeId], references: [id], onDelete: Cascade)
+  
+  month             Int       // Mes (1-12)
+  year              Int       // Año
+  amount            Decimal   @db.Decimal(18, 2) // Monto proporcional mensual
+  paid              Boolean   @default(false)
+  paidAt            DateTime?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@unique([fiduciarioFeeId, year, month])
+  @@index([fiduciarioFeeId])
+}
+
+// Relación entre Actores y Fideicomisos
+// Permite que un usuario pertenezca a múltiples fideicomisos con diferentes roles
+model ActorTrust {
+  id          String    @id @default(uuid())
+  actorId     String
+  actor       Actor     @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  trustId     String
+  trust       Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  
+  // Rol específico dentro del fideicomiso
+  // Un mismo actor puede tener diferentes roles en diferentes fideicomisos
+  // Ejemplo: FIDUCIARIO en trust A, BENEFICIARIO en trust B
+  roleInTrust ActorRole
+  
+  // Fechas
+  assignedAt  DateTime  @default(now())
+  revokedAt   DateTime?
+  
+  // Estado
+  active      Boolean   @default(true)
+  
+  @@unique([actorId, trustId])
+  @@index([actorId])
+  @@index([trustId])
+  @@index([active])
+  @@index([roleInTrust])
+}
