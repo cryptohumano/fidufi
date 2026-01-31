@@ -43,6 +43,16 @@ export type RuleModification = Prisma.RuleModificationModel
  */
 export type Trust = Prisma.TrustModel
 /**
+ * Model MonthlyStatement
+ * 
+ */
+export type MonthlyStatement = Prisma.MonthlyStatementModel
+/**
+ * Model ComiteSession
+ * 
+ */
+export type ComiteSession = Prisma.ComiteSessionModel
+/**
  * Model FiduciarioFee
  * 
  */
@@ -57,3 +67,8 @@ export type MonthlyFeePayment = Prisma.MonthlyFeePaymentModel
  * 
  */
 export type ActorTrust = Prisma.ActorTrustModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel

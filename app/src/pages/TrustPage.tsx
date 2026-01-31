@@ -7,6 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import { trustsApi } from '../lib/api';
 import { Card } from '../components/ui/card';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
+import { TrustTimeline } from '../components/trust/TrustTimeline';
+import { TrustParties } from '../components/trust/TrustParties';
 import { FileText, TrendingUp, AlertCircle } from 'lucide-react';
 
 function TrustDetails() {
@@ -87,6 +89,16 @@ function TrustDetails() {
             </div>
           </div>
         </Card>
+      </div>
+
+      {/* Timeline del Fideicomiso */}
+      <div className="mb-8">
+        <TrustTimeline trustId={trustId!} />
+      </div>
+
+      {/* Partes Involucradas */}
+      <div className="mb-8">
+        <TrustParties trustId={trustId!} />
       </div>
 
       {summary && (

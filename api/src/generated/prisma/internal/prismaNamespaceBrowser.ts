@@ -56,9 +56,12 @@ export const ModelName = {
   Alert: 'Alert',
   RuleModification: 'RuleModification',
   Trust: 'Trust',
+  MonthlyStatement: 'MonthlyStatement',
+  ComiteSession: 'ComiteSession',
   FiduciarioFee: 'FiduciarioFee',
   MonthlyFeePayment: 'MonthlyFeePayment',
-  ActorTrust: 'ActorTrust'
+  ActorTrust: 'ActorTrust',
+  AuditLog: 'AuditLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -124,6 +127,9 @@ export const AlertScalarFieldEnum = {
   actorId: 'actorId',
   message: 'message',
   severity: 'severity',
+  alertType: 'alertType',
+  alertSubtype: 'alertSubtype',
+  metadata: 'metadata',
   acknowledged: 'acknowledged',
   acknowledgedAt: 'acknowledgedAt',
   createdAt: 'createdAt'
@@ -153,12 +159,77 @@ export const TrustScalarFieldEnum = {
   initialCapital: 'initialCapital',
   bondLimitPercent: 'bondLimitPercent',
   otherLimitPercent: 'otherLimitPercent',
+  fideicomitenteName: 'fideicomitenteName',
+  fideicomitenteRFC: 'fideicomitenteRFC',
+  fiduciarioName: 'fiduciarioName',
+  fiduciarioRFC: 'fiduciarioRFC',
+  constitutionDate: 'constitutionDate',
+  expirationDate: 'expirationDate',
+  maxTermYears: 'maxTermYears',
+  termType: 'termType',
+  rfc: 'rfc',
+  satRegistrationNumber: 'satRegistrationNumber',
+  satRegisteredAt: 'satRegisteredAt',
+  terminationDate: 'terminationDate',
+  terminationType: 'terminationType',
+  terminationReason: 'terminationReason',
+  transmissionCompleted: 'transmissionCompleted',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TrustScalarFieldEnum = (typeof TrustScalarFieldEnum)[keyof typeof TrustScalarFieldEnum]
+
+
+export const MonthlyStatementScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  year: 'year',
+  month: 'month',
+  statementDate: 'statementDate',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  summary: 'summary',
+  assets: 'assets',
+  transactions: 'transactions',
+  documentUrl: 'documentUrl',
+  documentHash: 'documentHash',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  observations: 'observations',
+  tacitlyApprovedAt: 'tacitlyApprovedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MonthlyStatementScalarFieldEnum = (typeof MonthlyStatementScalarFieldEnum)[keyof typeof MonthlyStatementScalarFieldEnum]
+
+
+export const ComiteSessionScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  sessionDate: 'sessionDate',
+  sessionType: 'sessionType',
+  attendees: 'attendees',
+  quorum: 'quorum',
+  agenda: 'agenda',
+  decisions: 'decisions',
+  approvedItems: 'approvedItems',
+  minutes: 'minutes',
+  minutesUrl: 'minutesUrl',
+  minutesHash: 'minutesHash',
+  status: 'status',
+  scheduledBy: 'scheduledBy',
+  location: 'location',
+  meetingLink: 'meetingLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ComiteSessionScalarFieldEnum = (typeof ComiteSessionScalarFieldEnum)[keyof typeof ComiteSessionScalarFieldEnum]
 
 
 export const FiduciarioFeeScalarFieldEnum = {
@@ -201,6 +272,23 @@ export const ActorTrustScalarFieldEnum = {
 } as const
 
 export type ActorTrustScalarFieldEnum = (typeof ActorTrustScalarFieldEnum)[keyof typeof ActorTrustScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  actorId: 'actorId',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  trustId: 'trustId',
+  description: 'description',
+  metadata: 'metadata',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
 export const SortOrder = {

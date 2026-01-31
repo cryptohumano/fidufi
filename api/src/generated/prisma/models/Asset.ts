@@ -606,9 +606,9 @@ export type AssetSumOrderByAggregateInput = {
   valueMxn?: Prisma.SortOrder
 }
 
-export type AssetScalarRelationFilter = {
-  is?: Prisma.AssetWhereInput
-  isNot?: Prisma.AssetWhereInput
+export type AssetNullableScalarRelationFilter = {
+  is?: Prisma.AssetWhereInput | null
+  isNot?: Prisma.AssetWhereInput | null
 }
 
 export type AssetCreateNestedManyWithoutActorInput = {
@@ -721,10 +721,12 @@ export type AssetCreateNestedOneWithoutAlertsInput = {
   connect?: Prisma.AssetWhereUniqueInput
 }
 
-export type AssetUpdateOneRequiredWithoutAlertsNestedInput = {
+export type AssetUpdateOneWithoutAlertsNestedInput = {
   create?: Prisma.XOR<Prisma.AssetCreateWithoutAlertsInput, Prisma.AssetUncheckedCreateWithoutAlertsInput>
   connectOrCreate?: Prisma.AssetCreateOrConnectWithoutAlertsInput
   upsert?: Prisma.AssetUpsertWithoutAlertsInput
+  disconnect?: Prisma.AssetWhereInput | boolean
+  delete?: Prisma.AssetWhereInput | boolean
   connect?: Prisma.AssetWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutAlertsInput, Prisma.AssetUpdateWithoutAlertsInput>, Prisma.AssetUncheckedUpdateWithoutAlertsInput>
 }

@@ -4,11 +4,12 @@
 
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { assetsApi, alertsApi, trustsApi } from '../../lib/api';
+import { assetsApi, alertsApi, trustsApi, auditLogsApi } from '../../lib/api';
 import { Card } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { ProtectedRoute } from '../../components/layout/ProtectedRoute';
-import { FileText, AlertCircle, TrendingUp, Plus, Eye, Settings } from 'lucide-react';
+import { FileText, AlertCircle, TrendingUp, Plus, Eye, Settings, Building2, Activity, Clock, User } from 'lucide-react';
+import { ComiteSessionsCalendar } from '../../components/comite/ComiteSessionsCalendar';
 
 function ComiteTecnicoDashboard() {
   const { data: assetsData } = useQuery({
@@ -26,11 +27,22 @@ function ComiteTecnicoDashboard() {
     queryFn: () => trustsApi.getSummary('10045'),
   });
 
+  // Logs de auditoría recientes (logs de activos y propios del comité técnico)
+  // Se actualiza automáticamente cada 30 segundos
+  const { data: recentLogsData } = useQuery({
+    queryKey: ['auditLogs', 'recent', 'comite-tecnico'],
+    queryFn: () => auditLogsApi.list({ limit: 10 }),
+    refetchInterval: 30000, // Actualizar cada 30 segundos
+  });
+
   // Extraer el array de activos del objeto de respuesta
   const assets = Array.isArray(assetsData?.assets) ? assetsData.assets : [];
   
   // Extraer el array de alertas del objeto de respuesta
   const alerts = Array.isArray(alertsData?.alerts) ? alertsData.alerts : [];
+  
+  // Extraer el array de logs del objeto de respuesta
+  const recentLogs = Array.isArray(recentLogsData?.logs) ? recentLogsData.logs : [];
   
   // Calcular estadísticas
   const compliantAssets = assets.filter((a: any) => a.compliant);
@@ -79,6 +91,11 @@ function ComiteTecnicoDashboard() {
         </Card>
       </div>
 
+      {/* Calendario de Reuniones */}
+      <div className="mb-8">
+        <ComiteSessionsCalendar trustId="10045" showCreateButton={true} />
+      </div>
+
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
@@ -107,6 +124,18 @@ function ComiteTecnicoDashboard() {
               <Link to="/trusts/10045">
                 <FileText className="h-4 w-4 mr-2" />
                 Ver Detalles del Fideicomiso
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full">
+              <Link to="/trusts/10045/organization">
+                <Building2 className="h-4 w-4 mr-2" />
+                Ver Estructura Organizacional
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full">
+              <Link to="/audit-logs">
+                <Activity className="h-4 w-4 mr-2" />
+                Ver Logs de Auditoría
               </Link>
             </Button>
           </div>
@@ -182,6 +211,93 @@ function ComiteTecnicoDashboard() {
         ) : (
           <p className="text-sm text-muted-foreground text-center py-4">
             No hay activos registrados aún
+          </p>
+        )}
+      </Card>
+
+      {/* Logs de Auditoría Recientes */}
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <Activity className="h-5 w-5" />
+            Actividad Reciente
+          </h2>
+          <Link to="/audit-logs" className="text-sm text-primary hover:underline">
+            Ver todos los logs
+          </Link>
+        </div>
+        {recentLogs && recentLogs.length > 0 ? (
+          <div className="space-y-3">
+            {recentLogs.slice(0, 10).map((log: any) => {
+              const getActionLabel = (action: string) => {
+                const labels: Record<string, string> = {
+                  LOGIN: 'Inicio de sesión',
+                  LOGOUT: 'Cierre de sesión',
+                  LOGIN_FAILED: 'Intento de login fallido',
+                  ASSET_REGISTERED: 'Activo registrado',
+                  ASSET_UPDATED: 'Activo actualizado',
+                  EXCEPTION_APPROVED: 'Excepción aprobada',
+                  EXCEPTION_REJECTED: 'Excepción rechazada',
+                  TRUST_CREATED: 'Fideicomiso creado',
+                  USER_CREATED: 'Usuario creado',
+                  USER_UPDATED: 'Usuario actualizado',
+                  ACTOR_ASSIGNED_TO_TRUST: 'Usuario asignado al fideicomiso',
+                  ACTOR_REMOVED_FROM_TRUST: 'Usuario removido del fideicomiso',
+                };
+                return labels[action] || action;
+              };
+
+              const getActionColor = (action: string) => {
+                if (action === 'LOGIN' || action === 'ASSET_REGISTERED' || action === 'EXCEPTION_APPROVED') {
+                  return 'bg-green-100 text-green-800';
+                }
+                if (action === 'LOGIN_FAILED' || action === 'EXCEPTION_REJECTED') {
+                  return 'bg-red-100 text-red-800';
+                }
+                return 'bg-blue-100 text-blue-800';
+              };
+
+              return (
+                <div key={log.id} className="flex items-start justify-between p-3 border rounded-md hover:bg-muted/50">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Clock className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm font-medium">{getActionLabel(log.action)}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded ${getActionColor(log.action)}`}>
+                        {log.action}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-1">{log.description}</p>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      {log.actor && (
+                        <span className="flex items-center gap-1">
+                          <User className="h-3 w-3" />
+                          {log.actor.name || log.actor.email}
+                        </span>
+                      )}
+                      <span>
+                        {new Date(log.createdAt).toLocaleString('es-MX', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                      {log.trustId && (
+                        <span className="text-xs">
+                          Fideicomiso: {log.trustId}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground text-center py-4">
+            No hay actividad reciente registrada
           </p>
         )}
       </Card>

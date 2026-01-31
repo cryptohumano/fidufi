@@ -8,6 +8,7 @@ import { authenticate, requireSuperAdmin } from '../middleware/auth';
 import { ActorRole } from '../generated/prisma/enums';
 import { hashPassword } from '../utils/password';
 import { getAdminStats } from '../services/adminStatsService';
+import { createAuditLog, AuditAction, EntityType, extractRequestInfo } from '../services/auditLogService';
 
 const router = Router();
 
@@ -62,6 +63,10 @@ router.get('/users', async (req, res) => {
  */
 router.post('/users', async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
     const { email, password, name, role } = req.body;
 
     if (!email || !password || !role) {
@@ -97,6 +102,27 @@ router.post('/users', async (req, res) => {
       },
     });
 
+    // Registrar log de auditoría
+    const requestInfo = extractRequestInfo(req);
+    try {
+      await createAuditLog({
+        actorId: req.user.actorId,
+        action: AuditAction.USER_CREATED,
+        entityType: EntityType.ACTOR,
+        entityId: user.id,
+        description: `Usuario ${email} creado con rol ${role}`,
+        ipAddress: requestInfo.ipAddress,
+        userAgent: requestInfo.userAgent,
+        metadata: {
+          createdUserEmail: email,
+          createdUserRole: role,
+          createdUserName: name || null,
+        },
+      });
+    } catch (error) {
+      console.error('⚠️  Error registrando log de auditoría:', error);
+    }
+
     res.status(201).json(user);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -109,6 +135,10 @@ router.post('/users', async (req, res) => {
  */
 router.put('/users/:id', async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
     const { id } = req.params;
     const { name, email, role, password } = req.body;
 
@@ -132,14 +162,27 @@ router.put('/users/:id', async (req, res) => {
     }
 
     const updateData: any = {};
-    if (name !== undefined) updateData.name = name;
-    if (email !== undefined) updateData.email = email;
-    if (role !== undefined) {
+    const changes: string[] = [];
+    if (name !== undefined && name !== existing.name) {
+      updateData.name = name;
+      changes.push(`nombre: ${existing.name || 'N/A'} → ${name}`);
+    }
+    if (email !== undefined && email !== existing.email) {
+      updateData.email = email;
+      changes.push(`email: ${existing.email || 'N/A'} → ${email}`);
+    }
+    if (role !== undefined && role !== existing.role) {
       updateData.role = role;
       updateData.isSuperAdmin = role === ActorRole.SUPER_ADMIN;
+      changes.push(`rol: ${existing.role} → ${role}`);
     }
     if (password) {
       updateData.passwordHash = await hashPassword(password);
+      changes.push('contraseña actualizada');
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return res.json(existing);
     }
 
     const user = await prisma.actor.update({
@@ -155,6 +198,32 @@ router.put('/users/:id', async (req, res) => {
       },
     });
 
+    // Registrar log de auditoría
+    const requestInfo = extractRequestInfo(req);
+    try {
+      const action = role !== undefined && role !== existing.role 
+        ? AuditAction.USER_ROLE_CHANGED 
+        : AuditAction.USER_UPDATED;
+      
+      await createAuditLog({
+        actorId: req.user.actorId,
+        action,
+        entityType: EntityType.ACTOR,
+        entityId: id,
+        description: `Usuario ${existing.email} actualizado: ${changes.join(', ')}`,
+        ipAddress: requestInfo.ipAddress,
+        userAgent: requestInfo.userAgent,
+        metadata: {
+          updatedUserEmail: existing.email,
+          changes,
+          previousRole: existing.role,
+          newRole: role || existing.role,
+        },
+      });
+    } catch (error) {
+      console.error('⚠️  Error registrando log de auditoría:', error);
+    }
+
     res.json(user);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -167,6 +236,10 @@ router.put('/users/:id', async (req, res) => {
  */
 router.delete('/users/:id', async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
     const { id } = req.params;
 
     const user = await prisma.actor.findUnique({
@@ -185,6 +258,27 @@ router.delete('/users/:id', async (req, res) => {
     await prisma.actor.delete({
       where: { id },
     });
+
+    // Registrar log de auditoría
+    const requestInfo = extractRequestInfo(req);
+    try {
+      await createAuditLog({
+        actorId: req.user.actorId,
+        action: AuditAction.USER_DELETED,
+        entityType: EntityType.ACTOR,
+        entityId: id,
+        description: `Usuario ${user.email} eliminado`,
+        ipAddress: requestInfo.ipAddress,
+        userAgent: requestInfo.userAgent,
+        metadata: {
+          deletedUserEmail: user.email,
+          deletedUserRole: user.role,
+          deletedUserName: user.name || null,
+        },
+      });
+    } catch (error) {
+      console.error('⚠️  Error registrando log de auditoría:', error);
+    }
 
     res.json({ message: 'Usuario eliminado exitosamente' });
   } catch (error: any) {

@@ -13,8 +13,15 @@ export interface AssignActorToTrustData {
 
 /**
  * Asigna un actor a un fideicomiso con un rol específico
+ * 
+ * Nota: Los beneficiarios NO deben asignarse manualmente.
+ * Se asignan automáticamente cuando se crean activos asociados a ellos.
  */
-export async function assignActorToTrust(data: AssignActorToTrustData) {
+export async function assignActorToTrust(
+  data: AssignActorToTrustData,
+  assignedBy?: string,
+  requestInfo?: { ipAddress?: string; userAgent?: string }
+) {
   // Verificar que el actor existe
   const actor = await prisma.actor.findUnique({
     where: { id: data.actorId },
@@ -46,7 +53,7 @@ export async function assignActorToTrust(data: AssignActorToTrustData) {
   if (existing) {
     // Si existe pero está revocado, reactivarlo
     if (!existing.active) {
-      return await prisma.actorTrust.update({
+      const membership = await prisma.actorTrust.update({
         where: { id: existing.id },
         data: {
           active: true,
@@ -54,24 +61,112 @@ export async function assignActorToTrust(data: AssignActorToTrustData) {
           revokedAt: null,
         },
       });
+
+      // Registrar log de auditoría
+      if (assignedBy) {
+        try {
+          const { createAuditLog, AuditAction, EntityType } = await import('./auditLogService');
+          await createAuditLog({
+            actorId: assignedBy,
+            action: AuditAction.ACTOR_ASSIGNED_TO_TRUST,
+            entityType: EntityType.ACTOR_TRUST,
+            entityId: membership.id,
+            trustId: data.trustId,
+            description: `Usuario ${actor.email || actor.name || actor.id} reactivado en el fideicomiso ${data.trustId} con rol ${data.roleInTrust}`,
+            metadata: {
+              assignedActorId: data.actorId,
+              assignedActorEmail: actor.email,
+              assignedActorName: actor.name,
+              roleInTrust: data.roleInTrust,
+              reactivated: true,
+            },
+            ipAddress: requestInfo?.ipAddress,
+            userAgent: requestInfo?.userAgent,
+          });
+        } catch (error) {
+          console.error('⚠️  Error registrando log de auditoría:', error);
+        }
+      }
+
+      return membership;
     }
     // Si ya está activo, actualizar el rol
-    return await prisma.actorTrust.update({
+    const membership = await prisma.actorTrust.update({
       where: { id: existing.id },
       data: {
         roleInTrust: data.roleInTrust,
       },
     });
+
+    // Registrar log de auditoría para cambio de rol
+    if (assignedBy && existing.roleInTrust !== data.roleInTrust) {
+      try {
+        const { createAuditLog, AuditAction, EntityType } = await import('./auditLogService');
+        await createAuditLog({
+          actorId: assignedBy,
+          action: AuditAction.ACTOR_ASSIGNED_TO_TRUST,
+          entityType: EntityType.ACTOR_TRUST,
+          entityId: membership.id,
+          trustId: data.trustId,
+          description: `Rol del usuario ${actor.email || actor.name || actor.id} actualizado en el fideicomiso ${data.trustId}: ${existing.roleInTrust} → ${data.roleInTrust}`,
+          metadata: {
+            assignedActorId: data.actorId,
+            assignedActorEmail: actor.email,
+            assignedActorName: actor.name,
+            previousRole: existing.roleInTrust,
+            newRole: data.roleInTrust,
+          },
+          ipAddress: requestInfo?.ipAddress,
+          userAgent: requestInfo?.userAgent,
+        });
+      } catch (error) {
+        console.error('⚠️  Error registrando log de auditoría:', error);
+      }
+    }
+
+    return membership;
+  }
+
+  // Validar que no se intente asignar beneficiarios manualmente
+  if (data.roleInTrust === 'BENEFICIARIO') {
+    throw new Error('Los beneficiarios no se asignan manualmente. Se asignan automáticamente al crear activos asociados a ellos.');
   }
 
   // Crear nueva relación
-  return await prisma.actorTrust.create({
+  const membership = await prisma.actorTrust.create({
     data: {
       actorId: data.actorId,
       trustId: data.trustId,
       roleInTrust: data.roleInTrust,
     },
   });
+
+  // Registrar log de auditoría si se proporciona assignedBy
+  if (assignedBy) {
+    try {
+      const { createAuditLog, AuditAction, EntityType } = await import('./auditLogService');
+      await createAuditLog({
+        actorId: assignedBy,
+        action: AuditAction.ACTOR_ASSIGNED_TO_TRUST,
+        entityType: EntityType.ACTOR_TRUST,
+        entityId: membership.id,
+        trustId: data.trustId,
+        description: `Usuario ${actor.email || actor.name || actor.id} asignado al fideicomiso ${data.trustId} con rol ${data.roleInTrust}`,
+        metadata: {
+          assignedActorId: data.actorId,
+          assignedActorEmail: actor.email,
+          assignedActorName: actor.name,
+          roleInTrust: data.roleInTrust,
+        },
+        ipAddress: requestInfo?.ipAddress,
+        userAgent: requestInfo?.userAgent,
+      });
+    } catch (error) {
+      console.error('⚠️  Error registrando log de auditoría:', error);
+    }
+  }
+
+  return membership;
 }
 
 /**

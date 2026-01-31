@@ -9,20 +9,80 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { Link } from 'react-router-dom';
-import { Plus, FileText, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
+import { Plus, FileText, XCircle, Filter } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { AssetsDataTable } from '../components/assets/AssetsDataTable';
+
+const ITEMS_PER_PAGE = 10;
+
+const ASSET_TYPES = [
+  { value: '', label: 'Todos los tipos' },
+  { value: 'GovernmentBond', label: 'Bono Gubernamental' },
+  { value: 'MortgageLoan', label: 'Préstamo Hipotecario' },
+  { value: 'InsuranceReserve', label: 'Reserva de Seguros' },
+  { value: 'CNBVApproved', label: 'Valor CNBV' },
+  { value: 'SocialHousing', label: 'Vivienda Social' },
+] as const;
+
+const COMPLIANCE_STATUSES = [
+  { value: '', label: 'Todos los estados' },
+  { value: 'COMPLIANT', label: 'Cumpliente' },
+  { value: 'NON_COMPLIANT', label: 'No Cumpliente' },
+  { value: 'PENDING_REVIEW', label: 'Pendiente de Revisión' },
+  { value: 'EXCEPTION_APPROVED', label: 'Excepción Aprobada' },
+] as const;
 
 function AssetsList() {
   const { actor } = useAuth();
   const [trustId] = useState('10045');
+  const [selectedAssetType, setSelectedAssetType] = useState<string>('');
+  const [selectedComplianceStatus, setSelectedComplianceStatus] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Para beneficiarios, el backend filtra automáticamente basado en el rol
   // No necesitamos pasar beneficiaryId explícitamente, el backend lo detecta del token
   const { data, isLoading, error } = useQuery({
-    queryKey: ['assets', trustId, actor?.id, actor?.role],
-    queryFn: () => assetsApi.list(trustId),
+    queryKey: ['assets', trustId, actor?.id, actor?.role, selectedAssetType, selectedComplianceStatus, currentPage],
+    queryFn: () => {
+      const filters: {
+        assetType?: string;
+        complianceStatus?: string;
+        limit: number;
+        offset: number;
+      } = {
+        limit: ITEMS_PER_PAGE,
+        offset: (currentPage - 1) * ITEMS_PER_PAGE,
+      };
+      
+      // Solo agregar filtros si hay valores seleccionados
+      if (selectedAssetType) {
+        filters.assetType = selectedAssetType;
+      }
+      if (selectedComplianceStatus) {
+        filters.complianceStatus = selectedComplianceStatus;
+      }
+      
+      return assetsApi.list(trustId, filters);
+    },
     enabled: !!actor,
   });
+
+  // Resetear a página 1 cuando cambia cualquier filtro
+  const handleAssetTypeChange = (value: string) => {
+    setSelectedAssetType(value);
+    setCurrentPage(1);
+  };
+
+  const handleComplianceStatusChange = (value: string) => {
+    setSelectedComplianceStatus(value);
+    setCurrentPage(1);
+  };
+
+  const clearFilters = () => {
+    setSelectedAssetType('');
+    setSelectedComplianceStatus('');
+    setCurrentPage(1);
+  };
 
   const canRegister = actor?.role === 'FIDUCIARIO' || actor?.role === 'COMITE_TECNICO';
   const isBeneficiario = actor?.role === 'BENEFICIARIO';
@@ -57,7 +117,7 @@ function AssetsList() {
           <p className="text-muted-foreground">
             {isBeneficiario 
               ? 'Activos asociados a tu cuenta en el fideicomiso 10045'
-              : `Fideicomiso 10045 - Total: ${assets.length} activos`
+              : `Fideicomiso 10045 - Total: ${data?.total || 0} activos`
             }
           </p>
         </div>
@@ -71,93 +131,102 @@ function AssetsList() {
         )}
       </div>
 
+      {/* Filtros */}
+      <Card className="p-4 mb-6">
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="h-4 w-4 text-muted-foreground" />
+            <h3 className="text-sm font-semibold">Filtros</h3>
+          </div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <label htmlFor="asset-type-filter" className="text-sm font-medium">
+                Tipo:
+              </label>
+              <select
+                id="asset-type-filter"
+                value={selectedAssetType}
+                onChange={(e) => handleAssetTypeChange(e.target.value)}
+                className="flex h-9 w-full md:w-[200px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {ASSET_TYPES.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <label htmlFor="compliance-status-filter" className="text-sm font-medium">
+                Estado:
+              </label>
+              <select
+                id="compliance-status-filter"
+                value={selectedComplianceStatus}
+                onChange={(e) => handleComplianceStatusChange(e.target.value)}
+                className="flex h-9 w-full md:w-[200px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {COMPLIANCE_STATUSES.map((status) => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {(selectedAssetType || selectedComplianceStatus) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearFilters}
+                className="text-sm"
+              >
+                Limpiar filtros
+              </Button>
+            )}
+            {data?.total !== undefined && (selectedAssetType || selectedComplianceStatus) && (
+              <div className="ml-auto text-sm text-muted-foreground">
+                <span className="font-medium">
+                  {data.total} {data.total === 1 ? 'activo encontrado' : 'activos encontrados'}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </Card>
+
       {assets.length === 0 ? (
         <Card className="p-12 text-center">
           <FileText className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
           <h2 className="text-xl font-semibold mb-2">
-            {isBeneficiario ? 'No tienes activos asociados' : 'No hay activos registrados'}
+            {selectedAssetType
+              ? 'No hay activos de este tipo'
+              : isBeneficiario
+              ? 'No tienes activos asociados'
+              : 'No hay activos registrados'}
           </h2>
           <p className="text-muted-foreground mb-6">
-            {isBeneficiario 
+            {selectedAssetType
+              ? 'Intenta cambiar el filtro o registrar un activo de este tipo.'
+              : isBeneficiario
               ? 'Los activos aparecerán aquí cuando el fiduciario registre activos asociados a tu cuenta.'
-              : 'Comienza registrando el primer activo del fideicomiso.'
-            }
+              : 'Comienza registrando el primer activo del fideicomiso.'}
           </p>
-          {canRegister && (
+          {canRegister && !selectedAssetType && (
             <Button asChild>
               <Link to="/assets/register">Registrar Primer Activo</Link>
             </Button>
           )}
         </Card>
       ) : (
-        <div className="grid gap-4">
-          {assets.map((asset) => (
-            <Card key={asset.id} className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold">
-                      {asset.assetType === 'GovernmentBond' && 'Bono Gubernamental'}
-                      {asset.assetType === 'MortgageLoan' && 'Préstamo Hipotecario'}
-                      {asset.assetType === 'InsuranceReserve' && 'Reserva de Seguros'}
-                      {asset.assetType === 'CNBVApproved' && 'Valor CNBV'}
-                      {asset.assetType === 'SocialHousing' && 'Vivienda Social'}
-                    </h3>
-                    {asset.compliant ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    ) : (
-                      <AlertCircle className="h-5 w-5 text-yellow-600" />
-                    )}
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    {asset.description || 'Sin descripción'}
-                  </p>
-                  <div className="flex gap-6 text-sm flex-wrap">
-                    <div>
-                      <span className="text-muted-foreground">Valor: </span>
-                      <span className="font-semibold">
-                        ${parseFloat(asset.valueMxn).toLocaleString('es-MX', { minimumFractionDigits: 2 })}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Estado: </span>
-                      <span className={`font-semibold ${
-                        asset.compliant ? 'text-green-600' : 'text-yellow-600'
-                      }`}>
-                        {asset.complianceStatus}
-                      </span>
-                    </div>
-                    {asset.beneficiary && (
-                      <div>
-                        <span className="text-muted-foreground">Beneficiario: </span>
-                        <span className="font-semibold">
-                          {asset.beneficiary.name || asset.beneficiary.email || 'Sin nombre'}
-                        </span>
-                      </div>
-                    )}
-                    {asset.actor && !isBeneficiario && (
-                      <div>
-                        <span className="text-muted-foreground">Registrado por: </span>
-                        <span className="font-semibold">
-                          {asset.actor.name || asset.actor.role}
-                        </span>
-                      </div>
-                    )}
-                    {asset.blockchainNetwork && (
-                      <div>
-                        <span className="text-muted-foreground">Blockchain: </span>
-                        <span className="font-semibold">{asset.blockchainNetwork}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <Button variant="outline" size="sm" asChild>
-                  <Link to={`/assets/${asset.id}`}>Ver Detalles</Link>
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
+                    <AssetsDataTable
+                      data={assets}
+                      total={data?.total || 0}
+                      currentPage={currentPage}
+                      itemsPerPage={ITEMS_PER_PAGE}
+                      onPageChange={setCurrentPage}
+                      isBeneficiario={isBeneficiario}
+                      userRole={actor?.role}
+                    />
       )}
     </div>
   );

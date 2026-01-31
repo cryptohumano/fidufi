@@ -6,7 +6,8 @@ import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../ui/button';
-import { LogOut, Home, FileText, AlertCircle, User, Shield } from 'lucide-react';
+import { DateTimeDisplay } from '../common/DateTimeDisplay';
+import { LogOut, Home, FileText, AlertCircle, User, Shield, FileSearch, Building2 } from 'lucide-react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -33,11 +34,13 @@ export function Layout({ children }: LayoutProps) {
     { name: 'Dashboard', href: getDashboardRoute(), icon: Home },
     { name: 'Activos', href: '/assets', icon: FileText },
     { name: 'Alertas', href: '/alerts', icon: AlertCircle },
+    { name: 'Logs de Auditoría', href: '/audit-logs', icon: FileSearch },
   ];
 
-  // Agregar Admin solo para Super Admin
+  // Agregar Admin y Gestión de Fideicomisos solo para Super Admin
   if (actor?.role === 'SUPER_ADMIN' || actor?.isSuperAdmin) {
     navigation.push({ name: 'Admin', href: '/admin', icon: Shield });
+    navigation.push({ name: 'Fideicomisos', href: '/trusts/manage', icon: Building2 });
   }
 
   return (
@@ -75,6 +78,7 @@ export function Layout({ children }: LayoutProps) {
 
           {isAuthenticated && actor && (
             <div className="flex items-center gap-4">
+              <DateTimeDisplay />
               <div className="flex items-center gap-2 text-sm">
                 <User className="h-4 w-4 text-muted-foreground" />
                 <span className="font-medium">{actor.name || 'Sin nombre'}</span>

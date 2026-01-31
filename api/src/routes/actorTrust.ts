@@ -22,17 +22,28 @@ router.use(authenticate);
  */
 router.post('/', requireSuperAdmin, async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
     const { actorId, trustId, roleInTrust } = req.body;
 
     if (!actorId || !trustId || !roleInTrust) {
       return res.status(400).json({ error: 'actorId, trustId y roleInTrust son requeridos' });
     }
 
-    const membership = await assignActorToTrust({
-      actorId,
-      trustId,
-      roleInTrust,
-    });
+    const { extractRequestInfo } = await import('../services/auditLogService');
+    const requestInfo = extractRequestInfo(req);
+
+    const membership = await assignActorToTrust(
+      {
+        actorId,
+        trustId,
+        roleInTrust,
+      },
+      req.user.actorId,
+      requestInfo
+    );
 
     res.status(201).json(membership);
   } catch (error: any) {

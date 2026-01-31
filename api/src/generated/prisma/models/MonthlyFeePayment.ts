@@ -488,14 +488,6 @@ export type MonthlyFeePaymentUncheckedUpdateManyWithoutFiduciarioFeeNestedInput 
   deleteMany?: Prisma.MonthlyFeePaymentScalarWhereInput | Prisma.MonthlyFeePaymentScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type MonthlyFeePaymentCreateWithoutFiduciarioFeeInput = {
   id?: string
   month: number

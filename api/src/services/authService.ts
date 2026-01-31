@@ -8,6 +8,7 @@ import { ActorRole } from '../generated/prisma/enums';
 import { hashPassword, verifyPassword } from '../utils/password';
 import { generateToken } from '../utils/jwt';
 import { getActorById } from './actorService';
+import { createAuditLog, AuditAction, EntityType } from './auditLogService';
 
 export interface LoginData {
   email: string;
@@ -35,12 +36,33 @@ export interface AuthResponse {
 /**
  * Login con email y contraseña
  */
-export async function login(data: LoginData): Promise<AuthResponse> {
+export async function login(
+  data: LoginData,
+  requestInfo?: { ipAddress?: string; userAgent?: string; location?: { latitude?: number; longitude?: number; accuracy?: number } | null }
+): Promise<AuthResponse> {
   const actor = await prisma.actor.findUnique({
     where: { email: data.email },
   });
 
   if (!actor) {
+    // Registrar intento de login fallido (sin actorId específico)
+    // Usamos un UUID especial para acciones del sistema
+    try {
+      // Usar el UUID especial del sistema para login fallido sin usuario
+      await createAuditLog({
+        actorId: '00000000-0000-0000-0000-000000000000',
+        action: AuditAction.LOGIN_FAILED,
+        description: `Intento de login fallido con email: ${data.email}`,
+        ipAddress: requestInfo?.ipAddress,
+        userAgent: requestInfo?.userAgent,
+        metadata: {
+          email: data.email,
+          reason: 'Usuario no encontrado',
+        },
+      });
+    } catch (error) {
+      // No fallar el login si el logging falla
+    }
     throw new Error('Email o contraseña incorrectos');
   }
 
@@ -50,6 +72,23 @@ export async function login(data: LoginData): Promise<AuthResponse> {
 
   const isValid = await verifyPassword(data.password, actor.passwordHash);
   if (!isValid) {
+    // Registrar intento de login fallido
+    try {
+      await createAuditLog({
+        actorId: actor.id,
+        action: AuditAction.LOGIN_FAILED,
+        description: `Intento de login fallido para usuario: ${actor.email}`,
+        ipAddress: requestInfo?.ipAddress,
+        userAgent: requestInfo?.userAgent,
+        metadata: {
+          email: actor.email,
+          reason: 'Contraseña incorrecta',
+          location: data.location || requestInfo?.location || null,
+        },
+      });
+    } catch (error) {
+      // No fallar el login si el logging falla
+    }
     throw new Error('Email o contraseña incorrectos');
   }
 
@@ -60,6 +99,26 @@ export async function login(data: LoginData): Promise<AuthResponse> {
     ethereumAddress: actor.ethereumAddress,
     polkadotAccountId: actor.polkadotAccountId,
   });
+
+  // Registrar login exitoso
+  try {
+    await createAuditLog({
+      actorId: actor.id,
+      action: AuditAction.LOGIN,
+      entityType: EntityType.ACTOR,
+      entityId: actor.id,
+      description: `Usuario ${actor.email} inició sesión exitosamente`,
+      ipAddress: requestInfo?.ipAddress,
+      userAgent: requestInfo?.userAgent,
+      metadata: {
+        email: actor.email,
+        role: actor.role,
+        location: data.location || requestInfo?.location || null,
+      },
+    });
+  } catch (error) {
+    // No fallar el login si el logging falla
+  }
 
   return {
     actor: {
@@ -76,7 +135,11 @@ export async function login(data: LoginData): Promise<AuthResponse> {
 /**
  * Registro de nuevo usuario (solo Super Admin puede crear usuarios)
  */
-export async function registerUser(data: RegisterData, createdBy: string): Promise<AuthResponse> {
+export async function registerUser(
+  data: RegisterData,
+  createdBy: string,
+  requestInfo?: { ipAddress?: string; userAgent?: string }
+): Promise<AuthResponse> {
   // Verificar que el creador es Super Admin
   const creator = await prisma.actor.findUnique({
     where: { id: createdBy },
@@ -120,6 +183,26 @@ export async function registerUser(data: RegisterData, createdBy: string): Promi
     ethereumAddress: actor.ethereumAddress,
     polkadotAccountId: actor.polkadotAccountId,
   });
+
+  // Registrar creación de usuario
+  try {
+    await createAuditLog({
+      actorId: createdBy,
+      action: AuditAction.USER_CREATED,
+      entityType: EntityType.ACTOR,
+      entityId: actor.id,
+      description: `Usuario ${data.email} creado con rol ${data.role}`,
+      ipAddress: requestInfo?.ipAddress,
+      userAgent: requestInfo?.userAgent,
+      metadata: {
+        createdUserEmail: data.email,
+        createdUserRole: data.role,
+        createdUserName: data.name || null,
+      },
+    });
+  } catch (error) {
+    console.error('⚠️  Error registrando log de auditoría:', error);
+  }
 
   return {
     actor: {

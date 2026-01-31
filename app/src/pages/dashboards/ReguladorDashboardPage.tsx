@@ -8,7 +8,7 @@ import { assetsApi, alertsApi, trustsApi } from '../../lib/api';
 import { Card } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { ProtectedRoute } from '../../components/layout/ProtectedRoute';
-import { FileText, AlertCircle, TrendingUp, Eye, Download, Shield } from 'lucide-react';
+import { FileText, AlertCircle, TrendingUp, Eye, Download, Shield, Building2 } from 'lucide-react';
 
 function ReguladorDashboard() {
   const { data: assetsData } = useQuery({
@@ -110,6 +110,12 @@ function ReguladorDashboard() {
               <Link to="/trusts/10045">
                 <FileText className="h-4 w-4 mr-2" />
                 Ver Detalles del Fideicomiso
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full">
+              <Link to="/trusts/10045/organization">
+                <Building2 className="h-4 w-4 mr-2" />
+                Ver Estructura Organizacional
               </Link>
             </Button>
             <Button variant="outline" className="w-full" disabled>

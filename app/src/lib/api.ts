@@ -121,8 +121,12 @@ export interface Alert {
 
 // API functions
 export const authApi = {
-  login: async (email: string, password: string) => {
-    const response = await api.post('/api/auth/login', { email, password });
+  login: async (email: string, password: string, location?: { latitude?: number; longitude?: number; accuracy?: number } | null) => {
+    const response = await api.post('/api/auth/login', { 
+      email, 
+      password,
+      location, // Incluir datos de GPS si están disponibles
+    });
     return response.data;
   },
   
@@ -167,7 +171,27 @@ export const assetsApi = {
     offset?: number;
     beneficiaryId?: string;
   }) => {
-    const params = new URLSearchParams({ trustId, ...filters as any });
+    const params = new URLSearchParams({ trustId });
+    
+    // Solo agregar parámetros que no sean undefined o vacíos
+    if (filters) {
+      if (filters.assetType) {
+        params.append('assetType', filters.assetType);
+      }
+      if (filters.complianceStatus) {
+        params.append('complianceStatus', filters.complianceStatus);
+      }
+      if (filters.limit !== undefined) {
+        params.append('limit', filters.limit.toString());
+      }
+      if (filters.offset !== undefined) {
+        params.append('offset', filters.offset.toString());
+      }
+      if (filters.beneficiaryId) {
+        params.append('beneficiaryId', filters.beneficiaryId);
+      }
+    }
+    
     const response = await api.get(`/api/assets?${params}`);
     return response.data;
   },
@@ -176,9 +200,35 @@ export const assetsApi = {
     const response = await api.get(`/api/assets/${id}`);
     return response.data;
   },
+  
+  approveException: async (id: string, reason?: string) => {
+    const response = await api.put(`/api/assets/${id}/approve-exception`, { reason });
+    return response.data;
+  },
+  
+  rejectException: async (id: string, reason?: string) => {
+    const response = await api.put(`/api/assets/${id}/reject-exception`, { reason });
+    return response.data;
+  },
 };
 
 export const trustsApi = {
+  list: async () => {
+    const response = await api.get('/api/trusts');
+    return response.data;
+  },
+  
+  create: async (data: {
+    trustId?: string; // Opcional: se genera automáticamente si no se proporciona
+    name?: string;
+    initialCapital: number;
+    bondLimitPercent?: number;
+    otherLimitPercent?: number;
+  }) => {
+    const response = await api.post('/api/trusts', data);
+    return response.data;
+  },
+  
   getById: async (trustId: string): Promise<Trust> => {
     const response = await api.get(`/api/trusts/${trustId}`);
     return response.data;
@@ -188,6 +238,36 @@ export const trustsApi = {
     const response = await api.get(`/api/trusts/${trustId}/summary`);
     return response.data;
   },
+  
+  getAnalytics: async (trustId: string) => {
+    const response = await api.get(`/api/trusts/${trustId}/analytics`);
+    return response.data;
+  },
+  
+  getOrganization: async (trustId: string) => {
+    const response = await api.get(`/api/trusts/${trustId}/organization`);
+    return response.data;
+  },
+  
+  getOrganizationSummary: async (trustId: string) => {
+    const response = await api.get(`/api/trusts/${trustId}/organization/summary`);
+    return response.data;
+  },
+  
+  updateLimits: async (trustId: string, data: { bondLimitPercent?: number; otherLimitPercent?: number }) => {
+    const response = await api.put(`/api/trusts/${trustId}/limits`, data);
+    return response.data;
+  },
+  
+  getTimeline: async (trustId: string) => {
+    const response = await api.get(`/api/trusts/${trustId}/timeline`);
+    return response.data;
+  },
+  
+  getParties: async (trustId: string) => {
+    const response = await api.get(`/api/trusts/${trustId}/parties`);
+    return response.data;
+  },
 };
 
 export const alertsApi = {
@@ -195,6 +275,9 @@ export const alertsApi = {
     acknowledged?: boolean;
     limit?: number;
     offset?: number;
+    alertType?: string;
+    alertSubtype?: string;
+    severity?: string;
   }) => {
     const params = new URLSearchParams();
     if (actorId) params.append('actorId', actorId);
@@ -211,6 +294,11 @@ export const alertsApi = {
     const response = await api.put(`/api/alerts/${id}/acknowledge`);
     return response.data;
   },
+  
+  generate: async (trustId?: string) => {
+    const response = await api.post('/api/alerts/generate', { trustId });
+    return response.data;
+  },
 };
 
 export const actorTrustApi = {
@@ -222,6 +310,16 @@ export const actorTrustApi = {
   
   getActorTrusts: async (actorId: string) => {
     const response = await api.get(`/api/actor-trust/actor/${actorId}`);
+    return response.data;
+  },
+  
+  assignActor: async (data: { actorId: string; trustId: string; roleInTrust: string }) => {
+    const response = await api.post('/api/actor-trust', data);
+    return response.data;
+  },
+  
+  revokeActor: async (actorId: string, trustId: string) => {
+    const response = await api.delete(`/api/actor-trust/${actorId}/${trustId}`);
     return response.data;
   },
 };
@@ -249,6 +347,172 @@ export const adminApi = {
   
   deleteUser: async (id: string) => {
     const response = await api.delete(`/api/admin/users/${id}`);
+    return response.data;
+  },
+};
+
+export const auditLogsApi = {
+  list: async (filters?: {
+    actorId?: string;
+    action?: string;
+    entityType?: string;
+    entityId?: string;
+    trustId?: string;
+    startDate?: string;
+    endDate?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+    const response = await api.get(`/api/audit-logs?${params}`);
+    return response.data;
+  },
+  
+  getByEntity: async (entityType: string, entityId: string, limit?: number) => {
+    const params = limit ? `?limit=${limit}` : '';
+    const response = await api.get(`/api/audit-logs/entity/${entityType}/${entityId}${params}`);
+    return response.data;
+  },
+  
+  getByTrust: async (trustId: string, limit?: number) => {
+    const params = limit ? `?limit=${limit}` : '';
+    const response = await api.get(`/api/audit-logs/trust/${trustId}${params}`);
+    return response.data;
+  },
+  
+  getByUser: async (actorId: string, limit?: number) => {
+    const params = limit ? `?limit=${limit}` : '';
+    const response = await api.get(`/api/audit-logs/user/${actorId}${params}`);
+    return response.data;
+  },
+};
+
+export const comiteSessionsApi = {
+  create: async (data: {
+    trustId: string;
+    sessionDate: string;
+    sessionType: 'QUARTERLY' | 'EXTRAORDINARY' | 'SPECIAL';
+    location?: string;
+    meetingLink?: string;
+    agenda?: any;
+  }) => {
+    const response = await api.post('/api/comite-sessions', data);
+    return response.data;
+  },
+  
+  getById: async (id: string) => {
+    const response = await api.get(`/api/comite-sessions/${id}`);
+    return response.data;
+  },
+  
+  list: async (filters?: {
+    trustId: string;
+    status?: string;
+    sessionType?: string;
+    startDate?: string;
+    endDate?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+    const response = await api.get(`/api/comite-sessions?${params}`);
+    return response.data;
+  },
+  
+  update: async (id: string, data: {
+    sessionDate?: string;
+    sessionType?: 'QUARTERLY' | 'EXTRAORDINARY' | 'SPECIAL';
+    attendees?: string[];
+    quorum?: boolean;
+    agenda?: any;
+    decisions?: any;
+    approvedItems?: string[];
+    minutes?: string;
+    minutesUrl?: string;
+    minutesHash?: string;
+    status?: 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+    location?: string;
+    meetingLink?: string;
+  }) => {
+    const response = await api.put(`/api/comite-sessions/${id}`, data);
+    return response.data;
+  },
+  
+  getNextQuarterly: async (trustId: string) => {
+    const response = await api.get(`/api/comite-sessions/trust/${trustId}/next-quarterly`);
+    return response.data;
+  },
+  
+  generateQuarterly: async (trustId: string) => {
+    const response = await api.post(`/api/comite-sessions/trust/${trustId}/generate-quarterly`);
+    return response.data;
+  },
+};
+
+export const monthlyStatementsApi = {
+  create: async (data: {
+    trustId: string;
+    year: number;
+    month: number;
+    summary?: any;
+    assets?: any;
+    transactions?: any;
+    documentUrl?: string;
+    documentHash?: string;
+  }) => {
+    const response = await api.post('/api/monthly-statements', data);
+    return response.data;
+  },
+  
+  getById: async (id: string) => {
+    const response = await api.get(`/api/monthly-statements/${id}`);
+    return response.data;
+  },
+  
+  list: async (filters?: {
+    trustId: string;
+    year?: number;
+    month?: number;
+    status?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+    const response = await api.get(`/api/monthly-statements?${params}`);
+    return response.data;
+  },
+  
+  review: async (id: string, data: {
+    status: 'APPROVED' | 'OBSERVED';
+    observations?: string;
+  }) => {
+    const response = await api.put(`/api/monthly-statements/${id}/review`, data);
+    return response.data;
+  },
+  
+  generatePrevious: async (trustId: string) => {
+    const response = await api.post(`/api/monthly-statements/trust/${trustId}/generate-previous`);
     return response.data;
   },
 };

@@ -16,6 +16,11 @@ import { ComiteTecnicoDashboardPage } from './pages/dashboards/ComiteTecnicoDash
 import { AuditorDashboardPage } from './pages/dashboards/AuditorDashboardPage';
 import { ReguladorDashboardPage } from './pages/dashboards/ReguladorDashboardPage';
 import { BeneficiarioDashboardPage } from './pages/dashboards/BeneficiarioDashboardPage';
+import { OrganizationPage } from './pages/OrganizationPage';
+import { AuditLogsPage } from './pages/AuditLogsPage';
+import { TrustsManagementPage } from './pages/TrustsManagementPage';
+import { ComiteSessionFormPage } from './pages/ComiteSessionFormPage';
+import { MonthlyStatementsPage } from './pages/MonthlyStatementsPage';
 
 function App() {
   return (
@@ -36,7 +41,13 @@ function App() {
             <Route path="/assets/:id" element={<AssetDetailPage />} />
             <Route path="/alerts" element={<AlertsPage />} />
             <Route path="/trusts/:trustId" element={<TrustPage />} />
+            <Route path="/trusts/:trustId/organization" element={<OrganizationPage />} />
+            <Route path="/trusts/:trustId/sessions/new" element={<ComiteSessionFormPage />} />
+            <Route path="/trusts/:trustId/sessions/:sessionId/edit" element={<ComiteSessionFormPage />} />
+            <Route path="/trusts/:trustId/statements" element={<MonthlyStatementsPage />} />
             <Route path="/admin" element={<AdminDashboardPage />} />
+            <Route path="/audit-logs" element={<AuditLogsPage />} />
+            <Route path="/trusts/manage" element={<TrustsManagementPage />} />
           </Routes>
         </Layout>
       </AuthProvider>

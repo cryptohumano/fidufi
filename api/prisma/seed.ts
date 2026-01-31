@@ -38,14 +38,35 @@ const prisma = new PrismaClient({
 import * as PrismaNamespace from '../src/generated/prisma/internal/prismaNamespace';
 const Decimal = PrismaNamespace.Decimal;
 
+// Importar funciones y constantes de auditoría
+import { createAuditLog, AuditAction, EntityType } from '../src/services/auditLogService';
+
+// ID especial para acciones del sistema
+const SYSTEM_ACTOR_ID = '00000000-0000-0000-0000-000000000000';
+
 async function main() {
   console.log('🌱 Iniciando seed de base de datos...');
 
   // 1. Crear el Fideicomiso 10045
   console.log('📋 Creando Fideicomiso 10045...');
+  
+  // Calcular fechas basadas en el contrato (firmado el 9 de agosto de 2002)
+  const constitutionDate = new Date('2002-08-09');
+  const maxTermYears = 30; // Plazo estándar
+  const expirationDate = new Date(constitutionDate);
+  expirationDate.setFullYear(expirationDate.getFullYear() + maxTermYears);
+  
   const trust = await prisma.trust.upsert({
     where: { trustId: '10045' },
-    update: {},
+    update: {
+      // Actualizar campos si ya existe
+      constitutionDate,
+      expirationDate,
+      maxTermYears,
+      termType: 'STANDARD',
+      fideicomitenteName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C.',
+      fiduciarioName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C. - Coordinación Fiduciaria',
+    },
     create: {
       trustId: '10045',
       name: 'Fideicomiso para el Pago de Pensiones y Jubilaciones - Banco del Ahorro Nacional',
@@ -53,6 +74,18 @@ async function main() {
       bondLimitPercent: new Decimal(30),
       otherLimitPercent: new Decimal(70),
       active: true,
+      // Información de partes
+      fideicomitenteName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C.',
+      fiduciarioName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C. - Coordinación Fiduciaria',
+      // Plazos y vigencia
+      constitutionDate,
+      expirationDate,
+      maxTermYears,
+      termType: 'STANDARD',
+      // Obligaciones fiscales (ejemplo)
+      rfc: 'FID100450123ABC',
+      satRegistrationNumber: 'SAT-REG-10045-2002',
+      satRegisteredAt: new Date('2002-09-15'), // Registrado aproximadamente 1 mes después
     },
   });
   console.log('✅ Fideicomiso creado:', trust.trustId);
@@ -73,7 +106,26 @@ async function main() {
   });
   console.log('✅ Honorarios configurados');
 
-  // 3. Crear Super Admin inicial
+  // 3. Crear actor especial "Sistema" para logs de auditoría
+  console.log('🤖 Creando actor Sistema para logs de auditoría...');
+  try {
+    await prisma.actor.upsert({
+      where: { id: SYSTEM_ACTOR_ID },
+      update: {},
+      create: {
+        id: SYSTEM_ACTOR_ID,
+        name: 'Sistema',
+        email: 'system@fidufi.mx',
+        role: 'SUPER_ADMIN' as any, // Usar SUPER_ADMIN para tener acceso completo
+        isSuperAdmin: true,
+      },
+    });
+    console.log('✅ Actor Sistema creado');
+  } catch (error: any) {
+    console.warn('⚠️  Error creando actor Sistema:', error.message);
+  }
+
+  // 4. Crear Super Admin inicial
   console.log('👑 Creando Super Admin inicial...');
   try {
     const { hashPassword } = await import('../src/utils/password');
@@ -91,11 +143,25 @@ async function main() {
       },
     });
     console.log('✅ Super Admin creado:', superAdmin.email);
+
+    // Log de auditoría: Creación del Super Admin
+    await createAuditLog({
+      actorId: SYSTEM_ACTOR_ID,
+      action: AuditAction.USER_CREATED,
+      entityType: EntityType.ACTOR,
+      entityId: superAdmin.id,
+      description: `Super Administrador creado: ${superAdmin.email}`,
+      metadata: {
+        email: superAdmin.email,
+        name: superAdmin.name,
+        role: superAdmin.role,
+      },
+    });
   } catch (error: any) {
     console.warn('⚠️  Error creando Super Admin (puede que ya exista o el enum no esté actualizado):', error.message);
   }
 
-  // 4. Crear actores de ejemplo con emails y contraseñas
+  // 5. Crear actores de ejemplo con emails y contraseñas
   console.log('👥 Creando actores de ejemplo...');
   const { hashPassword } = await import('../src/utils/password');
 
@@ -129,6 +195,20 @@ async function main() {
         },
       });
   console.log('✅ Fiduciario creado:', fiduciario.email);
+
+  // Log de auditoría: Creación del Fiduciario
+  await createAuditLog({
+    actorId: SYSTEM_ACTOR_ID,
+    action: AuditAction.USER_CREATED,
+    entityType: EntityType.ACTOR,
+    entityId: fiduciario.id,
+    description: `Fiduciario creado: ${fiduciario.email}`,
+    metadata: {
+      email: fiduciario.email,
+      name: fiduciario.name,
+      role: fiduciario.role,
+    },
+  });
 
   // Miembros del Comité Técnico
   const comite1Password = await hashPassword('comite123');
@@ -213,6 +293,22 @@ async function main() {
       });
   console.log('✅ Comité Técnico creado (3 miembros)');
 
+  // Logs de auditoría: Creación de miembros del Comité Técnico
+  for (const member of [comite1, comite2, comite3]) {
+    await createAuditLog({
+      actorId: SYSTEM_ACTOR_ID,
+      action: AuditAction.USER_CREATED,
+      entityType: EntityType.ACTOR,
+      entityId: member.id,
+      description: `Miembro del Comité Técnico creado: ${member.email}`,
+      metadata: {
+        email: member.email,
+        name: member.name,
+        role: member.role,
+      },
+    });
+  }
+
   // Auditor de ejemplo
   const auditorPassword = await hashPassword('auditor123');
   let existingAuditor = await prisma.actor.findUnique({
@@ -242,6 +338,20 @@ async function main() {
       });
   console.log('✅ Auditor creado:', auditor.email);
 
+  // Log de auditoría: Creación del Auditor
+  await createAuditLog({
+    actorId: SYSTEM_ACTOR_ID,
+    action: AuditAction.USER_CREATED,
+    entityType: EntityType.ACTOR,
+    entityId: auditor.id,
+    description: `Auditor creado: ${auditor.email}`,
+    metadata: {
+      email: auditor.email,
+      name: auditor.name,
+      role: auditor.role,
+    },
+  });
+
   // Regulador de ejemplo
   const reguladorPassword = await hashPassword('regulador123');
   let existingRegulador = await prisma.actor.findUnique({
@@ -270,6 +380,20 @@ async function main() {
         },
       });
   console.log('✅ Regulador creado:', regulador.email);
+
+  // Log de auditoría: Creación del Regulador
+  await createAuditLog({
+    actorId: SYSTEM_ACTOR_ID,
+    action: AuditAction.USER_CREATED,
+    entityType: EntityType.ACTOR,
+    entityId: regulador.id,
+    description: `Regulador creado: ${regulador.email}`,
+    metadata: {
+      email: regulador.email,
+      name: regulador.name,
+      role: regulador.role,
+    },
+  });
 
   // 4.5. Crear beneficiarios de ejemplo
   console.log('👤 Creando beneficiarios de ejemplo...');
@@ -323,11 +447,15 @@ async function main() {
 
   // Asignar Fiduciario
   try {
-    await assignActorToTrust({
-      actorId: fiduciario.id,
-      trustId: '10045',
-      roleInTrust: ActorRole.FIDUCIARIO,
-    });
+    await assignActorToTrust(
+      {
+        actorId: fiduciario.id,
+        trustId: '10045',
+        roleInTrust: ActorRole.FIDUCIARIO,
+      },
+      SYSTEM_ACTOR_ID,
+      {}
+    );
     console.log('✅ Fiduciario asignado al fideicomiso');
   } catch (error: any) {
     console.warn('⚠️  Error asignando fiduciario:', error.message);
@@ -336,11 +464,15 @@ async function main() {
   // Asignar Comité Técnico
   for (const comite of [comite1, comite2, comite3]) {
     try {
-      await assignActorToTrust({
-        actorId: comite.id,
-        trustId: '10045',
-        roleInTrust: ActorRole.COMITE_TECNICO,
-      });
+      await assignActorToTrust(
+        {
+          actorId: comite.id,
+          trustId: '10045',
+          roleInTrust: ActorRole.COMITE_TECNICO,
+        },
+        SYSTEM_ACTOR_ID,
+        {}
+      );
     } catch (error: any) {
       console.warn(`⚠️  Error asignando comité ${comite.email}:`, error.message);
     }
@@ -349,11 +481,15 @@ async function main() {
 
   // Asignar Auditor
   try {
-    await assignActorToTrust({
-      actorId: auditor.id,
-      trustId: '10045',
-      roleInTrust: ActorRole.AUDITOR,
-    });
+    await assignActorToTrust(
+      {
+        actorId: auditor.id,
+        trustId: '10045',
+        roleInTrust: ActorRole.AUDITOR,
+      },
+      SYSTEM_ACTOR_ID,
+      {}
+    );
     console.log('✅ Auditor asignado al fideicomiso');
   } catch (error: any) {
     console.warn('⚠️  Error asignando auditor:', error.message);
@@ -361,11 +497,15 @@ async function main() {
 
   // Asignar Regulador
   try {
-    await assignActorToTrust({
-      actorId: regulador.id,
-      trustId: '10045',
-      roleInTrust: ActorRole.REGULADOR,
-    });
+    await assignActorToTrust(
+      {
+        actorId: regulador.id,
+        trustId: '10045',
+        roleInTrust: ActorRole.REGULADOR,
+      },
+      SYSTEM_ACTOR_ID,
+      {}
+    );
     console.log('✅ Regulador asignado al fideicomiso');
   } catch (error: any) {
     console.warn('⚠️  Error asignando regulador:', error.message);
@@ -374,11 +514,15 @@ async function main() {
   // Asignar Beneficiarios
   for (const beneficiario of [beneficiario1, beneficiario2]) {
     try {
-      await assignActorToTrust({
-        actorId: beneficiario.id,
-        trustId: '10045',
-        roleInTrust: ActorRole.BENEFICIARIO,
-      });
+      await assignActorToTrust(
+        {
+          actorId: beneficiario.id,
+          trustId: '10045',
+          roleInTrust: ActorRole.BENEFICIARIO,
+        },
+        SYSTEM_ACTOR_ID,
+        {}
+      );
     } catch (error: any) {
       console.warn(`⚠️  Error asignando beneficiario ${beneficiario.email}:`, error.message);
     }
@@ -594,6 +738,222 @@ async function main() {
     console.warn('⚠️  Error creando activo 8:', error.message);
   }
 
+  // Activos con estados específicos para probar filtros
+  console.log('📋 Creando activos con estados específicos de cumplimiento...');
+  const { ComplianceStatus } = await import('../src/generated/prisma/enums');
+
+  // Activo 9: PENDIENTE DE REVISIÓN (requiere aprobación del Comité Técnico)
+  // Este activo excede límites pero está pendiente de revisión
+  try {
+    const asset9 = await prisma.asset.create({
+      data: {
+        trustId: '10045',
+        assetType: AssetType.GovernmentBond,
+        valueMxn: new Decimal(25000000), // $25M (excedería el límite del 30%)
+        description: 'Bono gubernamental pendiente de revisión por Comité Técnico - Excede límite del 30%',
+        complianceStatus: ComplianceStatus.PENDING_REVIEW,
+        compliant: false,
+        validationResults: {
+          investmentRules: [{
+            compliant: false,
+            status: 'PENDING_REVIEW',
+            message: 'Excede el límite del 30% para bonos gubernamentales. Requiere aprobación del Comité Técnico.',
+            details: { currentPercent: 36.5, limit: 30 },
+          }],
+        } as any,
+        registeredBy: fiduciario.id,
+      },
+    });
+    console.log(`✅ Activo 9 creado: Estado PENDING_REVIEW - Requiere aprobación del Comité Técnico`);
+
+    // Log de auditoría: Activo creado con estado PENDING_REVIEW
+    await createAuditLog({
+      actorId: fiduciario.id,
+      action: AuditAction.ASSET_REGISTERED,
+      entityType: EntityType.ASSET,
+      entityId: asset9.id,
+      trustId: '10045',
+      description: `Activo registrado con estado PENDING_REVIEW: ${asset9.description}`,
+      metadata: {
+        assetType: asset9.assetType,
+        valueMxn: asset9.valueMxn.toNumber(),
+        complianceStatus: asset9.complianceStatus,
+        compliant: asset9.compliant,
+      },
+    });
+  } catch (error: any) {
+    console.warn('⚠️  Error creando activo 9:', error.message);
+  }
+
+  // Activo 10: EXCEPCIÓN APROBADA (aprobado por Comité Técnico)
+  // Este activo excede límites pero fue aprobado como excepción
+  try {
+    const asset10 = await prisma.asset.create({
+      data: {
+        trustId: '10045',
+        assetType: AssetType.CNBVApproved,
+        valueMxn: new Decimal(50000000), // $50M (excedería el límite del 70%)
+        description: 'Fondo de inversión aprobado como excepción por Comité Técnico - Excede límite del 70%',
+        complianceStatus: ComplianceStatus.EXCEPTION_APPROVED,
+        compliant: true, // Aunque excede límites, está aprobado como excepción
+        validationResults: {
+          investmentRules: [{
+            compliant: true,
+            status: 'EXCEPTION_APPROVED',
+            message: 'Excepción aprobada por mayoría del Comité Técnico el 15/01/2026',
+            details: { 
+              approvedBy: [comite1.id, comite2.id, comite3.id],
+              approvedAt: new Date('2026-01-15').toISOString(),
+              reason: 'Oportunidad de inversión estratégica con alto rendimiento',
+            },
+          }],
+        } as any,
+        registeredBy: fiduciario.id,
+      },
+    });
+    console.log(`✅ Activo 10 creado: Estado EXCEPTION_APPROVED - Aprobado por Comité Técnico`);
+
+    // Log de auditoría: Activo creado con estado EXCEPTION_APPROVED
+    await createAuditLog({
+      actorId: fiduciario.id,
+      action: AuditAction.ASSET_REGISTERED,
+      entityType: EntityType.ASSET,
+      entityId: asset10.id,
+      trustId: '10045',
+      description: `Activo registrado con estado EXCEPTION_APPROVED: ${asset10.description}`,
+      metadata: {
+        assetType: asset10.assetType,
+        valueMxn: asset10.valueMxn.toNumber(),
+        complianceStatus: asset10.complianceStatus,
+        compliant: asset10.compliant,
+      },
+    });
+
+    // Log de auditoría: Excepción aprobada por Comité Técnico
+    await createAuditLog({
+      actorId: comite1.id,
+      action: AuditAction.EXCEPTION_APPROVED,
+      entityType: EntityType.ASSET,
+      entityId: asset10.id,
+      trustId: '10045',
+      description: `Excepción aprobada para activo: ${asset10.description}`,
+      metadata: {
+        approvedBy: [comite1.id, comite2.id, comite3.id],
+        approvedAt: new Date('2026-01-15').toISOString(),
+        reason: 'Oportunidad de inversión estratégica con alto rendimiento',
+      },
+    });
+  } catch (error: any) {
+    console.warn('⚠️  Error creando activo 10:', error.message);
+  }
+
+  // Activo 11: NO CUMPLIENTE (rechazado o no corregido)
+  try {
+    const asset11 = await prisma.asset.create({
+      data: {
+        trustId: '10045',
+        assetType: AssetType.MortgageLoan,
+        valueMxn: new Decimal(5000000),
+        description: 'Préstamo hipotecario NO CUMPLIENTE - Plazo fuera de rango (25 años)',
+        complianceStatus: ComplianceStatus.NON_COMPLIANT,
+        compliant: false,
+        validationResults: {
+          mortgageRules: [{
+            compliant: false,
+            status: 'NON_COMPLIANT',
+            message: 'El plazo del préstamo (25 años) excede el límite permitido (10-20 años)',
+            details: { termYears: 25, minTerm: 10, maxTerm: 20 },
+          }],
+        } as any,
+        registeredBy: fiduciario.id,
+        beneficiaryId: beneficiario1.id,
+      },
+    });
+    console.log(`✅ Activo 11 creado: Estado NON_COMPLIANT - No cumple reglas`);
+
+    // Log de auditoría: Activo creado con estado NON_COMPLIANT
+    await createAuditLog({
+      actorId: fiduciario.id,
+      action: AuditAction.ASSET_REGISTERED,
+      entityType: EntityType.ASSET,
+      entityId: asset11.id,
+      trustId: '10045',
+      description: `Activo registrado con estado NON_COMPLIANT: ${asset11.description}`,
+      metadata: {
+        assetType: asset11.assetType,
+        valueMxn: asset11.valueMxn.toNumber(),
+        complianceStatus: asset11.complianceStatus,
+        compliant: asset11.compliant,
+      },
+    });
+  } catch (error: any) {
+    console.warn('⚠️  Error creando activo 11:', error.message);
+  }
+
+  // Activo 12: Otro PENDIENTE DE REVISIÓN (préstamo con condiciones especiales)
+  try {
+    const asset12 = await prisma.asset.create({
+      data: {
+        trustId: '10045',
+        assetType: AssetType.MortgageLoan,
+        valueMxn: new Decimal(3500000),
+        description: 'Préstamo hipotecario pendiente de revisión - Requiere aprobación de condiciones especiales',
+        complianceStatus: ComplianceStatus.PENDING_REVIEW,
+        compliant: false,
+        validationResults: {
+          mortgageRules: [{
+            compliant: false,
+            status: 'PENDING_REVIEW',
+            message: 'Préstamo requiere aprobación del Comité Técnico por condiciones especiales',
+            details: { 
+              reason: 'Tasa de interés ligeramente superior al máximo permitido, pero con garantías adicionales',
+            },
+          }],
+        } as any,
+        registeredBy: fiduciario.id,
+        beneficiaryId: beneficiario2.id,
+      },
+    });
+    console.log(`✅ Activo 12 creado: Estado PENDING_REVIEW - Préstamo con condiciones especiales`);
+
+    // Log de auditoría: Activo creado con estado PENDING_REVIEW
+    await createAuditLog({
+      actorId: fiduciario.id,
+      action: AuditAction.ASSET_REGISTERED,
+      entityType: EntityType.ASSET,
+      entityId: asset12.id,
+      trustId: '10045',
+      description: `Activo registrado con estado PENDING_REVIEW: ${asset12.description}`,
+      metadata: {
+        assetType: asset12.assetType,
+        valueMxn: asset12.valueMxn.toNumber(),
+        complianceStatus: asset12.complianceStatus,
+        compliant: asset12.compliant,
+      },
+    });
+  } catch (error: any) {
+    console.warn('⚠️  Error creando activo 12:', error.message);
+  }
+
+  console.log('📝 NOTA: Los activos con estado PENDING_REVIEW y EXCEPTION_APPROVED requieren aprobación del COMITE_TECNICO');
+  
+  // Log final: Seed completado
+  console.log('📋 Creando logs de auditoría iniciales...');
+  await createAuditLog({
+    actorId: SYSTEM_ACTOR_ID,
+    action: AuditAction.RULE_MODIFIED,
+    entityType: EntityType.RULE_MODIFICATION,
+    trustId: '10045',
+    description: 'Seed de base de datos completado exitosamente',
+    metadata: {
+      seedCompletedAt: new Date().toISOString(),
+      trustsCreated: 1,
+      actorsCreated: 10,
+      assetsCreated: 12,
+    },
+  });
+  
+  console.log('✅ Logs de auditoría iniciales creados');
   console.log('🎉 Seed completado exitosamente!');
 }
 

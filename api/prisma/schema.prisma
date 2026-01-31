@@ -66,6 +66,7 @@ model Actor {
   alerts             Alert[]
   ruleModifications  RuleModification[]
   trustMemberships   ActorTrust[]  // Pertenencia a fideicomisos
+  auditLogs          AuditLog[]    // Logs de auditoría
   
   @@index([primaryDid])
   @@index([ethereumAddress])
@@ -118,17 +119,23 @@ model Asset {
   @@index([registeredAt])
 }
 
-// Alertas generadas por incumplimiento
+// Alertas generadas por incumplimiento y eventos del sistema
 model Alert {
   id                String    @id @default(uuid())
-  assetId           String
-  asset             Asset     @relation(fields: [assetId], references: [id])
+  assetId           String?   // Opcional para alertas no relacionadas con activos específicos
+  asset             Asset?    @relation(fields: [assetId], references: [id])
   
   actorId           String    // Actor que debe recibir la alerta
   actor             Actor     @relation(fields: [actorId], references: [id])
   
   message           String
-  severity          String    // "warning", "error", "info"
+  severity          String    // "warning", "error", "info", "critical"
+  
+  // Campos para alertas avanzadas
+  alertType         String?   // "EXPIRATION", "PAYMENT", "COMPLIANCE", "MEETING", "DOCUMENT"
+  alertSubtype      String?   // Subtipo específico (ej. "BOND_MATURITY", "FIDUCIARIO_FEE_DUE")
+  metadata          Json?     // Datos adicionales específicos del tipo de alerta
+  
   acknowledged      Boolean   @default(false)
   acknowledgedAt    DateTime?
   
@@ -137,6 +144,8 @@ model Alert {
   @@index([assetId])
   @@index([actorId])
   @@index([acknowledged])
+  @@index([alertType])
+  @@index([alertSubtype])
 }
 
 // Modificaciones de reglas por el Comité Técnico
@@ -170,9 +179,34 @@ model Trust {
   bondLimitPercent  Decimal   @default(30) @db.Decimal(5, 2) // 30% para bonos
   otherLimitPercent Decimal   @default(70) @db.Decimal(5, 2) // 70% para otros
   
+  // Información de partes involucradas
+  fideicomitenteName    String?   // Nombre del fideicomitente (quien aporta los bienes)
+  fideicomitenteRFC     String?   // RFC del fideicomitente
+  fiduciarioName         String?   // Nombre de la institución fiduciaria (banco)
+  fiduciarioRFC          String?   // RFC del fiduciario
+  
+  // Plazos y vigencia
+  constitutionDate       DateTime? // Fecha de constitución del contrato
+  expirationDate         DateTime? // Fecha de vencimiento calculada
+  maxTermYears           Int?      // Plazo máximo en años (30, 50, 70)
+  termType               String?   // 'STANDARD' (30 años), 'FOREIGN' (50 años), 'DISABILITY' (70 años)
+  
+  // Obligaciones fiscales
+  rfc                    String?   // RFC del fideicomiso
+  satRegistrationNumber  String?   // Número de registro ante SAT
+  satRegisteredAt        DateTime? // Fecha de registro ante SAT
+  
+  // Finalización
+  terminationDate        DateTime?
+  terminationType        String?   // 'EXPIRATION', 'CONDITION_MET', 'EARLY_TERMINATION'
+  terminationReason      String?
+  transmissionCompleted  Boolean   @default(false)
+  
   // Relaciones
   fiduciarioFee     FiduciarioFee?
   members           ActorTrust[]  // Usuarios asignados a este fideicomiso
+  comiteSessions    ComiteSession[] // Sesiones del Comité Técnico
+  monthlyStatements MonthlyStatement[] // Estados de cuenta mensuales
   
   // Estado
   active            Boolean   @default(true)
@@ -180,6 +214,92 @@ model Trust {
   updatedAt         DateTime  @updatedAt
   
   @@index([trustId])
+  @@index([expirationDate])
+  @@index([active])
+}
+
+// Estados de Cuenta Mensuales según Cláusula Décima
+model MonthlyStatement {
+  id                String    @id @default(uuid())
+  trustId           String
+  trust             Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  
+  // Período del estado de cuenta
+  year              Int
+  month             Int       // 1-12
+  
+  // Información del estado de cuenta
+  statementDate     DateTime  @default(now()) // Fecha de emisión
+  periodStart       DateTime  // Inicio del período
+  periodEnd         DateTime  // Fin del período
+  
+  // Contenido
+  summary           Json      // Resumen del patrimonio, activos, pasivos
+  assets            Json      // Lista de activos al cierre del período
+  transactions      Json?     // Transacciones del período
+  
+  // Documento
+  documentUrl       String?   // URL del PDF del estado de cuenta
+  documentHash      String?   // Hash del documento para integridad
+  
+  // Aprobación del Comité Técnico
+  status            String    @default("PENDING") // 'PENDING', 'APPROVED', 'OBSERVED', 'TACITLY_APPROVED'
+  submittedAt       DateTime  @default(now())
+  reviewedAt        DateTime?
+  reviewedBy        String?   // Actor.id del miembro del Comité que revisó
+  observations      String?   // Observaciones del Comité
+  
+  // Auto-aprobación tácita (10 días hábiles sin observaciones)
+  tacitlyApprovedAt DateTime?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@unique([trustId, year, month])
+  @@index([trustId])
+  @@index([year, month])
+  @@index([status])
+  @@index([statementDate])
+}
+
+// Sesiones del Comité Técnico según Cláusula Sexta
+model ComiteSession {
+  id                String    @id @default(uuid())
+  trustId           String
+  trust             Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  
+  sessionDate       DateTime
+  sessionType       String    // 'QUARTERLY', 'EXTRAORDINARY', 'SPECIAL'
+  
+  // Asistencia
+  attendees         String[]   // Array de Actor.id
+  quorum            Boolean   @default(false) // true si hay mayoría (2 de 3 miembros)
+  
+  // Agenda y decisiones
+  agenda            Json?      // Items de la agenda
+  decisions         Json?      // Decisiones tomadas
+  approvedItems     String[]   // IDs de activos/presupuestos aprobados
+  
+  // Acta
+  minutes           String?    // Texto del acta
+  minutesUrl        String?    // URL del documento del acta
+  minutesHash       String?    // Hash del documento para integridad
+  
+  // Estado
+  status            String    @default("SCHEDULED") // 'SCHEDULED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'
+  
+  // Organización
+  scheduledBy       String?    // Actor.id que agendó la reunión
+  location          String?    // Lugar de la reunión (presencial/virtual)
+  meetingLink       String?    // Link para reunión virtual
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([trustId])
+  @@index([sessionDate])
+  @@index([status])
+  @@index([sessionType])
 }
 
 // Honorarios del Fiduciario según Cláusula Decima Segunda
@@ -252,4 +372,39 @@ model ActorTrust {
   @@index([trustId])
   @@index([active])
   @@index([roleInTrust])
+}
+
+// Logs de auditoría para acciones críticas
+model AuditLog {
+  id                String    @id @default(uuid())
+  actorId           String    // Actor que realizó la acción (puede ser UUID especial para sistema)
+  actor             Actor?     @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  
+  // Tipo de acción realizada
+  action            String    // "ASSET_REGISTERED", "EXCEPTION_APPROVED", "EXCEPTION_REJECTED", "RULE_MODIFIED", "USER_CREATED", "USER_UPDATED", "USER_DELETED", "LOGIN", "LOGOUT", etc.
+  
+  // Entidad afectada
+  entityType        String?   // "Asset", "Trust", "Actor", "Alert", etc.
+  entityId          String?   // ID de la entidad afectada
+  
+  // Contexto
+  trustId           String?   // Fideicomiso relacionado (si aplica)
+  description       String    // Descripción legible de la acción
+  
+  // Detalles adicionales (JSON)
+  metadata          Json?     // Información adicional específica de la acción
+  
+  // Información de seguridad
+  ipAddress         String?   // IP desde donde se realizó la acción
+  userAgent         String?   // User agent del navegador/cliente
+  
+  // Timestamp
+  createdAt         DateTime  @default(now())
+  
+  @@index([actorId])
+  @@index([action])
+  @@index([entityType])
+  @@index([entityId])
+  @@index([trustId])
+  @@index([createdAt])
 }

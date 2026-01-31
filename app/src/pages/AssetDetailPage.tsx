@@ -3,11 +3,13 @@
  */
 
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { assetsApi } from '../lib/api';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
+import { useAuth } from '../contexts/AuthContext';
+import { ExceptionApprovalDialog } from '../components/assets/ExceptionApprovalDialog';
 import { 
   ArrowLeft, 
   FileText, 
@@ -19,10 +21,13 @@ import {
   Shield,
   ExternalLink
 } from 'lucide-react';
+import { useState } from 'react';
 
 function AssetDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { actor } = useAuth();
+  const [approvalDialogOpen, setApprovalDialogOpen] = useState(false);
 
   const { data: asset, isLoading, error } = useQuery({
     queryKey: ['asset', id],
@@ -70,9 +75,14 @@ function AssetDetail() {
       COMPLIANT: 'Cumple',
       NON_COMPLIANT: 'No Cumple',
       PENDING_REVIEW: 'Pendiente de Revisión',
+      EXCEPTION_APPROVED: 'Excepción Aprobada',
     };
     return labels[status] || status;
   };
+
+  // Definir estas variables después de verificar que asset existe
+  const isComiteTecnico = actor?.role === 'COMITE_TECNICO';
+  const isPendingReview = asset?.complianceStatus === 'PENDING_REVIEW';
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -275,6 +285,29 @@ function AssetDetail() {
           </Card>
         )}
 
+        {/* Acciones de Aprobación (Solo Comité Técnico) */}
+        {isComiteTecnico && isPendingReview && (
+          <Card className="p-6 border-yellow-200 bg-yellow-50">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-yellow-600" />
+              Acción Requerida
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Este activo está pendiente de revisión por el Comité Técnico. Debes aprobar o rechazar la excepción.
+            </p>
+            <div className="flex gap-3">
+              <Button
+                variant="default"
+                onClick={() => setApprovalDialogOpen(true)}
+                className="flex-1"
+              >
+                <CheckCircle2 className="h-4 w-4 mr-2" />
+                Revisar Excepción
+              </Button>
+            </div>
+          </Card>
+        )}
+
         {/* Acciones */}
         <div className="flex gap-4">
           <Button variant="outline" asChild>
@@ -291,6 +324,17 @@ function AssetDetail() {
           </Button>
         </div>
       </div>
+
+      {/* Diálogo de Aprobación */}
+      {asset && (
+        <ExceptionApprovalDialog
+          open={approvalDialogOpen}
+          onOpenChange={setApprovalDialogOpen}
+          assetId={asset.id}
+          assetType={asset.assetType}
+          valueMxn={asset.valueMxn}
+        />
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@
  */
 
 import { Router } from 'express';
-import { registerAsset, getAssets, getAssetById } from '../services/assetService';
+import { registerAsset, getAssets, getAssetById, approveException, rejectException } from '../services/assetService';
 import { authenticate, authorize, optionalAuthenticate } from '../middleware/auth';
 import { ActorRole } from '../generated/prisma/enums';
 
@@ -23,6 +23,11 @@ router.post('/register', authenticate, authorize(ActorRole.FIDUCIARIO, ActorRole
     const result = await registerAsset({
       ...req.body,
       registeredBy: req.user.actorId,
+      // Pasar información de la request para logging
+      requestInfo: {
+        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        userAgent: req.headers['user-agent'],
+      },
     });
     res.status(201).json(result);
   } catch (error: any) {
@@ -119,6 +124,70 @@ router.get('/:id/compliance', async (req, res) => {
     });
   } catch (error: any) {
     res.status(404).json({ error: error.message });
+  }
+});
+
+/**
+ * PUT /assets/:id/approve-exception
+ * Aprueba una excepción para un activo pendiente de revisión
+ * Solo el Comité Técnico puede aprobar excepciones
+ * 
+ * Body: { reason?: string }
+ */
+router.put('/:id/approve-exception', authenticate, authorize(ActorRole.COMITE_TECNICO), async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+    
+    const { id } = req.params;
+    const { reason } = req.body;
+    
+    // Pasar información de la request para logging
+    const result = await approveException(
+      id,
+      req.user.actorId,
+      reason,
+      {
+        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        userAgent: req.headers['user-agent'],
+      }
+    );
+    res.json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * PUT /assets/:id/reject-exception
+ * Rechaza una excepción para un activo pendiente de revisión
+ * Solo el Comité Técnico puede rechazar excepciones
+ * 
+ * Body: { reason?: string }
+ */
+router.put('/:id/reject-exception', authenticate, authorize(ActorRole.COMITE_TECNICO), async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+    
+    const { id } = req.params;
+    const { reason } = req.body;
+    
+    // Pasar información de la request para logging
+    const result = await rejectException(
+      id,
+      req.user.actorId,
+      reason,
+      {
+        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        userAgent: req.headers['user-agent'],
+      }
+    );
+    res.json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 });
 

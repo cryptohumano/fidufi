@@ -19,6 +19,7 @@ import {
 import { validateFiduciarioFeesPaid, type FiduciarioFeeStatus } from '../rules/fiduciarioFeeRules';
 import { getTrust } from './trustService';
 import { getActorById } from './actorService';
+import { AlertType, AlertSubtype } from './alertGenerationService';
 
 export interface RegisterAssetData {
   trustId: string;
@@ -43,6 +44,10 @@ export interface RegisterAssetData {
   };
   
   registeredBy: string; // Actor.id
+  requestInfo?: {
+    ipAddress?: string;
+    userAgent?: string;
+  };
 }
 
 export interface AssetRegistrationResult {
@@ -232,6 +237,7 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
   const alerts = [];
   if (!isCompliant) {
     const { getTrustActors } = await import('./actorTrustService');
+    const { AlertType, AlertSubtype } = await import('./alertGenerationService');
     const alertMessage = `Activo registrado no cumple con las reglas del fideicomiso ${data.trustId}. ${allResults.filter((r) => !r.compliant).map((r) => r.message).join(' ')}`;
     
     // Obtener todos los actores relevantes del fideicomiso
@@ -246,6 +252,15 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
           actorId: membership.actorId,
           message: alertMessage,
           severity: 'error',
+          alertType: AlertType.COMPLIANCE,
+          alertSubtype: AlertSubtype.RULE_VIOLATION,
+          metadata: {
+            validationResults: allResults.filter((r) => !r.compliant).map((r) => ({
+              compliant: r.compliant,
+              status: r.status,
+              message: r.message,
+            })),
+          },
         },
       });
       alerts.push(alert);
@@ -259,6 +274,15 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
           actorId: membership.actorId,
           message: alertMessage,
           severity: 'warning',
+          alertType: AlertType.COMPLIANCE,
+          alertSubtype: AlertSubtype.RULE_VIOLATION,
+          metadata: {
+            validationResults: allResults.filter((r) => !r.compliant).map((r) => ({
+              compliant: r.compliant,
+              status: r.status,
+              message: r.message,
+            })),
+          },
         },
       });
       alerts.push(alert);
@@ -280,6 +304,15 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
             actorId: data.beneficiaryId,
             message: `Se ha registrado un activo asociado a tu cuenta que no cumple con las reglas del fideicomiso ${data.trustId}. ${allResults.filter((r) => !r.compliant).map((r) => r.message).join(' ')}`,
             severity: 'warning',
+            alertType: AlertType.COMPLIANCE,
+            alertSubtype: AlertSubtype.RULE_VIOLATION,
+            metadata: {
+              validationResults: allResults.filter((r) => !r.compliant).map((r) => ({
+                compliant: r.compliant,
+                status: r.status,
+                message: r.message,
+              })),
+            },
           },
         });
         alerts.push(alert);
@@ -331,6 +364,30 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
   } catch (error: any) {
     // No fallar el registro si el anclaje falla, solo loguear
     console.error('⚠️  Error generando VC o anclando en blockchain:', error);
+  }
+
+  // Registrar log de auditoría (no bloquea la operación si falla)
+  try {
+    await createAuditLog({
+      actorId: data.registeredBy,
+      action: AuditAction.ASSET_REGISTERED,
+      entityType: EntityType.ASSET,
+      entityId: updatedAsset.id,
+      trustId: data.trustId,
+      description: `Activo ${data.assetType} registrado con valor de $${new Decimal(data.valueMxn).toFixed(2)} MXN. Estado: ${complianceStatus}`,
+      metadata: {
+        assetType: data.assetType,
+        valueMxn: data.valueMxn.toString(),
+        compliant: isCompliant,
+        complianceStatus,
+        beneficiaryId: data.beneficiaryId || null,
+      },
+      ipAddress: data.requestInfo?.ipAddress,
+      userAgent: data.requestInfo?.userAgent,
+    });
+  } catch (error) {
+    // No fallar la operación principal si el logging falla
+    console.error('⚠️  Error registrando log de auditoría:', error);
   }
 
   return {
@@ -472,4 +529,358 @@ export async function getAssetById(assetId: string, actorId?: string, actorRole?
   }
 
   return asset;
+}
+
+/**
+ * Aprueba una excepción para un activo pendiente de revisión
+ * Solo el Comité Técnico puede aprobar excepciones
+ * 
+ * @param assetId - ID del activo a aprobar
+ * @param approvedBy - ID del miembro del Comité Técnico que aprueba
+ * @param reason - Razón de la aprobación (opcional)
+ * @throws Error si el activo no existe, no está en PENDING_REVIEW, o el usuario no tiene permisos
+ */
+export async function approveException(
+  assetId: string,
+  approvedBy: string,
+  reason?: string,
+  requestInfo?: { ipAddress?: string; userAgent?: string }
+): Promise<{ asset: any; alert: any }> {
+  // 1. Verificar que el activo existe
+  const asset = await prisma.asset.findUnique({
+    where: { id: assetId },
+    include: {
+      actor: true,
+      beneficiary: true,
+    },
+  });
+
+  if (!asset) {
+    throw new Error(`Activo ${assetId} no encontrado`);
+  }
+
+  // 2. Verificar que el activo está en estado PENDING_REVIEW
+  if (asset.complianceStatus !== ComplianceStatus.PENDING_REVIEW) {
+    throw new Error(`El activo no está pendiente de revisión. Estado actual: ${asset.complianceStatus}`);
+  }
+
+  // 3. Verificar que el usuario es COMITE_TECNICO
+  const actor = await getActorById(approvedBy);
+  if (actor.role !== ActorRole.COMITE_TECNICO && !actor.isSuperAdmin) {
+    throw new Error('Solo el Comité Técnico puede aprobar excepciones');
+  }
+
+  // 4. Verificar que el usuario pertenece al fideicomiso
+  if (!actor.isSuperAdmin) {
+    const { verifyActorTrustMembership } = await import('./actorTrustService');
+    const hasAccess = await verifyActorTrustMembership(
+      approvedBy,
+      asset.trustId,
+      [ActorRole.COMITE_TECNICO]
+    );
+    
+    if (!hasAccess) {
+      throw new Error('No tienes acceso a este fideicomiso o no eres miembro del Comité Técnico');
+    }
+  }
+
+  // 5. Actualizar el activo a EXCEPTION_APPROVED
+  const updatedAsset = await prisma.asset.update({
+    where: { id: assetId },
+    data: {
+      complianceStatus: ComplianceStatus.EXCEPTION_APPROVED,
+      compliant: true, // Las excepciones aprobadas se consideran cumplientes
+      validationResults: {
+        ...(asset.validationResults as any || {}),
+        exceptionApproval: {
+          approvedBy: actor.id,
+          approvedByName: actor.name,
+          approvedAt: new Date().toISOString(),
+          reason: reason || 'Excepción aprobada por Comité Técnico',
+        },
+      } as any,
+    },
+    include: {
+      actor: {
+        select: {
+          id: true,
+          name: true,
+          role: true,
+        },
+      },
+      beneficiary: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  // 6. Crear alertas para informar a los stakeholders
+  const { getTrustActors } = await import('./actorTrustService');
+  const fiduciarios = await getTrustActors(asset.trustId, ActorRole.FIDUCIARIO);
+  
+  const approvalMessage = `Excepción aprobada para activo ${assetId} por el Comité Técnico. ${reason || 'Aprobado según criterio del Comité.'}`;
+  
+  // Crear alerta para el Fiduciario que registró el activo
+  let alert = null;
+  if (asset.registeredBy) {
+    alert = await prisma.alert.create({
+      data: {
+        assetId: asset.id,
+        actorId: asset.registeredBy,
+        message: approvalMessage,
+        severity: 'info',
+      },
+    });
+  }
+
+  // Crear alertas para todos los fiduciarios del fideicomiso
+  for (const membership of fiduciarios) {
+    if (membership.actorId !== asset.registeredBy) {
+      await prisma.alert.create({
+        data: {
+          assetId: asset.id,
+          actorId: membership.actorId,
+          message: approvalMessage,
+          severity: 'info',
+          alertType: AlertType.COMPLIANCE,
+          alertSubtype: AlertSubtype.EXCEPTION_PENDING, // Cambiar a un subtipo de aprobación si lo agregamos
+          metadata: {
+            approvedBy: actor.id,
+            approvedByName: actor.name,
+            reason: reason || 'Aprobado según criterio del Comité',
+          },
+        },
+      });
+    }
+  }
+
+  // Si hay beneficiario asociado, crear alerta para él también
+  if (asset.beneficiaryId) {
+    await prisma.alert.create({
+      data: {
+        assetId: asset.id,
+        actorId: asset.beneficiaryId,
+        message: `El activo asociado a tu cuenta ha sido aprobado como excepción por el Comité Técnico.`,
+        severity: 'info',
+        alertType: AlertType.COMPLIANCE,
+        alertSubtype: AlertSubtype.EXCEPTION_PENDING, // Cambiar a un subtipo de aprobación si lo agregamos
+        metadata: {
+          approvedBy: actor.id,
+          approvedByName: actor.name,
+        },
+      },
+    });
+  }
+
+  // Registrar log de auditoría
+  try {
+    await createAuditLog({
+      actorId: approvedBy,
+      action: AuditAction.EXCEPTION_APPROVED,
+      entityType: EntityType.ASSET,
+      entityId: assetId,
+      trustId: asset.trustId,
+      description: `Excepción aprobada para activo ${assetId} por Comité Técnico. ${reason || 'Aprobado según criterio del Comité.'}`,
+      metadata: {
+        assetType: asset.assetType,
+        valueMxn: asset.valueMxn.toString(),
+        reason: reason || null,
+        approvedBy: actor.id,
+        approvedByName: actor.name,
+      },
+    });
+  } catch (error) {
+    console.error('⚠️  Error registrando log de auditoría:', error);
+  }
+
+  return {
+    asset: updatedAsset,
+    alert: alert || null,
+  };
+}
+
+/**
+ * Rechaza una excepción para un activo pendiente de revisión
+ * Solo el Comité Técnico puede rechazar excepciones
+ * 
+ * @param assetId - ID del activo a rechazar
+ * @param rejectedBy - ID del miembro del Comité Técnico que rechaza
+ * @param reason - Razón del rechazo (opcional)
+ * @throws Error si el activo no existe, no está en PENDING_REVIEW, o el usuario no tiene permisos
+ */
+export async function rejectException(
+  assetId: string,
+  rejectedBy: string,
+  reason?: string,
+  requestInfo?: { ipAddress?: string; userAgent?: string }
+): Promise<{ asset: any; alert: any }> {
+  // 1. Verificar que el activo existe
+  const asset = await prisma.asset.findUnique({
+    where: { id: assetId },
+    include: {
+      actor: true,
+      beneficiary: true,
+    },
+  });
+
+  if (!asset) {
+    throw new Error(`Activo ${assetId} no encontrado`);
+  }
+
+  // 2. Verificar que el activo está en estado PENDING_REVIEW
+  if (asset.complianceStatus !== ComplianceStatus.PENDING_REVIEW) {
+    throw new Error(`El activo no está pendiente de revisión. Estado actual: ${asset.complianceStatus}`);
+  }
+
+  // 3. Verificar que el usuario es COMITE_TECNICO
+  const actor = await getActorById(rejectedBy);
+  if (actor.role !== ActorRole.COMITE_TECNICO && !actor.isSuperAdmin) {
+    throw new Error('Solo el Comité Técnico puede rechazar excepciones');
+  }
+
+  // 4. Verificar que el usuario pertenece al fideicomiso
+  if (!actor.isSuperAdmin) {
+    const { verifyActorTrustMembership } = await import('./actorTrustService');
+    const hasAccess = await verifyActorTrustMembership(
+      rejectedBy,
+      asset.trustId,
+      [ActorRole.COMITE_TECNICO]
+    );
+    
+    if (!hasAccess) {
+      throw new Error('No tienes acceso a este fideicomiso o no eres miembro del Comité Técnico');
+    }
+  }
+
+  // 5. Actualizar el activo a NON_COMPLIANT
+  const updatedAsset = await prisma.asset.update({
+    where: { id: assetId },
+    data: {
+      complianceStatus: ComplianceStatus.NON_COMPLIANT,
+      compliant: false,
+      validationResults: {
+        ...(asset.validationResults as any || {}),
+        exceptionRejection: {
+          rejectedBy: actor.id,
+          rejectedByName: actor.name,
+          rejectedAt: new Date().toISOString(),
+          reason: reason || 'Excepción rechazada por Comité Técnico',
+        },
+      } as any,
+    },
+    include: {
+      actor: {
+        select: {
+          id: true,
+          name: true,
+          role: true,
+        },
+      },
+      beneficiary: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  // 6. Crear alertas para informar a los stakeholders
+  const { getTrustActors } = await import('./actorTrustService');
+  const fiduciarios = await getTrustActors(asset.trustId, ActorRole.FIDUCIARIO);
+  
+  const rejectionMessage = `Excepción rechazada para activo ${assetId} por el Comité Técnico. ${reason || 'No cumple con los criterios establecidos.'}`;
+  
+  // Crear alerta para el Fiduciario que registró el activo
+  let alert = null;
+  if (asset.registeredBy) {
+    alert = await prisma.alert.create({
+      data: {
+        assetId: asset.id,
+        actorId: asset.registeredBy,
+        message: rejectionMessage,
+        severity: 'error',
+        alertType: AlertType.COMPLIANCE,
+        alertSubtype: AlertSubtype.RULE_VIOLATION,
+        metadata: {
+          rejectedBy: actor.id,
+          rejectedByName: actor.name,
+          reason: reason || 'No cumple con los criterios establecidos',
+        },
+      },
+    });
+  }
+
+  // Crear alertas para todos los fiduciarios del fideicomiso
+  for (const membership of fiduciarios) {
+    if (membership.actorId !== asset.registeredBy) {
+      await prisma.alert.create({
+        data: {
+          assetId: asset.id,
+          actorId: membership.actorId,
+          message: rejectionMessage,
+          severity: 'error',
+          alertType: AlertType.COMPLIANCE,
+          alertSubtype: AlertSubtype.RULE_VIOLATION,
+          metadata: {
+            rejectedBy: actor.id,
+            rejectedByName: actor.name,
+            reason: reason || 'No cumple con los criterios establecidos',
+          },
+        },
+      });
+    }
+  }
+
+  // Si hay beneficiario asociado, crear alerta para él también
+  if (asset.beneficiaryId) {
+    await prisma.alert.create({
+      data: {
+        assetId: asset.id,
+        actorId: asset.beneficiaryId,
+        message: `El activo asociado a tu cuenta ha sido rechazado por el Comité Técnico. ${reason || 'No cumple con los criterios establecidos.'}`,
+        severity: 'error',
+        alertType: AlertType.COMPLIANCE,
+        alertSubtype: AlertSubtype.RULE_VIOLATION,
+        metadata: {
+          rejectedBy: actor.id,
+          rejectedByName: actor.name,
+          reason: reason || 'No cumple con los criterios establecidos',
+        },
+      },
+    });
+  }
+
+  // Registrar log de auditoría
+  try {
+    await createAuditLog({
+      actorId: rejectedBy,
+      action: AuditAction.EXCEPTION_REJECTED,
+      entityType: EntityType.ASSET,
+      entityId: assetId,
+      trustId: asset.trustId,
+      description: `Excepción rechazada para activo ${assetId} por Comité Técnico. ${reason || 'No cumple con los criterios establecidos.'}`,
+      metadata: {
+        assetType: asset.assetType,
+        valueMxn: asset.valueMxn.toString(),
+        reason: reason || null,
+        rejectedBy: actor.id,
+        rejectedByName: actor.name,
+      },
+      ipAddress: requestInfo?.ipAddress,
+      userAgent: requestInfo?.userAgent,
+    });
+  } catch (error) {
+    console.error('⚠️  Error registrando log de auditoría:', error);
+  }
+
+  return {
+    asset: updatedAsset,
+    alert: alert || null,
+  };
 }

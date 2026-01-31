@@ -82,8 +82,9 @@ export async function authenticate(
 /**
  * Middleware de autorización
  * Verifica que el actor tenga uno de los roles permitidos
+ * Acepta un array de roles o múltiples argumentos separados
  */
-export function authorize(...allowedRoles: ActorRole[]) {
+export function authorize(...allowedRolesOrArray: (ActorRole | ActorRole[])[]): (req: Request, res: Response, next: NextFunction) => void {
   return (req: Request, res: Response, next: NextFunction): void => {
     if (!req.user) {
       res.status(401).json({ error: 'No autenticado' });
@@ -97,10 +98,20 @@ export function authorize(...allowedRoles: ActorRole[]) {
       return;
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    // Normalizar allowedRoles a un array plano
+    // Si el primer argumento es un array, usarlo directamente
+    // Si no, usar todos los argumentos como roles individuales
+    let rolesArray: ActorRole[];
+    if (allowedRolesOrArray.length === 1 && Array.isArray(allowedRolesOrArray[0])) {
+      rolesArray = allowedRolesOrArray[0] as ActorRole[];
+    } else {
+      rolesArray = allowedRolesOrArray as ActorRole[];
+    }
+
+    if (!rolesArray.includes(req.user.role)) {
       res.status(403).json({
         error: 'No autorizado',
-        required: allowedRoles,
+        required: rolesArray,
         current: req.user.role,
       });
       return;

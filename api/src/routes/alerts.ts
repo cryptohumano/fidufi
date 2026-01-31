@@ -5,6 +5,7 @@
 import { Router } from 'express';
 import { prisma } from '../lib/prisma';
 import { authenticate, optionalAuthenticate } from '../middleware/auth';
+import { generateAllAlerts, generateAlertsForAllTrusts } from '../services/alertGenerationService';
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.get('/', optionalAuthenticate, async (req, res) => {
       return res.status(400).json({ error: 'actorId es requerido (autenticación o query param)' });
     }
     
-    const { acknowledged, limit, offset } = req.query;
+    const { acknowledged, limit, offset, alertType, alertSubtype, severity } = req.query;
 
     const where: any = {
       actorId: actorId as string,
@@ -31,6 +32,18 @@ router.get('/', optionalAuthenticate, async (req, res) => {
 
     if (acknowledged !== undefined) {
       where.acknowledged = acknowledged === 'true';
+    }
+
+    if (alertType) {
+      where.alertType = alertType as string;
+    }
+
+    if (alertSubtype) {
+      where.alertSubtype = alertSubtype as string;
+    }
+
+    if (severity) {
+      where.severity = severity as string;
     }
 
     const [alerts, total] = await Promise.all([
@@ -102,6 +115,41 @@ router.put('/:id/acknowledge', authenticate, async (req, res) => {
     res.json(updatedAlert);
   } catch (error: any) {
     res.status(404).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /alerts/generate
+ * Genera alertas avanzadas para un fideicomiso o todos los fideicomisos
+ * Requiere autenticación (FIDUCIARIO, COMITE_TECNICO, o SUPER_ADMIN)
+ * 
+ * Body: { trustId?: string }
+ * - Si se proporciona trustId: genera alertas solo para ese fideicomiso
+ * - Si no se proporciona: genera alertas para todos los fideicomisos activos
+ */
+router.post('/generate', authenticate, async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
+    const { trustId } = req.body;
+
+    if (trustId) {
+      const results = await generateAllAlerts(trustId);
+      res.json({
+        trustId,
+        ...results,
+      });
+    } else {
+      const results = await generateAlertsForAllTrusts();
+      res.json({
+        results,
+        totalTrusts: Object.keys(results).length,
+      });
+    }
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 });
 

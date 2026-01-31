@@ -30,6 +30,8 @@ export type AlertMinAggregateOutputType = {
   actorId: string | null
   message: string | null
   severity: string | null
+  alertType: string | null
+  alertSubtype: string | null
   acknowledged: boolean | null
   acknowledgedAt: Date | null
   createdAt: Date | null
@@ -41,6 +43,8 @@ export type AlertMaxAggregateOutputType = {
   actorId: string | null
   message: string | null
   severity: string | null
+  alertType: string | null
+  alertSubtype: string | null
   acknowledged: boolean | null
   acknowledgedAt: Date | null
   createdAt: Date | null
@@ -52,6 +56,9 @@ export type AlertCountAggregateOutputType = {
   actorId: number
   message: number
   severity: number
+  alertType: number
+  alertSubtype: number
+  metadata: number
   acknowledged: number
   acknowledgedAt: number
   createdAt: number
@@ -65,6 +72,8 @@ export type AlertMinAggregateInputType = {
   actorId?: true
   message?: true
   severity?: true
+  alertType?: true
+  alertSubtype?: true
   acknowledged?: true
   acknowledgedAt?: true
   createdAt?: true
@@ -76,6 +85,8 @@ export type AlertMaxAggregateInputType = {
   actorId?: true
   message?: true
   severity?: true
+  alertType?: true
+  alertSubtype?: true
   acknowledged?: true
   acknowledgedAt?: true
   createdAt?: true
@@ -87,6 +98,9 @@ export type AlertCountAggregateInputType = {
   actorId?: true
   message?: true
   severity?: true
+  alertType?: true
+  alertSubtype?: true
+  metadata?: true
   acknowledged?: true
   acknowledgedAt?: true
   createdAt?: true
@@ -167,10 +181,13 @@ export type AlertGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type AlertGroupByOutputType = {
   id: string
-  assetId: string
+  assetId: string | null
   actorId: string
   message: string
   severity: string
+  alertType: string | null
+  alertSubtype: string | null
+  metadata: runtime.JsonValue | null
   acknowledged: boolean
   acknowledgedAt: Date | null
   createdAt: Date
@@ -199,23 +216,29 @@ export type AlertWhereInput = {
   OR?: Prisma.AlertWhereInput[]
   NOT?: Prisma.AlertWhereInput | Prisma.AlertWhereInput[]
   id?: Prisma.StringFilter<"Alert"> | string
-  assetId?: Prisma.StringFilter<"Alert"> | string
+  assetId?: Prisma.StringNullableFilter<"Alert"> | string | null
   actorId?: Prisma.StringFilter<"Alert"> | string
   message?: Prisma.StringFilter<"Alert"> | string
   severity?: Prisma.StringFilter<"Alert"> | string
+  alertType?: Prisma.StringNullableFilter<"Alert"> | string | null
+  alertSubtype?: Prisma.StringNullableFilter<"Alert"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Alert">
   acknowledged?: Prisma.BoolFilter<"Alert"> | boolean
   acknowledgedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
-  asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
+  asset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
 }
 
 export type AlertOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
+  assetId?: Prisma.SortOrderInput | Prisma.SortOrder
   actorId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   severity?: Prisma.SortOrder
+  alertType?: Prisma.SortOrderInput | Prisma.SortOrder
+  alertSubtype?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   acknowledged?: Prisma.SortOrder
   acknowledgedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -228,23 +251,29 @@ export type AlertWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AlertWhereInput | Prisma.AlertWhereInput[]
   OR?: Prisma.AlertWhereInput[]
   NOT?: Prisma.AlertWhereInput | Prisma.AlertWhereInput[]
-  assetId?: Prisma.StringFilter<"Alert"> | string
+  assetId?: Prisma.StringNullableFilter<"Alert"> | string | null
   actorId?: Prisma.StringFilter<"Alert"> | string
   message?: Prisma.StringFilter<"Alert"> | string
   severity?: Prisma.StringFilter<"Alert"> | string
+  alertType?: Prisma.StringNullableFilter<"Alert"> | string | null
+  alertSubtype?: Prisma.StringNullableFilter<"Alert"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Alert">
   acknowledged?: Prisma.BoolFilter<"Alert"> | boolean
   acknowledgedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
-  asset?: Prisma.XOR<Prisma.AssetScalarRelationFilter, Prisma.AssetWhereInput>
+  asset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
 }, "id">
 
 export type AlertOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  assetId?: Prisma.SortOrder
+  assetId?: Prisma.SortOrderInput | Prisma.SortOrder
   actorId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   severity?: Prisma.SortOrder
+  alertType?: Prisma.SortOrderInput | Prisma.SortOrder
+  alertSubtype?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   acknowledged?: Prisma.SortOrder
   acknowledgedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -258,10 +287,13 @@ export type AlertScalarWhereWithAggregatesInput = {
   OR?: Prisma.AlertScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AlertScalarWhereWithAggregatesInput | Prisma.AlertScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Alert"> | string
-  assetId?: Prisma.StringWithAggregatesFilter<"Alert"> | string
+  assetId?: Prisma.StringNullableWithAggregatesFilter<"Alert"> | string | null
   actorId?: Prisma.StringWithAggregatesFilter<"Alert"> | string
   message?: Prisma.StringWithAggregatesFilter<"Alert"> | string
   severity?: Prisma.StringWithAggregatesFilter<"Alert"> | string
+  alertType?: Prisma.StringNullableWithAggregatesFilter<"Alert"> | string | null
+  alertSubtype?: Prisma.StringNullableWithAggregatesFilter<"Alert"> | string | null
+  metadata?: Prisma.JsonNullableWithAggregatesFilter<"Alert">
   acknowledged?: Prisma.BoolWithAggregatesFilter<"Alert"> | boolean
   acknowledgedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Alert"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Alert"> | Date | string
@@ -271,19 +303,25 @@ export type AlertCreateInput = {
   id?: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
-  asset: Prisma.AssetCreateNestedOneWithoutAlertsInput
+  asset?: Prisma.AssetCreateNestedOneWithoutAlertsInput
   actor: Prisma.ActorCreateNestedOneWithoutAlertsInput
 }
 
 export type AlertUncheckedCreateInput = {
   id?: string
-  assetId: string
+  assetId?: string | null
   actorId: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -293,19 +331,25 @@ export type AlertUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  asset?: Prisma.AssetUpdateOneRequiredWithoutAlertsNestedInput
+  asset?: Prisma.AssetUpdateOneWithoutAlertsNestedInput
   actor?: Prisma.ActorUpdateOneRequiredWithoutAlertsNestedInput
 }
 
 export type AlertUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -313,10 +357,13 @@ export type AlertUncheckedUpdateInput = {
 
 export type AlertCreateManyInput = {
   id?: string
-  assetId: string
+  assetId?: string | null
   actorId: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -326,6 +373,9 @@ export type AlertUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -333,10 +383,13 @@ export type AlertUpdateManyMutationInput = {
 
 export type AlertUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -358,6 +411,9 @@ export type AlertCountOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   severity?: Prisma.SortOrder
+  alertType?: Prisma.SortOrder
+  alertSubtype?: Prisma.SortOrder
+  metadata?: Prisma.SortOrder
   acknowledged?: Prisma.SortOrder
   acknowledgedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -369,6 +425,8 @@ export type AlertMaxOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   severity?: Prisma.SortOrder
+  alertType?: Prisma.SortOrder
+  alertSubtype?: Prisma.SortOrder
   acknowledged?: Prisma.SortOrder
   acknowledgedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -380,6 +438,8 @@ export type AlertMinOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   severity?: Prisma.SortOrder
+  alertType?: Prisma.SortOrder
+  alertSubtype?: Prisma.SortOrder
   acknowledged?: Prisma.SortOrder
   acknowledgedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -473,17 +533,23 @@ export type AlertCreateWithoutActorInput = {
   id?: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
-  asset: Prisma.AssetCreateNestedOneWithoutAlertsInput
+  asset?: Prisma.AssetCreateNestedOneWithoutAlertsInput
 }
 
 export type AlertUncheckedCreateWithoutActorInput = {
   id?: string
-  assetId: string
+  assetId?: string | null
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -520,10 +586,13 @@ export type AlertScalarWhereInput = {
   OR?: Prisma.AlertScalarWhereInput[]
   NOT?: Prisma.AlertScalarWhereInput | Prisma.AlertScalarWhereInput[]
   id?: Prisma.StringFilter<"Alert"> | string
-  assetId?: Prisma.StringFilter<"Alert"> | string
+  assetId?: Prisma.StringNullableFilter<"Alert"> | string | null
   actorId?: Prisma.StringFilter<"Alert"> | string
   message?: Prisma.StringFilter<"Alert"> | string
   severity?: Prisma.StringFilter<"Alert"> | string
+  alertType?: Prisma.StringNullableFilter<"Alert"> | string | null
+  alertSubtype?: Prisma.StringNullableFilter<"Alert"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Alert">
   acknowledged?: Prisma.BoolFilter<"Alert"> | boolean
   acknowledgedAt?: Prisma.DateTimeNullableFilter<"Alert"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Alert"> | Date | string
@@ -533,6 +602,9 @@ export type AlertCreateWithoutAssetInput = {
   id?: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -544,6 +616,9 @@ export type AlertUncheckedCreateWithoutAssetInput = {
   actorId: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -577,9 +652,12 @@ export type AlertUpdateManyWithWhereWithoutAssetInput = {
 
 export type AlertCreateManyActorInput = {
   id?: string
-  assetId: string
+  assetId?: string | null
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -589,17 +667,23 @@ export type AlertUpdateWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  asset?: Prisma.AssetUpdateOneRequiredWithoutAlertsNestedInput
+  asset?: Prisma.AssetUpdateOneWithoutAlertsNestedInput
 }
 
 export type AlertUncheckedUpdateWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -607,9 +691,12 @@ export type AlertUncheckedUpdateWithoutActorInput = {
 
 export type AlertUncheckedUpdateManyWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -620,6 +707,9 @@ export type AlertCreateManyAssetInput = {
   actorId: string
   message: string
   severity: string
+  alertType?: string | null
+  alertSubtype?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: boolean
   acknowledgedAt?: Date | string | null
   createdAt?: Date | string
@@ -629,6 +719,9 @@ export type AlertUpdateWithoutAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -640,6 +733,9 @@ export type AlertUncheckedUpdateWithoutAssetInput = {
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -650,6 +746,9 @@ export type AlertUncheckedUpdateManyWithoutAssetInput = {
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   severity?: Prisma.StringFieldUpdateOperationsInput | string
+  alertType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alertSubtype?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   acknowledged?: Prisma.BoolFieldUpdateOperationsInput | boolean
   acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -663,10 +762,13 @@ export type AlertSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   actorId?: boolean
   message?: boolean
   severity?: boolean
+  alertType?: boolean
+  alertSubtype?: boolean
+  metadata?: boolean
   acknowledged?: boolean
   acknowledgedAt?: boolean
   createdAt?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -676,10 +778,13 @@ export type AlertSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   actorId?: boolean
   message?: boolean
   severity?: boolean
+  alertType?: boolean
+  alertSubtype?: boolean
+  metadata?: boolean
   acknowledged?: boolean
   acknowledgedAt?: boolean
   createdAt?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -689,10 +794,13 @@ export type AlertSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   actorId?: boolean
   message?: boolean
   severity?: boolean
+  alertType?: boolean
+  alertSubtype?: boolean
+  metadata?: boolean
   acknowledged?: boolean
   acknowledgedAt?: boolean
   createdAt?: boolean
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["alert"]>
 
@@ -702,37 +810,43 @@ export type AlertSelectScalar = {
   actorId?: boolean
   message?: boolean
   severity?: boolean
+  alertType?: boolean
+  alertSubtype?: boolean
+  metadata?: boolean
   acknowledged?: boolean
   acknowledgedAt?: boolean
   createdAt?: boolean
 }
 
-export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetId" | "actorId" | "message" | "severity" | "acknowledged" | "acknowledgedAt" | "createdAt", ExtArgs["result"]["alert"]>
+export type AlertOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetId" | "actorId" | "message" | "severity" | "alertType" | "alertSubtype" | "metadata" | "acknowledged" | "acknowledgedAt" | "createdAt", ExtArgs["result"]["alert"]>
 export type AlertInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 export type AlertIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 export type AlertIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  asset?: boolean | Prisma.AssetDefaultArgs<ExtArgs>
+  asset?: boolean | Prisma.Alert$assetArgs<ExtArgs>
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 
 export type $AlertPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Alert"
   objects: {
-    asset: Prisma.$AssetPayload<ExtArgs>
+    asset: Prisma.$AssetPayload<ExtArgs> | null
     actor: Prisma.$ActorPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    assetId: string
+    assetId: string | null
     actorId: string
     message: string
     severity: string
+    alertType: string | null
+    alertSubtype: string | null
+    metadata: runtime.JsonValue | null
     acknowledged: boolean
     acknowledgedAt: Date | null
     createdAt: Date
@@ -1130,7 +1244,7 @@ readonly fields: AlertFieldRefs;
  */
 export interface Prisma__AlertClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  asset<T extends Prisma.AssetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AssetDefaultArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  asset<T extends Prisma.Alert$assetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Alert$assetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1166,6 +1280,9 @@ export interface AlertFieldRefs {
   readonly actorId: Prisma.FieldRef<"Alert", 'String'>
   readonly message: Prisma.FieldRef<"Alert", 'String'>
   readonly severity: Prisma.FieldRef<"Alert", 'String'>
+  readonly alertType: Prisma.FieldRef<"Alert", 'String'>
+  readonly alertSubtype: Prisma.FieldRef<"Alert", 'String'>
+  readonly metadata: Prisma.FieldRef<"Alert", 'Json'>
   readonly acknowledged: Prisma.FieldRef<"Alert", 'Boolean'>
   readonly acknowledgedAt: Prisma.FieldRef<"Alert", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Alert", 'DateTime'>
@@ -1562,6 +1679,25 @@ export type AlertDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Alerts to delete.
    */
   limit?: number
+}
+
+/**
+ * Alert.asset
+ */
+export type Alert$assetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
 }
 
 /**

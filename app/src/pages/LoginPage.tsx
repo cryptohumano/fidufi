@@ -26,7 +26,31 @@ function LoginPage() {
     setError(null);
 
     try {
-      const { actor, token } = await authApi.login(formData.email, formData.password);
+      // Obtener ubicación GPS si está disponible
+      let locationData: { latitude?: number; longitude?: number; accuracy?: number } | null = null;
+      
+      if (navigator.geolocation) {
+        try {
+          const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: false,
+              timeout: 5000,
+              maximumAge: 60000, // Cache de 1 minuto
+            });
+          });
+          
+          locationData = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
+          };
+        } catch (geoError) {
+          // Si falla la geolocalización, continuar sin ella
+          console.warn('No se pudo obtener la ubicación GPS:', geoError);
+        }
+      }
+
+      const { actor, token } = await authApi.login(formData.email, formData.password, locationData);
       
       // Guardar token y actor
       localStorage.setItem('fidufi_token', token);
