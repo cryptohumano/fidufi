@@ -13,6 +13,9 @@ export interface TrustData {
   initialCapital: number | Decimal;
   bondLimitPercent?: number;
   otherLimitPercent?: number;
+  // Plantilla tipo de fideicomiso [ONBOARDING]
+  trustTypeId?: string | null;
+  trustTypeConfig?: Record<string, unknown> | null; // ej. { presupuestoTotal } para CONSTRUCCION
   // Información de partes
   fideicomitenteName?: string;
   fideicomitenteRFC?: string;
@@ -26,14 +29,44 @@ export interface TrustData {
   rfc?: string;
   satRegistrationNumber?: string;
   satRegisteredAt?: Date | string;
+  // Iteración 1: tipo y rendición
+  trustType?: 'INVESTMENT' | 'CONDOMINIUM';
+  reportPeriodicity?: 'MONTHLY' | 'QUARTERLY' | 'ANNUAL';
+  fiscalYearEndMonth?: number;
+  fiscalYearEndDay?: number;
+  observationDays?: number;
+  requiresConsensus?: boolean;
+  // [ONBOARDING] identificación y firma
+  fechaFirma?: Date | string | null;
+  lugarFirma?: string | null;
+  jurisdiccion?: string | null;
+  domicilioLegal?: string | null;
+  domicilioFiscal?: string | null;
+  baseCurrency?: string | null;
+  fechaCierreEjercicioDay?: number | null;
+  fechaCierreEjercicioMonth?: number | null;
+  fechaObjetivoEntrega?: Date | string | null;
+  reglasExtincionResumen?: string | null;
+  objetoTexto?: string | null;
+  finalidadCategoria?: string | null;
+  anexosObligatorios?: unknown[] | null;
+  moraAutomatica?: boolean;
+  diasGracia?: number | null;
+  permisosPortal?: Record<string, unknown> | null;
+  // [POST] metadatos
+  tags?: string[];
+  notasInternas?: string | null;
 }
+
+/** Reglas por tipo: CONSTRUCCION requiere presupuestoTotal en trustTypeConfig; FINANCIERO requiere initialCapital */
+export const TRUST_TYPE_CODES = { FINANCIERO: 'FINANCIERO', CONSTRUCCION: 'CONSTRUCCION', ADMINISTRATIVO: 'ADMINISTRATIVO' } as const;
 
 export interface TrustSummary {
   trustId: string;
   name: string | null;
   initialCapital: Decimal;
-  bondLimitPercent: Decimal;
-  otherLimitPercent: Decimal;
+  bondLimitPercent: Decimal | null;
+  otherLimitPercent: Decimal | null;
   active: boolean;
   totalAssets: number;
   totalInvested: Decimal;
@@ -41,6 +74,31 @@ export interface TrustSummary {
   otherInvestment: Decimal;
   bondPercent: number;
   otherPercent: number;
+  /** Score 0-100 del fideicomiso (Iteración 7): aportes, presupuesto, hitos */
+  score?: number;
+  scoreFactors?: { contributions?: number; budget?: number; milestones?: number };
+}
+
+/**
+ * Lista los tipos de fideicomiso (plantillas) con sus reglas [ONBOARDING]
+ */
+export async function getTrustTypes() {
+  return await prisma.trustType.findMany({
+    where: { isActive: true },
+    orderBy: { code: 'asc' },
+  });
+}
+
+/**
+ * Obtiene un tipo de fideicomiso por ID (para auditoría y metadata por tipo)
+ */
+export async function getTrustTypeById(id: string | null): Promise<{ id: string; code: string; name: string } | null> {
+  if (!id?.trim()) return null;
+  const row = await prisma.trustType.findUnique({
+    where: { id: id.trim() },
+    select: { id: true, code: true, name: true },
+  });
+  return row;
 }
 
 /**
@@ -51,6 +109,7 @@ export async function getTrust(trustId: string) {
     where: { trustId },
     include: {
       fiduciarioFee: true,
+      trustTypeRef: true,
     },
   });
 
@@ -62,29 +121,14 @@ export async function getTrust(trustId: string) {
 }
 
 /**
- * Obtiene todos los fideicomisos activos
+ * Obtiene fideicomisos (activos por defecto; opcionalmente todos para admin).
+ * Incluye trustTypeRef para tipo y moneda en la UI.
  */
-export async function getAllTrusts() {
+export async function getAllTrusts(opts?: { includeInactive?: boolean }) {
   return await prisma.trust.findMany({
-    where: {
-      active: true,
-    },
-    select: {
-      id: true,
-      trustId: true,
-      name: true,
-      initialCapital: true,
-      bondLimitPercent: true,
-      otherLimitPercent: true,
-      active: true,
-      createdAt: true,
-      // Nuevos campos
-      constitutionDate: true,
-      expirationDate: true,
-      maxTermYears: true,
-      termType: true,
-      rfc: true,
-      satRegisteredAt: true,
+    where: opts?.includeInactive ? undefined : { active: true },
+    include: {
+      trustTypeRef: true,
     },
     orderBy: { trustId: 'asc' },
   });
@@ -144,93 +188,120 @@ async function generateTrustId(): Promise<string> {
 
 /**
  * Crea un nuevo fideicomiso
+ * [ONBOARDING]: tipo (trustTypeId), nombre, fechas, etc. Status arranca en DRAFT.
  */
 export async function createTrust(data: TrustData) {
   console.log('📋 createTrust llamado con:', {
     trustId: data.trustId || '(se generará)',
     name: data.name,
     initialCapital: data.initialCapital,
-    bondLimitPercent: data.bondLimitPercent,
-    otherLimitPercent: data.otherLimitPercent,
+    trustTypeId: data.trustTypeId,
   });
 
-  // Validar initialCapital
-  if (!data.initialCapital || (typeof data.initialCapital === 'number' && (isNaN(data.initialCapital) || data.initialCapital <= 0))) {
+  let trustTypeCode: string | null = null;
+  if (data.trustTypeId) {
+    const typeRow = await prisma.trustType.findUnique({ where: { id: data.trustTypeId } });
+    if (!typeRow) throw new Error('trustTypeId no corresponde a un tipo de fideicomiso válido');
+    trustTypeCode = typeRow.code;
+    // Construcción: requiere monto (presupuestoTotal) en trustTypeConfig
+    if (trustTypeCode === TRUST_TYPE_CODES.CONSTRUCCION) {
+      const monto = data.trustTypeConfig && typeof data.trustTypeConfig === 'object' && 'presupuestoTotal' in data.trustTypeConfig
+        ? Number((data.trustTypeConfig as { presupuestoTotal?: number }).presupuestoTotal)
+        : undefined;
+      if (monto == null || isNaN(monto) || monto <= 0) {
+        throw new Error('Para fideicomiso de construcción es requerido trustTypeConfig.presupuestoTotal (monto mayor a cero)');
+      }
+    }
+  }
+
+  // Financiero/inversión: initialCapital requerido; construcción puede usar 0 y solo presupuestoTotal
+  const isConstruction = trustTypeCode === TRUST_TYPE_CODES.CONSTRUCCION;
+  const initialCap = data.initialCapital == null ? 0 : (typeof data.initialCapital === 'number' ? data.initialCapital : Number(data.initialCapital));
+  if (!isConstruction && (!data.initialCapital || (typeof initialCap === 'number' && (isNaN(initialCap) || initialCap <= 0)))) {
     throw new Error('initialCapital debe ser un número mayor a cero');
   }
+  const initialCapitalDecimal = new Decimal(isConstruction && initialCap <= 0 && data.trustTypeConfig && typeof data.trustTypeConfig === 'object' && 'presupuestoTotal' in data.trustTypeConfig
+    ? Number((data.trustTypeConfig as { presupuestoTotal?: number }).presupuestoTotal)
+    : (initialCap || 0));
 
   // Generar trustId automáticamente si no se proporciona
   const trustId = data.trustId || await generateTrustId();
   console.log('✅ TrustId generado/obtenido:', trustId);
-  
-  // Verificar que no exista
-  const existing = await prisma.trust.findUnique({
-    where: { trustId },
-  });
 
-  if (existing) {
-    throw new Error(`El fideicomiso ${trustId} ya existe`);
-  }
+  const existing = await prisma.trust.findUnique({ where: { trustId } });
+  if (existing) throw new Error(`El fideicomiso ${trustId} ya existe`);
 
-  // Calcular fecha de expiración si se proporciona fecha de constitución y plazo máximo
+  // Calcular fecha de expiración
   let expirationDate: Date | undefined;
   if (data.constitutionDate && data.maxTermYears) {
-    const constitutionDateObj = typeof data.constitutionDate === 'string' 
-      ? new Date(data.constitutionDate) 
-      : data.constitutionDate;
-    
-    // Validar que la fecha sea válida
+    const constitutionDateObj = typeof data.constitutionDate === 'string' ? new Date(data.constitutionDate) : data.constitutionDate;
     if (!isNaN(constitutionDateObj.getTime())) {
       expirationDate = new Date(constitutionDateObj);
       expirationDate.setFullYear(expirationDate.getFullYear() + data.maxTermYears);
     }
   }
 
-  // Validar tipo de plazo y ajustar si es necesario
   let finalTermType = data.termType || 'STANDARD';
-  let finalMaxTermYears = data.maxTermYears || 30;
+  let finalMaxTermYears = data.maxTermYears ?? (finalTermType === 'FOREIGN' ? 50 : finalTermType === 'DISABILITY' ? 70 : 30);
+  if (finalTermType === 'STANDARD' && finalMaxTermYears > 30) finalMaxTermYears = 30;
+  else if (finalTermType === 'FOREIGN' && finalMaxTermYears > 50) finalMaxTermYears = 50;
+  else if (finalTermType === 'DISABILITY' && finalMaxTermYears > 70) finalMaxTermYears = 70;
 
-  // Ajustar según tipo de plazo si no se especificó maxTermYears
-  if (!data.maxTermYears) {
-    if (finalTermType === 'FOREIGN') {
-      finalMaxTermYears = 50;
-    } else if (finalTermType === 'DISABILITY') {
-      finalMaxTermYears = 70;
-    }
-  }
+  const toDate = (v: Date | string | undefined | null): Date | null =>
+    v == null ? null : (typeof v === 'string' ? new Date(v) : v);
 
-  // Validar que maxTermYears no exceda el máximo permitido según termType
-  if (finalTermType === 'STANDARD' && finalMaxTermYears > 30) {
-    finalMaxTermYears = 30;
-  } else if (finalTermType === 'FOREIGN' && finalMaxTermYears > 50) {
-    finalMaxTermYears = 50;
-  } else if (finalTermType === 'DISABILITY' && finalMaxTermYears > 70) {
-    finalMaxTermYears = 70;
-  }
+  const legacyTrustType = data.trustType ?? (trustTypeCode === TRUST_TYPE_CODES.CONSTRUCCION ? 'CONDOMINIUM' : 'INVESTMENT');
 
   console.log('💾 Creando registro en base de datos...');
   const trust = await prisma.trust.create({
     data: {
       trustId,
-      name: data.name,
-      initialCapital: new Decimal(data.initialCapital),
-      bondLimitPercent: data.bondLimitPercent 
-        ? new Decimal(data.bondLimitPercent) 
-        : new Decimal(30),
-      otherLimitPercent: data.otherLimitPercent 
-        ? new Decimal(data.otherLimitPercent) 
-        : new Decimal(70),
-      // Plazos y vigencia
-      constitutionDate: data.constitutionDate 
-        ? (typeof data.constitutionDate === 'string' ? new Date(data.constitutionDate) : data.constitutionDate)
-        : new Date(),
-      expirationDate: expirationDate,
+      name: data.name ?? null,
+      trustTypeId: data.trustTypeId ?? null,
+      trustType: legacyTrustType,
+      trustTypeConfig: (data.trustTypeConfig ?? undefined) as import('../generated/prisma/client').Prisma.InputJsonValue | undefined,
+      status: 'DRAFT',
+      initialCapital: initialCapitalDecimal,
+      // Límites de inversión solo para tipo FINANCIERO; Construcción/Administrativo quedan en null
+      bondLimitPercent: isConstruction ? null : (data.bondLimitPercent != null ? new Decimal(data.bondLimitPercent) : new Decimal(30)),
+      otherLimitPercent: isConstruction ? null : (data.otherLimitPercent != null ? new Decimal(data.otherLimitPercent) : new Decimal(70)),
+      constitutionDate: toDate(data.constitutionDate) ?? new Date(),
+      expirationDate: expirationDate ?? null,
       maxTermYears: finalMaxTermYears,
       termType: finalTermType,
-      requiresConsensus: data.requiresConsensus || false,
+      requiresConsensus: data.requiresConsensus ?? false,
+      reportPeriodicity: data.reportPeriodicity ?? 'MONTHLY',
+      fiscalYearEndMonth: data.fiscalYearEndMonth ?? null,
+      fiscalYearEndDay: data.fiscalYearEndDay ?? null,
+      observationDays: data.observationDays ?? null,
+      fideicomitenteName: data.fideicomitenteName ?? null,
+      fideicomitenteRFC: data.fideicomitenteRFC ?? null,
+      fiduciarioName: data.fiduciarioName ?? null,
+      fiduciarioRFC: data.fiduciarioRFC ?? null,
+      rfc: data.rfc ?? null,
+      satRegistrationNumber: data.satRegistrationNumber ?? null,
+      satRegisteredAt: toDate(data.satRegisteredAt ?? null),
+      fechaFirma: toDate(data.fechaFirma ?? null),
+      lugarFirma: data.lugarFirma ?? null,
+      jurisdiccion: data.jurisdiccion ?? null,
+      domicilioLegal: data.domicilioLegal ?? null,
+      domicilioFiscal: data.domicilioFiscal ?? null,
+      baseCurrency: data.baseCurrency ?? 'ARS',
+      fechaCierreEjercicioDay: data.fechaCierreEjercicioDay ?? null,
+      fechaCierreEjercicioMonth: data.fechaCierreEjercicioMonth ?? null,
+      fechaObjetivoEntrega: toDate(data.fechaObjetivoEntrega ?? null),
+      reglasExtincionResumen: data.reglasExtincionResumen ?? null,
+      objetoTexto: data.objetoTexto ?? null,
+      finalidadCategoria: data.finalidadCategoria ?? null,
+      anexosObligatorios: (data.anexosObligatorios ?? undefined) as import('../generated/prisma/client').Prisma.InputJsonValue | undefined,
+      moraAutomatica: data.moraAutomatica ?? false,
+      diasGracia: data.diasGracia ?? null,
+      permisosPortal: (data.permisosPortal ?? undefined) as import('../generated/prisma/client').Prisma.InputJsonValue | undefined,
+      tags: data.tags ?? [],
+      notasInternas: data.notasInternas ?? null,
     },
   });
-  console.log('✅ Fideicomiso creado:', trust.trustId);
+  console.log('✅ Fideicomiso creado:', trust.trustId, { trustTypeId: trust.trustTypeId, baseCurrency: trust.baseCurrency, hasConfig: !!data.trustTypeConfig });
 
   // Crear registro de honorarios del fiduciario
   await prisma.fiduciarioFee.create({
@@ -244,6 +315,22 @@ export async function createTrust(data: TrustData) {
     },
   });
 
+  // Devolver el trust con trustTypeRef para que el frontend muestre tipo y moneda en la tarjeta
+  const withType = await prisma.trust.findUnique({
+    where: { trustId: trust.trustId },
+    include: { trustTypeRef: true },
+  });
+  if (withType) return withType;
+  // Fallback: si el refetch no devuelve (p. ej. réplica con lag), adjuntar tipo por trustTypeId
+  if (trust.trustTypeId) {
+    const typeRow = await prisma.trustType.findUnique({
+      where: { id: trust.trustTypeId },
+      select: { id: true, code: true, name: true },
+    });
+    if (typeRow) {
+      return { ...trust, trustTypeRef: typeRow };
+    }
+  }
   return trust;
 }
 
@@ -271,9 +358,9 @@ export async function updateTrustLimits(
     updateData.otherLimitPercent = new Decimal(otherLimitPercent);
   }
 
-  // Validar que la suma no exceda 100%
-  const newBondLimit = updateData.bondLimitPercent || trust.bondLimitPercent;
-  const newOtherLimit = updateData.otherLimitPercent || trust.otherLimitPercent;
+  // Validar que la suma no exceda 100% (límites pueden ser null en Construcción/Administrativo)
+  const newBondLimit = updateData.bondLimitPercent ?? trust.bondLimitPercent ?? new Decimal(0);
+  const newOtherLimit = updateData.otherLimitPercent ?? trust.otherLimitPercent ?? new Decimal(0);
 
   if (newBondLimit.add(newOtherLimit).gt(100)) {
     throw new Error('La suma de los límites no puede exceder el 100%');
@@ -282,6 +369,36 @@ export async function updateTrustLimits(
   return await prisma.trust.update({
     where: { trustId },
     data: updateData,
+  });
+}
+
+/** TrustStatus del schema (DRAFT | ACTIVO | CERRADO) */
+const TRUST_STATUSES = ['DRAFT', 'ACTIVO', 'CERRADO'] as const;
+
+/**
+ * Actualiza estado del fideicomiso: activo/inactivo (baja) y/o status (DRAFT, ACTIVO, CERRADO).
+ * Solo SUPER_ADMIN.
+ */
+export async function updateTrustStatus(
+  trustId: string,
+  data: { active?: boolean; status?: string }
+) {
+  await getTrust(trustId);
+  const updateData: { active?: boolean; status?: (typeof TRUST_STATUSES)[number] } = {};
+  if (data.active !== undefined) updateData.active = data.active;
+  if (data.status !== undefined) {
+    if (!TRUST_STATUSES.includes(data.status as any)) {
+      throw new Error('status debe ser DRAFT, ACTIVO o CERRADO');
+    }
+    updateData.status = data.status as (typeof TRUST_STATUSES)[number];
+  }
+  if (Object.keys(updateData).length === 0) {
+    throw new Error('Indique active y/o status para actualizar');
+  }
+  return await prisma.trust.update({
+    where: { trustId },
+    data: updateData,
+    include: { trustTypeRef: true },
   });
 }
 
@@ -335,6 +452,33 @@ export async function getTrustSummary(trustId: string): Promise<TrustSummary> {
     ? otherInvestment.div(trust.initialCapital).mul(100).toNumber()
     : 0;
 
+  // Score del fideicomiso (Iteración 7): aportes al día, presupuesto, hitos
+  let score: number | undefined;
+  let scoreFactors: { contributions?: number; budget?: number; milestones?: number } | undefined;
+  const contributions = await prisma.contribution.findMany({ where: { trustId } });
+  const totalContrib = contributions.length;
+  const paidOnTime = contributions.filter((c) => c.status === 'PAID' && c.paidAt && c.paidAt <= c.dueDate).length;
+  const contribScore = totalContrib > 0 ? (paidOnTime / totalContrib) * 100 : undefined;
+
+  const budgetItems = await prisma.budgetItem.findMany({ where: { trustId }, include: { expenses: true } });
+  let budgetScore: number | undefined;
+  if (budgetItems.length > 0) {
+    const totalBudget = budgetItems.reduce((s, b) => s + Number(b.amount), 0);
+    const totalSpent = budgetItems.reduce((s, b) => s + b.expenses.reduce((e, x) => e + Number(x.amount), 0), 0);
+    budgetScore = totalBudget > 0 ? Math.min(100, 100 - (Math.max(0, totalSpent - totalBudget) / totalBudget) * 100) : 100;
+  }
+
+  const milestones = await prisma.milestone.findMany({ where: { trustId } });
+  const totalMilestone = milestones.length;
+  const completedOnTime = milestones.filter((m) => m.completedAt && m.dueDate && m.completedAt <= m.dueDate).length;
+  const milestoneScore = totalMilestone > 0 ? (completedOnTime / totalMilestone) * 100 : undefined;
+
+  if (contribScore != null || budgetScore != null || milestoneScore != null) {
+    scoreFactors = { contributions: contribScore, budget: budgetScore, milestones: milestoneScore };
+    const values = [contribScore, budgetScore, milestoneScore].filter((v) => v != null) as number[];
+    score = values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : undefined;
+  }
+
   return {
     trustId: trust.trustId,
     name: trust.name,
@@ -342,12 +486,14 @@ export async function getTrustSummary(trustId: string): Promise<TrustSummary> {
     bondLimitPercent: trust.bondLimitPercent,
     otherLimitPercent: trust.otherLimitPercent,
     active: trust.active,
-    totalAssets: allAssets.length, // Total de activos registrados
-    totalInvested, // Solo activos que cumplen
-    bondInvestment, // Solo activos que cumplen
-    otherInvestment, // Solo activos que cumplen
-    bondPercent, // Porcentaje basado en activos que cumplen
-    otherPercent, // Porcentaje basado en activos que cumplen
+    totalAssets: allAssets.length,
+    totalInvested,
+    bondInvestment,
+    otherInvestment,
+    bondPercent,
+    otherPercent,
+    score,
+    scoreFactors,
   };
 }
 

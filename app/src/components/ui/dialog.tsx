@@ -62,6 +62,18 @@ function DialogTitle({ className, children, ...props }: DialogTitleProps) {
   )
 }
 
+interface DialogFooterProps extends React.ComponentProps<"div"> {
+  children: React.ReactNode
+}
+
+function DialogFooter({ className, children, ...props }: DialogFooterProps) {
+  return (
+    <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-2 pt-4 px-6 pb-6", className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
 function DialogClose({ onClose }: { onClose: () => void }) {
   return (
     <Button
@@ -76,4 +88,4 @@ function DialogClose({ onClose }: { onClose: () => void }) {
   )
 }
 
-export { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose }
+export { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose }

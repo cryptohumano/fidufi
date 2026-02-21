@@ -46,11 +46,19 @@ function TrustDetails() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          {trust.name || `Fideicomiso ${trust.trustId}`}
-        </h1>
-        <p className="text-muted-foreground">ID: {trust.trustId}</p>
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">
+            {trust.name || `Fideicomiso ${trust.trustId}`}
+          </h1>
+          <p className="text-muted-foreground">ID: {trust.trustId}</p>
+        </div>
+        <Link to={`/trusts/${trustId}/contributions`}>
+          <Button variant="outline" size="sm">
+            <Wallet className="h-4 w-4 mr-2" />
+            Aportes
+          </Button>
+        </Link>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">

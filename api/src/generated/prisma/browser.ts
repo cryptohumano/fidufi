@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model TrustType
+ * 
+ */
+export type TrustType = Prisma.TrustTypeModel
+/**
  * Model Actor
  * 
  */
@@ -42,6 +47,111 @@ export type RuleModification = Prisma.RuleModificationModel
  * 
  */
 export type Trust = Prisma.TrustModel
+/**
+ * Model Contribution
+ * 
+ */
+export type Contribution = Prisma.ContributionModel
+/**
+ * Model BudgetItem
+ * 
+ */
+export type BudgetItem = Prisma.BudgetItemModel
+/**
+ * Model CashflowPlan
+ * 
+ */
+export type CashflowPlan = Prisma.CashflowPlanModel
+/**
+ * Model Expense
+ * 
+ */
+export type Expense = Prisma.ExpenseModel
+/**
+ * Model Milestone
+ * 
+ */
+export type Milestone = Prisma.MilestoneModel
+/**
+ * Model ApprovalPolicy
+ * 
+ */
+export type ApprovalPolicy = Prisma.ApprovalPolicyModel
+/**
+ * Model ApprovalRequest
+ * 
+ */
+export type ApprovalRequest = Prisma.ApprovalRequestModel
+/**
+ * Model ApprovalVote
+ * 
+ */
+export type ApprovalVote = Prisma.ApprovalVoteModel
+/**
+ * Model Unit
+ * 
+ */
+export type Unit = Prisma.UnitModel
+/**
+ * Model UnitAllocation
+ * 
+ */
+export type UnitAllocation = Prisma.UnitAllocationModel
+/**
+ * Model UnitSelectionRound
+ * 
+ */
+export type UnitSelectionRound = Prisma.UnitSelectionRoundModel
+/**
+ * Model SaleProcess
+ * 
+ */
+export type SaleProcess = Prisma.SaleProcessModel
+/**
+ * Model SaleReservation
+ * 
+ */
+export type SaleReservation = Prisma.SaleReservationModel
+/**
+ * Model SupportingDocument
+ * 
+ */
+export type SupportingDocument = Prisma.SupportingDocumentModel
+/**
+ * Model FiduciaryAccount
+ * 
+ */
+export type FiduciaryAccount = Prisma.FiduciaryAccountModel
+/**
+ * Model BankMovement
+ * 
+ */
+export type BankMovement = Prisma.BankMovementModel
+/**
+ * Model ContractDocument
+ * 
+ */
+export type ContractDocument = Prisma.ContractDocumentModel
+/**
+ * Model ContractAnnex
+ * 
+ */
+export type ContractAnnex = Prisma.ContractAnnexModel
+/**
+ * Model InsurancePolicy
+ * 
+ */
+export type InsurancePolicy = Prisma.InsurancePolicyModel
+/**
+ * Model ChecklistItem
+ * 
+ */
+export type ChecklistItem = Prisma.ChecklistItemModel
+/**
+ * Model TrustConcept
+ * 
+ */
+export type TrustConcept = Prisma.TrustConceptModel
 /**
  * Model MonthlyStatement
  * 

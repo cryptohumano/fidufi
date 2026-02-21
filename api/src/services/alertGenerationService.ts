@@ -36,6 +36,7 @@ export enum AlertSubtype {
   MONTHLY_FEE_DUE = 'MONTHLY_FEE_DUE',
   LOAN_PAYMENT_DUE = 'LOAN_PAYMENT_DUE',
   INSURANCE_PAYMENT_DUE = 'INSURANCE_PAYMENT_DUE',
+  CONTRIBUTION_OVERDUE = 'CONTRIBUTION_OVERDUE',
   
   // Compliance
   RULE_VIOLATION = 'RULE_VIOLATION',
@@ -381,6 +382,61 @@ export async function generatePendingExceptionAlerts(trustId: string): Promise<n
 }
 
 /**
+ * Genera alertas por aportes en mora (Iteración 2)
+ */
+export async function generateContributionOverdueAlerts(trustId: string): Promise<number> {
+  const overdue = await prisma.contribution.findMany({
+    where: {
+      trustId,
+      status: 'OVERDUE',
+      paidAt: null,
+    },
+  });
+  if (overdue.length === 0) return 0;
+
+  const fiduciarios = await getTrustActors(trustId, ActorRole.FIDUCIARIO);
+  const comite = await getTrustActors(trustId, ActorRole.COMITE_TECNICO);
+  const recipients = [...fiduciarios, ...comite];
+  const message =
+    overdue.length === 1
+      ? `Aporte en mora: ${overdue[0].concept} - ${overdue[0].amount} ${overdue[0].currency} (venció ${overdue[0].dueDate.toLocaleDateString('es-MX')})`
+      : `${overdue.length} aportes en mora. Revisar listado de aportes.`;
+  let alertsCreated = 0;
+  const now = new Date();
+  const since = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  for (const membership of recipients) {
+    const existing = await prisma.alert.findFirst({
+      where: {
+        actorId: membership.actorId,
+        alertType: AlertType.PAYMENT,
+        alertSubtype: AlertSubtype.CONTRIBUTION_OVERDUE,
+        acknowledged: false,
+        createdAt: { gte: since },
+      },
+    });
+    if (!existing) {
+      await prisma.alert.create({
+        data: {
+          actorId: membership.actorId,
+          message,
+          severity: 'warning',
+          alertType: AlertType.PAYMENT,
+          alertSubtype: AlertSubtype.CONTRIBUTION_OVERDUE,
+          metadata: {
+            trustId,
+            count: overdue.length,
+            contributionIds: overdue.map((c) => c.id),
+          },
+        },
+      });
+      alertsCreated++;
+    }
+  }
+  return alertsCreated;
+}
+
+/**
  * Genera alertas de reuniones del Comité Técnico
  * Según el contrato, las reuniones son cada 3 meses
  */
@@ -459,6 +515,7 @@ export async function generateAllAlerts(trustId: string): Promise<{
   compliance: number;
   pendingExceptions: number;
   meeting: number;
+  contributionOverdue: number;
   total: number;
 }> {
   const results = await Promise.all([
@@ -467,6 +524,7 @@ export async function generateAllAlerts(trustId: string): Promise<{
     generateComplianceLimitAlerts(trustId),
     generatePendingExceptionAlerts(trustId),
     generateMeetingAlerts(trustId),
+    generateContributionOverdueAlerts(trustId),
   ]);
 
   return {
@@ -475,6 +533,7 @@ export async function generateAllAlerts(trustId: string): Promise<{
     compliance: results[2],
     pendingExceptions: results[3],
     meeting: results[4],
+    contributionOverdue: results[5],
     total: results.reduce((sum, count) => sum + count, 0),
   };
 }
@@ -497,7 +556,7 @@ export async function generateAlertsForAllTrusts(): Promise<{
     select: { trustId: true },
   });
 
-  const results: any = {};
+  const results: Record<string, Awaited<ReturnType<typeof generateAllAlerts>>> = {};
 
   for (const trust of activeTrusts) {
     results[trust.trustId] = await generateAllAlerts(trust.trustId);

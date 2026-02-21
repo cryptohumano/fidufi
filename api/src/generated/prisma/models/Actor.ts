@@ -541,24 +541,8 @@ export type ActorNullableScalarRelationFilter = {
   isNot?: Prisma.ActorWhereInput | null
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type EnumActorRoleFieldUpdateOperationsInput = {
   set?: $Enums.ActorRole
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type ActorCreateNestedOneWithoutRegisteredAssetsInput = {

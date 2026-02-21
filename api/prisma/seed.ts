@@ -56,16 +56,32 @@ async function main() {
   const expirationDate = new Date(constitutionDate);
   expirationDate.setFullYear(expirationDate.getFullYear() + maxTermYears);
   
+  // Asegurar que existan los tipos de fideicomiso (por si la migración no los insertó)
+  const trustTypeFinanciero = await prisma.trustType.upsert({
+    where: { code: 'FINANCIERO' },
+    update: {},
+    create: {
+      code: 'FINANCIERO',
+      name: 'Financiero (Inversión)',
+      description: 'Fideicomiso de inversión. Reglas: patrimonio inicial, límites bonos/otros.',
+      rulesConfig: { initialCapitalRequired: true, bondLimitPercent: 30, otherLimitPercent: 70, requiresAssetCompliance: true },
+      onboardingFieldsSchema: ['name', 'initialCapital', 'bondLimitPercent', 'otherLimitPercent', 'constitutionDate', 'baseCurrency', 'fechaCierreEjercicioMonth', 'fechaCierreEjercicioDay'],
+      isActive: true,
+    },
+  });
+
   const trust = await prisma.trust.upsert({
     where: { trustId: '10045' },
     update: {
-      // Actualizar campos si ya existe
       constitutionDate,
       expirationDate,
       maxTermYears,
       termType: 'STANDARD',
       fideicomitenteName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C.',
       fiduciarioName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C. - Coordinación Fiduciaria',
+      trustTypeId: trustTypeFinanciero.id,
+      trustType: 'INVESTMENT',
+      status: 'ACTIVO',
     },
     create: {
       trustId: '10045',
@@ -74,18 +90,18 @@ async function main() {
       bondLimitPercent: new Decimal(30),
       otherLimitPercent: new Decimal(70),
       active: true,
-      // Información de partes
+      trustTypeId: trustTypeFinanciero.id,
+      trustType: 'INVESTMENT',
+      status: 'ACTIVO',
       fideicomitenteName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C.',
       fiduciarioName: 'Banco del Ahorro Nacional y Servicios Financieros, S.N.C. - Coordinación Fiduciaria',
-      // Plazos y vigencia
       constitutionDate,
       expirationDate,
       maxTermYears,
       termType: 'STANDARD',
-      // Obligaciones fiscales (ejemplo)
       rfc: 'FID100450123ABC',
       satRegistrationNumber: 'SAT-REG-10045-2002',
-      satRegisteredAt: new Date('2002-09-15'), // Registrado aproximadamente 1 mes después
+      satRegisteredAt: new Date('2002-09-15'),
     },
   });
   console.log('✅ Fideicomiso creado:', trust.trustId);

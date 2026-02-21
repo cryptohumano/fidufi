@@ -38,6 +38,37 @@ enum ComplianceStatus {
   EXCEPTION_APPROVED // Excepción aprobada por Comité Técnico
 }
 
+// Estado del fideicomiso [AUTO]: arranca en DRAFT
+enum TrustStatus {
+  DRAFT    // Borrador (onboarding en curso)
+  ACTIVO   // En operación
+  CERRADO   // Finalizado
+}
+
+// Tipo/plantilla de fideicomiso: define reglas y atributos por categoría
+// [ONBOARDING]: se elige al crear el fideicomiso
+model TrustType {
+  id          String   @id @default(uuid())
+  code        String   @unique // CONSTRUCCION | FINANCIERO | ADMINISTRATIVO
+  name        String   // "Construcción", "Financiero (Inversión)", "Administrativo"
+  description String?
+  // Reglas y atributos requeridos por tipo (JSON)
+  // Construcción: { presupuestoTotalRequired: true, requiresMilestones: true, ... }
+  // Financiero: { bondLimitPercent, otherLimitPercent, initialCapitalRequired: true }
+  // Administrativo: { ... }
+  rulesConfig Json     @default("{}")
+  // Campos ONBOARDING para este tipo (opcional, para validación en UI)
+  onboardingFieldsSchema Json? @default("[]")
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  trusts      Trust[]
+
+  @@index([code])
+  @@index([isActive])
+}
+
 // Actor del sistema (Fiduciario, Comité Técnico, Auditor, Regulador, Super Admin)
 model Actor {
   id           String    @id @default(uuid())
@@ -172,15 +203,25 @@ model RuleModification {
 // Configuración de fideicomiso
 model Trust {
   id      String  @id @default(uuid())
-  trustId String  @unique // ID del contrato (ej. "10045")
-  name    String?
+  trustId String  @unique // ID del contrato (ej. "10045") [AUTO]
+  name    String? // nombre / denominación [ONBOARDING]
 
-  // Patrimonio inicial
+  // --- Plantilla de tipo de fideicomiso [ONBOARDING] ---
+  trustTypeId   String?   // FK a TrustType (Construcción, Financiero, Administrativo)
+  trustTypeRef  TrustType? @relation(fields: [trustTypeId], references: [id], onDelete: SetNull)
+  trustType     String?   @default("INVESTMENT") // Legacy: 'INVESTMENT' | 'CONDOMINIUM' (mapear desde TrustType si aplica)
+  // Valores tipo-específicos: construcción → presupuestoTotal; financiero → límites ya en Trust
+  trustTypeConfig Json?   @default("{}") // ej. { "presupuestoTotal": 1000000 } para CONSTRUCCION
+
+  // Estado [AUTO]: arranca en DRAFT
+  status   TrustStatus @default(DRAFT) // DRAFT | ACTIVO | CERRADO
+
+  // Patrimonio inicial (financiero/inversión)
   initialCapital Decimal @db.Decimal(18, 2)
 
-  // Límites de inversión (configurables)
-  bondLimitPercent  Decimal @default(30) @db.Decimal(5, 2) // 30% para bonos
-  otherLimitPercent Decimal @default(70) @db.Decimal(5, 2) // 70% para otros
+  // Límites de inversión (solo tipo FINANCIERO; null para Construcción/Administrativo)
+  bondLimitPercent  Decimal? @db.Decimal(5, 2) // 30% para bonos (solo inversión)
+  otherLimitPercent Decimal? @db.Decimal(5, 2) // 70% para otros (solo inversión)
 
   // Información de partes involucradas
   fideicomitenteName String? // Nombre del fideicomitente (quien aporta los bienes)
@@ -188,14 +229,42 @@ model Trust {
   fiduciarioName     String? // Nombre de la institución fiduciaria (banco)
   fiduciarioRFC      String? // RFC del fiduciario
 
+  // --- Identificación y firma [ONBOARDING] ---
+  fechaFirma       DateTime? // fecha_firma
+  lugarFirma       String?   // lugar_firma
+  jurisdiccion     String?   // tribunales_competentes
+  domicilioLegal   String?   // domicilio_legal
+  domicilioFiscal  String?   // domicilio_fiscal
+  baseCurrency     String?   @default("ARS") // moneda_base (ARS/USD/MXN) para reportes
+  fechaCierreEjercicioDay   Int? // día cierre (1-31), ej. 31 para 31/12
+  fechaCierreEjercicioMonth Int? // mes cierre (1-12)
+
   // Plazos y vigencia
   constitutionDate DateTime? // Fecha de constitución del contrato
   expirationDate   DateTime? // Fecha de vencimiento calculada
-  maxTermYears     Int? // Plazo máximo en años (30, 50, 70)
+  maxTermYears     Int? // plazo_maximo en años (30, 50, 70)
   termType         String? // 'STANDARD' (30 años), 'FOREIGN' (50 años), 'DISABILITY' (70 años)
+  fechaObjetivoEntrega DateTime? // fecha_objetivo_entrega (si el contrato la fija)
+  reglasExtincionResumen String? @db.Text // resumen operativo de extinción [ONBOARDING]
 
-  // Consenso Comité Técnico
+  // --- Objeto y alcance [ONBOARDING] ---
+  objetoTexto        String?   @db.Text // objeto del fideicomiso (o custom)
+  finalidadCategoria String?   // obra/PH/adjudicación; inversión; administración
+  anexosObligatorios Json?    @default("[]") // checklist: Anexo I, II, III (los archivos en Documentos)
+
+  // --- Reglas operativas [ONBOARDING] ---
   requiresConsensus Boolean @default(false) // Si true, excepciones requieren mayoría (2 de 3)
+  reportPeriodicity   String?  @default("MONTHLY") // politica_rendicion: 'MONTHLY' | 'QUARTERLY' | 'ANNUAL'
+  fiscalYearEndMonth  Int?     // Mes de cierre (1-12), ej. 12 para 31/12
+  fiscalYearEndDay    Int?     // Día de cierre (1-31)
+  observationDays     Int?     // ventana_objecion_dias (politica_rendicion)
+  moraAutomatica     Boolean  @default(false) // politica_mora
+  diasGracia         Int?     // días de gracia antes de mora
+  permisosPortal     Json?    @default("{}") // beneficiarios ven: aportes/gastos/reportes/obra
+
+  // --- Metadatos [POST] ---
+  tags           String[] @default([]) // inmobiliario, condominio, etapa1, etc.
+  notasInternas   String?  @db.Text
 
   // Obligaciones fiscales
   rfc                   String? // RFC del fideicomiso
@@ -221,9 +290,439 @@ model Trust {
   updatedAt      DateTime        @updatedAt
   assetTemplates AssetTemplate[]
 
+  // Iteración 1: Core Condominios / trazabilidad
+  contributions      Contribution[]
+  budgetItems        BudgetItem[]
+  cashflowPlans      CashflowPlan[]
+  expenses           Expense[]
+  fiduciaryAccounts  FiduciaryAccount[]
+  contractDocuments  ContractDocument[]
+  insurancePolicies  InsurancePolicy[]
+  checklistItems     ChecklistItem[]
+  trustConcepts      TrustConcept[]
+  // Iteración 3: Obra e hitos
+  milestones         Milestone[]
+  // Iteración 4: Policy engine
+  approvalPolicies   ApprovalPolicy[]
+  approvalRequests   ApprovalRequest[]
+  // Iteración 5: Unidades funcionales
+  units               Unit[]
+  unitSelectionRounds UnitSelectionRound[]
+  saleProcesses       SaleProcess[]
+
   @@index([trustId])
   @@index([expirationDate])
   @@index([active])
+  @@index([trustType])
+  @@index([trustTypeId])
+  @@index([status])
+}
+
+// --- Iteración 1: Aportes y bienes ---
+enum ContributionType {
+  MONEY
+  GOOD
+  SERVICE
+}
+
+enum ContributionStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+model Contribution {
+  id          String            @id @default(uuid())
+  trustId     String
+  trust       Trust             @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  contributorId String?          // Actor.id del aportante (opcional si es genérico)
+  concept     String            // Concepto del aporte
+  amount      Decimal           @db.Decimal(18, 2)
+  currency    String            @default("MXN") // ISO 4217
+  contributionType ContributionType @default(MONEY)
+  dueDate     DateTime          // Vencimiento
+  paidAt      DateTime?
+  status      ContributionStatus @default(PENDING)
+  evidenceUrl String?            // URL del comprobante
+  evidenceHash String?
+  metadata    Json?              // Participación %, etc.
+
+  // Mora e intimación (Iteración 2)
+  intimacionSentAt    DateTime?  // Fecha de envío de intimación
+  intimacionDocUrl    String?    // URL del documento de intimación enviado
+  intimacionTemplate  String?    // Clave de plantilla usada (ej. "default_15_days")
+
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([trustId])
+  @@index([contributorId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+// --- Iteración 1: Presupuesto y flujo de fondos ---
+model BudgetItem {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name        String   // Rubro (ej. "Obra civil", "Honorarios")
+  code        String?  // Código opcional
+  amount      Decimal  @db.Decimal(18, 2)
+  currency    String   @default("MXN")
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  expenses    Expense[]
+
+  @@index([trustId])
+}
+
+model CashflowPlan {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name        String   // Ej. "Plan desembolsos 2025"
+  planType    String   // 'BY_MILESTONE' | 'BY_MONTH'
+  schedule    Json     // [{ month?, milestoneId?, amount, dueDate }] o similar
+  totalAmount Decimal  @db.Decimal(18, 2)
+  currency    String   @default("MXN")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([trustId])
+}
+
+// --- Iteración 1: Gastos y cuentas ---
+model Expense {
+  id             String   @id @default(uuid())
+  trustId        String
+  trust          Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  budgetItemId   String?
+  budgetItem     BudgetItem? @relation(fields: [budgetItemId], references: [id], onDelete: SetNull)
+  milestoneId    String?   // Iteración 3: hito asociado (certificación de obra)
+  milestone      Milestone? @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+  concept        String
+  amount         Decimal  @db.Decimal(18, 2)
+  currency       String   @default("MXN")
+  expenseType    String?  // 'DIRECT_COST' | 'INDIRECT_COST' | 'TAX' | 'FIDUCIARY_FEE' | etc.
+  paidAt         DateTime?
+  fiduciaryAccountId String? // Cuenta de la que se pagó
+  metadata       Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  supportingDocuments SupportingDocument[]
+
+  @@index([trustId])
+  @@index([budgetItemId])
+  @@index([milestoneId])
+  @@index([paidAt])
+}
+
+// Iteración 3: Hitos de obra (etapas, certificaciones, avance %)
+model Milestone {
+  id            String   @id @default(uuid())
+  trustId       String
+  trust         Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name          String   // Ej. "Etapa 1 - Cimentación", "Certificación 50%"
+  description   String?
+  dueDate       DateTime?
+  completedAt   DateTime?
+  progressPercent Int    @default(0) // 0-100
+  evidenceUrl   String?
+  evidenceHash  String?
+  parentId      String?  // Hito padre (etapa contiene sub-hitros)
+  parent        Milestone?  @relation("MilestoneHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children      Milestone[] @relation("MilestoneHierarchy")
+  metadata      Json?    // Certificación, acta, etc.
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  expenses      Expense[]
+
+  @@index([trustId])
+  @@index([parentId])
+  @@index([dueDate])
+}
+
+// Iteración 4: Policy engine - reglas de aprobación por Trust y tipo de acción
+model ApprovalPolicy {
+  id           String   @id @default(uuid())
+  trustId      String
+  trust        Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  actionType   String   // APPROVE_EXPENSE, APPROVE_MILESTONE, APPROVE_PROJECT, EXCEPTION_ASSET, SELL_UNIT, etc.
+  ruleType     String   // UNANIMOUS | MAJORITY | ROLE
+  requiredRoles String[] // ActorRole cuando ruleType = ROLE
+  deadlineDays Int?     // Plazo en días para responder
+  silenceMeans String?  // APPROVE | REJECT | NEUTRAL
+  documentationRequired Json? // Lista de documentos requeridos
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([trustId, actionType])
+  @@index([trustId])
+}
+
+// Solicitud de aprobación genérica (entidad + tipo de acción)
+model ApprovalRequest {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  actionType  String
+  entityType  String   // Expense, Milestone, Asset, Unit, SaleProcess
+  entityId    String
+  status      String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  requestedBy String   // Actor.id
+  createdAt   DateTime @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?  // Actor.id
+
+  votes       ApprovalVote[]
+
+  @@index([trustId])
+  @@index([entityType])
+  @@index([entityId])
+  @@index([status])
+}
+
+model ApprovalVote {
+  id        String   @id @default(uuid())
+  requestId String
+  request   ApprovalRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  voterId   String   // Actor.id
+  vote      String   // APPROVE | REJECT
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@unique([requestId, voterId])
+  @@index([requestId])
+  @@index([voterId])
+}
+
+// Iteración 5: Unidades funcionales (departamentos, cocheras)
+enum UnitStatus {
+  AVAILABLE
+  RESERVED
+  IN_MARKETING
+  ASSIGNED
+  ADJUDICATED
+  CONVEYED
+}
+
+model Unit {
+  id          String     @id @default(uuid())
+  trustId     String
+  trust       Trust      @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name        String     // Ej. "Depto 101", "Cochera A1"
+  unitType    String?    // APARTMENT_1BR, APARTMENT_2BR, PARKING, etc.
+  areaSqm     Decimal?   @db.Decimal(10, 2)
+  status      UnitStatus @default(AVAILABLE)
+  metadata    Json?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  allocations UnitAllocation[]
+
+  @@index([trustId])
+  @@index([status])
+}
+
+model UnitAllocation {
+  id        String   @id @default(uuid())
+  unitId    String
+  unit      Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  actorId   String   // Beneficiario asignado
+  roundId   String?  // Ronda en que se asignó
+  allocatedAt DateTime @default(now())
+  metadata  Json?
+
+  @@unique([unitId])
+  @@index([unitId])
+  @@index([actorId])
+}
+
+model UnitSelectionRound {
+  id        String   @id @default(uuid())
+  trustId   String
+  trust     Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name      String   // Ej. "Ronda 1 - Elección de unidades"
+  roundType String   @default("ROTATING") // ROTATING | ALTERNATING | CUSTOM
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+  minutesUrl String?
+  minutesHash String?
+  metadata  Json?    // Orden de sorteo, acta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([trustId])
+}
+
+// Iteración 6: Comercialización / terceros adquirentes
+model SaleProcess {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  unitId      String?  // Unidad en venta/cesión
+  status      String   @default("PIPELINE") // PIPELINE | RESERVED | DUE_DILIGENCE | CLOSED
+  buyerActorId String? // Tercero adquirente (Actor.id) cuando se cierra
+  metadata    Json?    // Precio, condiciones
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  reservations SaleReservation[]
+
+  @@index([trustId])
+  @@index([unitId])
+  @@index([status])
+}
+
+model SaleReservation {
+  id          String   @id @default(uuid())
+  saleProcessId String
+  saleProcess   SaleProcess @relation(fields: [saleProcessId], references: [id], onDelete: Cascade)
+  interestedActorId String? // Actor.id del interesado
+  contactEmail String?
+  contactName  String?
+  notes        String?
+  createdAt    DateTime @default(now())
+
+  @@index([saleProcessId])
+}
+
+model SupportingDocument {
+  id        String   @id @default(uuid())
+  expenseId String
+  expense   Expense  @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  documentUrl  String?
+  documentHash String?
+  docType   String?  // 'INVOICE' | 'CONTRACT' | 'RECEIPT'
+  createdAt DateTime @default(now())
+
+  @@index([expenseId])
+}
+
+model FiduciaryAccount {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  name        String   // Ej. "Cuenta fiduciaria principal"
+  accountNumber String?
+  bankName    String?
+  currency    String   @default("MXN")
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  movements   BankMovement[]
+
+  @@index([trustId])
+}
+
+model BankMovement {
+  id          String   @id @default(uuid())
+  accountId   String
+  account     FiduciaryAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  date        DateTime
+  concept     String
+  amount      Decimal  @db.Decimal(18, 2) // Positivo = ingreso, negativo = egreso
+  balance     Decimal? @db.Decimal(18, 2) // Saldo después (opcional, para conciliación)
+  reference   String?  // Referencia externa (conciliación manual/CSV)
+  reconciled  Boolean  @default(false)
+  reconciledWith String? // expenseId u otro id si se concilia con un gasto
+  createdAt   DateTime @default(now())
+
+  @@index([accountId])
+  @@index([date])
+  @@index([reconciled])
+}
+
+// --- Iteración 1: Documentación base ---
+model ContractDocument {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  docType     String   // 'CONTRACT' | 'BUDGET_PLAN' | 'PROJECT_DRAFT' | 'SPECS' | etc.
+  name        String
+  documentUrl String?
+  documentHash String?
+  signedAt    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  annexes     ContractAnnex[]
+
+  @@index([trustId])
+  @@index([docType])
+}
+
+model ContractAnnex {
+  id        String   @id @default(uuid())
+  contractDocumentId String
+  contractDocument ContractDocument @relation(fields: [contractDocumentId], references: [id], onDelete: Cascade)
+  annexType String?  // 'BUDGET_PLAN' | 'PROJECT_DRAFT' | 'SPECS'
+  name      String
+  documentUrl String?
+  documentHash String?
+  createdAt  DateTime @default(now())
+
+  @@index([contractDocumentId])
+}
+
+// --- Iteración 1: Seguros (opcional) ---
+model InsurancePolicy {
+  id           String    @id @default(uuid())
+  trustId      String
+  trust        Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  policyType   String    // 'CONSTRUCTION' | 'LIABILITY' | 'ART_2071' | etc.
+  insurer      String?
+  policyNumber String?
+  startDate    DateTime?
+  endDate      DateTime?
+  documentUrl String?
+  documentHash String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([trustId])
+  @@index([endDate])
+}
+
+// Checklist operativo de cumplimiento (Iteración 8)
+model ChecklistItem {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  title       String
+  description String?
+  category    String?  // DOCUMENT | MILESTONE | COMPLIANCE
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+  dueDate    DateTime?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([trustId])
+  @@index([completed])
+}
+
+// Glosario de conceptos por fideicomiso (Iteración 9): nombres genéricos parametrizables
+model TrustConcept {
+  id          String   @id @default(uuid())
+  trustId     String
+  trust       Trust    @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+  conceptKey  String   // MILESTONE_PROGRESS, CONTRIBUTION, UNIT, etc.
+  displayName String   // "Avance de obra", "Aporte", "Unidad funcional"
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([trustId, conceptKey])
+  @@index([trustId])
 }
 
 // Estados de Cuenta Mensuales según Cláusula Décima
@@ -250,8 +749,9 @@ model MonthlyStatement {
   documentUrl  String? // URL del PDF del estado de cuenta
   documentHash String? // Hash del documento para integridad
 
-  // Aprobación del Comité Técnico
-  status       String    @default("PENDING") // 'PENDING', 'APPROVED', 'OBSERVED', 'TACITLY_APPROVED'
+  // Aprobación del Comité Técnico / workflow (Iteración 7)
+  status       String    @default("PENDING") // 'PENDING', 'PUBLISHED', 'APPROVED', 'OBSERVED', 'TACITLY_APPROVED', 'CLOSED'
+  reportPhase  String?   @default("DRAFT")   // DRAFT | PUBLISHED | CLOSED
   submittedAt  DateTime  @default(now())
   reviewedAt   DateTime?
   reviewedBy   String? // Actor.id del miembro del Comité que revisó
@@ -365,8 +865,10 @@ model ActorTrust {
 
   // Rol específico dentro del fideicomiso
   // Un mismo actor puede tener diferentes roles en diferentes fideicomisos
-  // Ejemplo: FIDUCIARIO en trust A, BENEFICIARIO en trust B
   roleInTrust ActorRole
+
+  // Etiqueta por contrato (Iteración 10): FIDUCIANTE_A, FIDUCIANTE_B, BENEFICIARIO_A, etc.
+  partyType String?
 
   // Fechas
   assignedAt DateTime  @default(now())

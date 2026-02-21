@@ -47,6 +47,7 @@ export type MonthlyStatementMinAggregateOutputType = {
   documentUrl: string | null
   documentHash: string | null
   status: string | null
+  reportPhase: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
   reviewedBy: string | null
@@ -67,6 +68,7 @@ export type MonthlyStatementMaxAggregateOutputType = {
   documentUrl: string | null
   documentHash: string | null
   status: string | null
+  reportPhase: string | null
   submittedAt: Date | null
   reviewedAt: Date | null
   reviewedBy: string | null
@@ -90,6 +92,7 @@ export type MonthlyStatementCountAggregateOutputType = {
   documentUrl: number
   documentHash: number
   status: number
+  reportPhase: number
   submittedAt: number
   reviewedAt: number
   reviewedBy: number
@@ -122,6 +125,7 @@ export type MonthlyStatementMinAggregateInputType = {
   documentUrl?: true
   documentHash?: true
   status?: true
+  reportPhase?: true
   submittedAt?: true
   reviewedAt?: true
   reviewedBy?: true
@@ -142,6 +146,7 @@ export type MonthlyStatementMaxAggregateInputType = {
   documentUrl?: true
   documentHash?: true
   status?: true
+  reportPhase?: true
   submittedAt?: true
   reviewedAt?: true
   reviewedBy?: true
@@ -165,6 +170,7 @@ export type MonthlyStatementCountAggregateInputType = {
   documentUrl?: true
   documentHash?: true
   status?: true
+  reportPhase?: true
   submittedAt?: true
   reviewedAt?: true
   reviewedBy?: true
@@ -275,6 +281,7 @@ export type MonthlyStatementGroupByOutputType = {
   documentUrl: string | null
   documentHash: string | null
   status: string
+  reportPhase: string | null
   submittedAt: Date
   reviewedAt: Date | null
   reviewedBy: string | null
@@ -321,6 +328,7 @@ export type MonthlyStatementWhereInput = {
   documentUrl?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   documentHash?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   status?: Prisma.StringFilter<"MonthlyStatement"> | string
+  reportPhase?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"MonthlyStatement"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"MonthlyStatement"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
@@ -345,6 +353,7 @@ export type MonthlyStatementOrderByWithRelationInput = {
   documentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  reportPhase?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -373,6 +382,7 @@ export type MonthlyStatementWhereUniqueInput = Prisma.AtLeast<{
   documentUrl?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   documentHash?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   status?: Prisma.StringFilter<"MonthlyStatement"> | string
+  reportPhase?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"MonthlyStatement"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"MonthlyStatement"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
@@ -397,6 +407,7 @@ export type MonthlyStatementOrderByWithAggregationInput = {
   documentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  reportPhase?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -428,6 +439,7 @@ export type MonthlyStatementScalarWhereWithAggregatesInput = {
   documentUrl?: Prisma.StringNullableWithAggregatesFilter<"MonthlyStatement"> | string | null
   documentHash?: Prisma.StringNullableWithAggregatesFilter<"MonthlyStatement"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"MonthlyStatement"> | string
+  reportPhase?: Prisma.StringNullableWithAggregatesFilter<"MonthlyStatement"> | string | null
   submittedAt?: Prisma.DateTimeWithAggregatesFilter<"MonthlyStatement"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MonthlyStatement"> | Date | string | null
   reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"MonthlyStatement"> | string | null
@@ -450,6 +462,7 @@ export type MonthlyStatementCreateInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -474,6 +487,7 @@ export type MonthlyStatementUncheckedCreateInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -496,6 +510,7 @@ export type MonthlyStatementUpdateInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -520,6 +535,7 @@ export type MonthlyStatementUncheckedUpdateInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -543,6 +559,7 @@ export type MonthlyStatementCreateManyInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -565,6 +582,7 @@ export type MonthlyStatementUpdateManyMutationInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -588,6 +606,7 @@ export type MonthlyStatementUncheckedUpdateManyInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -627,6 +646,7 @@ export type MonthlyStatementCountOrderByAggregateInput = {
   documentUrl?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  reportPhase?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
@@ -652,6 +672,7 @@ export type MonthlyStatementMaxOrderByAggregateInput = {
   documentUrl?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  reportPhase?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
@@ -672,6 +693,7 @@ export type MonthlyStatementMinOrderByAggregateInput = {
   documentUrl?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  reportPhase?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
@@ -728,14 +750,6 @@ export type MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput = {
   deleteMany?: Prisma.MonthlyStatementScalarWhereInput | Prisma.MonthlyStatementScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type MonthlyStatementCreateWithoutTrustInput = {
   id?: string
   year: number
@@ -749,6 +763,7 @@ export type MonthlyStatementCreateWithoutTrustInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -771,6 +786,7 @@ export type MonthlyStatementUncheckedCreateWithoutTrustInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -823,6 +839,7 @@ export type MonthlyStatementScalarWhereInput = {
   documentUrl?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   documentHash?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   status?: Prisma.StringFilter<"MonthlyStatement"> | string
+  reportPhase?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"MonthlyStatement"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"MonthlyStatement"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"MonthlyStatement"> | string | null
@@ -845,6 +862,7 @@ export type MonthlyStatementCreateManyTrustInput = {
   documentUrl?: string | null
   documentHash?: string | null
   status?: string
+  reportPhase?: string | null
   submittedAt?: Date | string
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
@@ -867,6 +885,7 @@ export type MonthlyStatementUpdateWithoutTrustInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -889,6 +908,7 @@ export type MonthlyStatementUncheckedUpdateWithoutTrustInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -911,6 +931,7 @@ export type MonthlyStatementUncheckedUpdateManyWithoutTrustInput = {
   documentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  reportPhase?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -936,6 +957,7 @@ export type MonthlyStatementSelect<ExtArgs extends runtime.Types.Extensions.Inte
   documentUrl?: boolean
   documentHash?: boolean
   status?: boolean
+  reportPhase?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
@@ -960,6 +982,7 @@ export type MonthlyStatementSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   documentUrl?: boolean
   documentHash?: boolean
   status?: boolean
+  reportPhase?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
@@ -984,6 +1007,7 @@ export type MonthlyStatementSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   documentUrl?: boolean
   documentHash?: boolean
   status?: boolean
+  reportPhase?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
@@ -1008,6 +1032,7 @@ export type MonthlyStatementSelectScalar = {
   documentUrl?: boolean
   documentHash?: boolean
   status?: boolean
+  reportPhase?: boolean
   submittedAt?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
@@ -1017,7 +1042,7 @@ export type MonthlyStatementSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MonthlyStatementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trustId" | "year" | "month" | "statementDate" | "periodStart" | "periodEnd" | "summary" | "assets" | "transactions" | "documentUrl" | "documentHash" | "status" | "submittedAt" | "reviewedAt" | "reviewedBy" | "observations" | "tacitlyApprovedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["monthlyStatement"]>
+export type MonthlyStatementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trustId" | "year" | "month" | "statementDate" | "periodStart" | "periodEnd" | "summary" | "assets" | "transactions" | "documentUrl" | "documentHash" | "status" | "reportPhase" | "submittedAt" | "reviewedAt" | "reviewedBy" | "observations" | "tacitlyApprovedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["monthlyStatement"]>
 export type MonthlyStatementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trust?: boolean | Prisma.TrustDefaultArgs<ExtArgs>
 }
@@ -1047,6 +1072,7 @@ export type $MonthlyStatementPayload<ExtArgs extends runtime.Types.Extensions.In
     documentUrl: string | null
     documentHash: string | null
     status: string
+    reportPhase: string | null
     submittedAt: Date
     reviewedAt: Date | null
     reviewedBy: string | null
@@ -1491,6 +1517,7 @@ export interface MonthlyStatementFieldRefs {
   readonly documentUrl: Prisma.FieldRef<"MonthlyStatement", 'String'>
   readonly documentHash: Prisma.FieldRef<"MonthlyStatement", 'String'>
   readonly status: Prisma.FieldRef<"MonthlyStatement", 'String'>
+  readonly reportPhase: Prisma.FieldRef<"MonthlyStatement", 'String'>
   readonly submittedAt: Prisma.FieldRef<"MonthlyStatement", 'DateTime'>
   readonly reviewedAt: Prisma.FieldRef<"MonthlyStatement", 'DateTime'>
   readonly reviewedBy: Prisma.FieldRef<"MonthlyStatement", 'String'>

@@ -40,3 +40,43 @@ export const ComplianceStatus = {
 } as const
 
 export type ComplianceStatus = (typeof ComplianceStatus)[keyof typeof ComplianceStatus]
+
+
+export const TrustStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVO: 'ACTIVO',
+  CERRADO: 'CERRADO'
+} as const
+
+export type TrustStatus = (typeof TrustStatus)[keyof typeof TrustStatus]
+
+
+export const ContributionType = {
+  MONEY: 'MONEY',
+  GOOD: 'GOOD',
+  SERVICE: 'SERVICE'
+} as const
+
+export type ContributionType = (typeof ContributionType)[keyof typeof ContributionType]
+
+
+export const ContributionStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ContributionStatus = (typeof ContributionStatus)[keyof typeof ContributionStatus]
+
+
+export const UnitStatus = {
+  AVAILABLE: 'AVAILABLE',
+  RESERVED: 'RESERVED',
+  IN_MARKETING: 'IN_MARKETING',
+  ASSIGNED: 'ASSIGNED',
+  ADJUDICATED: 'ADJUDICATED',
+  CONVEYED: 'CONVEYED'
+} as const
+
+export type UnitStatus = (typeof UnitStatus)[keyof typeof UnitStatus]

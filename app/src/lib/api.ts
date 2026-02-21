@@ -109,6 +109,17 @@ export interface Trust {
   active: boolean;
 }
 
+/** Tipo/plantilla de fideicomiso (Construcción, Financiero, Administrativo) */
+export interface TrustType {
+  id: string;
+  code: string;
+  name: string;
+  description: string | null;
+  rulesConfig: Record<string, unknown>;
+  onboardingFieldsSchema?: unknown[];
+  isActive: boolean;
+}
+
 export interface Alert {
   id: string;
   assetId: string;
@@ -217,17 +228,26 @@ export const trustsApi = {
     const response = await api.get('/api/trusts');
     return response.data;
   },
+
+  /** Lista tipos de fideicomiso (plantillas) para el selector en creación */
+  getTypes: async (): Promise<TrustType[]> => {
+    const response = await api.get('/api/trusts/types');
+    return response.data;
+  },
   
   create: async (data: {
-    trustId?: string; // Opcional: se genera automáticamente si no se proporciona
+    trustId?: string;
     name?: string;
     initialCapital: number;
     bondLimitPercent?: number;
     otherLimitPercent?: number;
-    constitutionDate?: string; // Fecha de constitución (YYYY-MM-DD)
-    maxTermYears?: number; // Plazo máximo en años (1-99)
-    termType?: 'STANDARD' | 'FOREIGN' | 'DISABILITY'; // Tipo de plazo
-    requiresConsensus?: boolean; // Si requiere mayoría para aprobar excepciones
+    trustTypeId?: string;
+    trustTypeConfig?: { presupuestoTotal?: number; [k: string]: unknown };
+    baseCurrency?: string;
+    constitutionDate?: string;
+    maxTermYears?: number;
+    termType?: 'STANDARD' | 'FOREIGN' | 'DISABILITY';
+    requiresConsensus?: boolean;
   }) => {
     const response = await api.post('/api/trusts', data);
     return response.data;
@@ -260,6 +280,12 @@ export const trustsApi = {
   
   updateLimits: async (trustId: string, data: { bondLimitPercent?: number; otherLimitPercent?: number }) => {
     const response = await api.put(`/api/trusts/${trustId}/limits`, data);
+    return response.data;
+  },
+
+  /** Actualizar estado: active (baja/alta), status (DRAFT | ACTIVO | CERRADO). Solo SUPER_ADMIN. */
+  updateStatus: async (trustId: string, data: { active?: boolean; status?: string }) => {
+    const response = await api.patch(`/api/trusts/${trustId}`, data);
     return response.data;
   },
   
@@ -593,5 +619,63 @@ export const assetTemplatesApi = {
   delete: async (id: string) => {
     const response = await api.delete(`/api/asset-templates/${id}`);
     return response.data;
+  },
+};
+
+export interface Contribution {
+  id: string;
+  trustId: string;
+  contributorId: string | null;
+  concept: string;
+  amount: string;
+  currency: string;
+  contributionType: string;
+  dueDate: string;
+  paidAt: string | null;
+  status: string;
+  evidenceUrl: string | null;
+  intimacionSentAt: string | null;
+  intimacionDocUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const contributionsApi = {
+  list: async (trustId: string, params?: { status?: string; limit?: number; offset?: number }) => {
+    const search = new URLSearchParams({ trustId });
+    if (params?.status) search.set('status', params.status);
+    if (params?.limit != null) search.set('limit', String(params.limit));
+    if (params?.offset != null) search.set('offset', String(params.offset));
+    const response = await api.get(`/api/contributions?${search}`);
+    return response.data as { items: Contribution[]; total: number };
+  },
+  get: async (id: string) => {
+    const response = await api.get(`/api/contributions/${id}`);
+    return response.data as Contribution;
+  },
+  create: async (data: {
+    trustId: string;
+    concept: string;
+    amount: number;
+    currency?: string;
+    contributionType?: string;
+    dueDate: string;
+    evidenceUrl?: string;
+    contributorId?: string;
+  }) => {
+    const response = await api.post('/api/contributions', data);
+    return response.data as Contribution;
+  },
+  update: async (id: string, data: Partial<{ concept: string; amount: number; dueDate: string; evidenceUrl: string }>) => {
+    const response = await api.patch(`/api/contributions/${id}`, data);
+    return response.data as Contribution;
+  },
+  markPaid: async (id: string) => {
+    const response = await api.post(`/api/contributions/${id}/mark-paid`);
+    return response.data as Contribution;
+  },
+  recordIntimacion: async (id: string, data?: { templateKey?: string; documentUrl?: string }) => {
+    const response = await api.post(`/api/contributions/${id}/record-intimacion`, data ?? {});
+    return response.data as Contribution;
   },
 };

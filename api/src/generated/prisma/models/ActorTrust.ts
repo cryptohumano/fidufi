@@ -29,6 +29,7 @@ export type ActorTrustMinAggregateOutputType = {
   actorId: string | null
   trustId: string | null
   roleInTrust: $Enums.ActorRole | null
+  partyType: string | null
   assignedAt: Date | null
   revokedAt: Date | null
   active: boolean | null
@@ -39,6 +40,7 @@ export type ActorTrustMaxAggregateOutputType = {
   actorId: string | null
   trustId: string | null
   roleInTrust: $Enums.ActorRole | null
+  partyType: string | null
   assignedAt: Date | null
   revokedAt: Date | null
   active: boolean | null
@@ -49,6 +51,7 @@ export type ActorTrustCountAggregateOutputType = {
   actorId: number
   trustId: number
   roleInTrust: number
+  partyType: number
   assignedAt: number
   revokedAt: number
   active: number
@@ -61,6 +64,7 @@ export type ActorTrustMinAggregateInputType = {
   actorId?: true
   trustId?: true
   roleInTrust?: true
+  partyType?: true
   assignedAt?: true
   revokedAt?: true
   active?: true
@@ -71,6 +75,7 @@ export type ActorTrustMaxAggregateInputType = {
   actorId?: true
   trustId?: true
   roleInTrust?: true
+  partyType?: true
   assignedAt?: true
   revokedAt?: true
   active?: true
@@ -81,6 +86,7 @@ export type ActorTrustCountAggregateInputType = {
   actorId?: true
   trustId?: true
   roleInTrust?: true
+  partyType?: true
   assignedAt?: true
   revokedAt?: true
   active?: true
@@ -164,6 +170,7 @@ export type ActorTrustGroupByOutputType = {
   actorId: string
   trustId: string
   roleInTrust: $Enums.ActorRole
+  partyType: string | null
   assignedAt: Date
   revokedAt: Date | null
   active: boolean
@@ -195,6 +202,7 @@ export type ActorTrustWhereInput = {
   actorId?: Prisma.StringFilter<"ActorTrust"> | string
   trustId?: Prisma.StringFilter<"ActorTrust"> | string
   roleInTrust?: Prisma.EnumActorRoleFilter<"ActorTrust"> | $Enums.ActorRole
+  partyType?: Prisma.StringNullableFilter<"ActorTrust"> | string | null
   assignedAt?: Prisma.DateTimeFilter<"ActorTrust"> | Date | string
   revokedAt?: Prisma.DateTimeNullableFilter<"ActorTrust"> | Date | string | null
   active?: Prisma.BoolFilter<"ActorTrust"> | boolean
@@ -207,6 +215,7 @@ export type ActorTrustOrderByWithRelationInput = {
   actorId?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   roleInTrust?: Prisma.SortOrder
+  partyType?: Prisma.SortOrderInput | Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
@@ -223,6 +232,7 @@ export type ActorTrustWhereUniqueInput = Prisma.AtLeast<{
   actorId?: Prisma.StringFilter<"ActorTrust"> | string
   trustId?: Prisma.StringFilter<"ActorTrust"> | string
   roleInTrust?: Prisma.EnumActorRoleFilter<"ActorTrust"> | $Enums.ActorRole
+  partyType?: Prisma.StringNullableFilter<"ActorTrust"> | string | null
   assignedAt?: Prisma.DateTimeFilter<"ActorTrust"> | Date | string
   revokedAt?: Prisma.DateTimeNullableFilter<"ActorTrust"> | Date | string | null
   active?: Prisma.BoolFilter<"ActorTrust"> | boolean
@@ -235,6 +245,7 @@ export type ActorTrustOrderByWithAggregationInput = {
   actorId?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   roleInTrust?: Prisma.SortOrder
+  partyType?: Prisma.SortOrderInput | Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   active?: Prisma.SortOrder
@@ -251,6 +262,7 @@ export type ActorTrustScalarWhereWithAggregatesInput = {
   actorId?: Prisma.StringWithAggregatesFilter<"ActorTrust"> | string
   trustId?: Prisma.StringWithAggregatesFilter<"ActorTrust"> | string
   roleInTrust?: Prisma.EnumActorRoleWithAggregatesFilter<"ActorTrust"> | $Enums.ActorRole
+  partyType?: Prisma.StringNullableWithAggregatesFilter<"ActorTrust"> | string | null
   assignedAt?: Prisma.DateTimeWithAggregatesFilter<"ActorTrust"> | Date | string
   revokedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ActorTrust"> | Date | string | null
   active?: Prisma.BoolWithAggregatesFilter<"ActorTrust"> | boolean
@@ -259,6 +271,7 @@ export type ActorTrustScalarWhereWithAggregatesInput = {
 export type ActorTrustCreateInput = {
   id?: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -271,6 +284,7 @@ export type ActorTrustUncheckedCreateInput = {
   actorId: string
   trustId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -279,6 +293,7 @@ export type ActorTrustUncheckedCreateInput = {
 export type ActorTrustUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -291,6 +306,7 @@ export type ActorTrustUncheckedUpdateInput = {
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -301,6 +317,7 @@ export type ActorTrustCreateManyInput = {
   actorId: string
   trustId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -309,6 +326,7 @@ export type ActorTrustCreateManyInput = {
 export type ActorTrustUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -319,6 +337,7 @@ export type ActorTrustUncheckedUpdateManyInput = {
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -344,6 +363,7 @@ export type ActorTrustCountOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   roleInTrust?: Prisma.SortOrder
+  partyType?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   active?: Prisma.SortOrder
@@ -354,6 +374,7 @@ export type ActorTrustMaxOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   roleInTrust?: Prisma.SortOrder
+  partyType?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   active?: Prisma.SortOrder
@@ -364,6 +385,7 @@ export type ActorTrustMinOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   roleInTrust?: Prisma.SortOrder
+  partyType?: Prisma.SortOrder
   assignedAt?: Prisma.SortOrder
   revokedAt?: Prisma.SortOrder
   active?: Prisma.SortOrder
@@ -456,6 +478,7 @@ export type ActorTrustUncheckedUpdateManyWithoutTrustNestedInput = {
 export type ActorTrustCreateWithoutActorInput = {
   id?: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -466,6 +489,7 @@ export type ActorTrustUncheckedCreateWithoutActorInput = {
   id?: string
   trustId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -505,6 +529,7 @@ export type ActorTrustScalarWhereInput = {
   actorId?: Prisma.StringFilter<"ActorTrust"> | string
   trustId?: Prisma.StringFilter<"ActorTrust"> | string
   roleInTrust?: Prisma.EnumActorRoleFilter<"ActorTrust"> | $Enums.ActorRole
+  partyType?: Prisma.StringNullableFilter<"ActorTrust"> | string | null
   assignedAt?: Prisma.DateTimeFilter<"ActorTrust"> | Date | string
   revokedAt?: Prisma.DateTimeNullableFilter<"ActorTrust"> | Date | string | null
   active?: Prisma.BoolFilter<"ActorTrust"> | boolean
@@ -513,6 +538,7 @@ export type ActorTrustScalarWhereInput = {
 export type ActorTrustCreateWithoutTrustInput = {
   id?: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -523,6 +549,7 @@ export type ActorTrustUncheckedCreateWithoutTrustInput = {
   id?: string
   actorId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -558,6 +585,7 @@ export type ActorTrustCreateManyActorInput = {
   id?: string
   trustId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -566,6 +594,7 @@ export type ActorTrustCreateManyActorInput = {
 export type ActorTrustUpdateWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -576,6 +605,7 @@ export type ActorTrustUncheckedUpdateWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -585,6 +615,7 @@ export type ActorTrustUncheckedUpdateManyWithoutActorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -594,6 +625,7 @@ export type ActorTrustCreateManyTrustInput = {
   id?: string
   actorId: string
   roleInTrust: $Enums.ActorRole
+  partyType?: string | null
   assignedAt?: Date | string
   revokedAt?: Date | string | null
   active?: boolean
@@ -602,6 +634,7 @@ export type ActorTrustCreateManyTrustInput = {
 export type ActorTrustUpdateWithoutTrustInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -612,6 +645,7 @@ export type ActorTrustUncheckedUpdateWithoutTrustInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -621,6 +655,7 @@ export type ActorTrustUncheckedUpdateManyWithoutTrustInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   actorId?: Prisma.StringFieldUpdateOperationsInput | string
   roleInTrust?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  partyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -633,6 +668,7 @@ export type ActorTrustSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   actorId?: boolean
   trustId?: boolean
   roleInTrust?: boolean
+  partyType?: boolean
   assignedAt?: boolean
   revokedAt?: boolean
   active?: boolean
@@ -645,6 +681,7 @@ export type ActorTrustSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   actorId?: boolean
   trustId?: boolean
   roleInTrust?: boolean
+  partyType?: boolean
   assignedAt?: boolean
   revokedAt?: boolean
   active?: boolean
@@ -657,6 +694,7 @@ export type ActorTrustSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   actorId?: boolean
   trustId?: boolean
   roleInTrust?: boolean
+  partyType?: boolean
   assignedAt?: boolean
   revokedAt?: boolean
   active?: boolean
@@ -669,12 +707,13 @@ export type ActorTrustSelectScalar = {
   actorId?: boolean
   trustId?: boolean
   roleInTrust?: boolean
+  partyType?: boolean
   assignedAt?: boolean
   revokedAt?: boolean
   active?: boolean
 }
 
-export type ActorTrustOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "actorId" | "trustId" | "roleInTrust" | "assignedAt" | "revokedAt" | "active", ExtArgs["result"]["actorTrust"]>
+export type ActorTrustOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "actorId" | "trustId" | "roleInTrust" | "partyType" | "assignedAt" | "revokedAt" | "active", ExtArgs["result"]["actorTrust"]>
 export type ActorTrustInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
   trust?: boolean | Prisma.TrustDefaultArgs<ExtArgs>
@@ -699,6 +738,7 @@ export type $ActorTrustPayload<ExtArgs extends runtime.Types.Extensions.Internal
     actorId: string
     trustId: string
     roleInTrust: $Enums.ActorRole
+    partyType: string | null
     assignedAt: Date
     revokedAt: Date | null
     active: boolean
@@ -1131,6 +1171,7 @@ export interface ActorTrustFieldRefs {
   readonly actorId: Prisma.FieldRef<"ActorTrust", 'String'>
   readonly trustId: Prisma.FieldRef<"ActorTrust", 'String'>
   readonly roleInTrust: Prisma.FieldRef<"ActorTrust", 'ActorRole'>
+  readonly partyType: Prisma.FieldRef<"ActorTrust", 'String'>
   readonly assignedAt: Prisma.FieldRef<"ActorTrust", 'DateTime'>
   readonly revokedAt: Prisma.FieldRef<"ActorTrust", 'DateTime'>
   readonly active: Prisma.FieldRef<"ActorTrust", 'Boolean'>

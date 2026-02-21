@@ -51,11 +51,33 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  TrustType: 'TrustType',
   Actor: 'Actor',
   Asset: 'Asset',
   Alert: 'Alert',
   RuleModification: 'RuleModification',
   Trust: 'Trust',
+  Contribution: 'Contribution',
+  BudgetItem: 'BudgetItem',
+  CashflowPlan: 'CashflowPlan',
+  Expense: 'Expense',
+  Milestone: 'Milestone',
+  ApprovalPolicy: 'ApprovalPolicy',
+  ApprovalRequest: 'ApprovalRequest',
+  ApprovalVote: 'ApprovalVote',
+  Unit: 'Unit',
+  UnitAllocation: 'UnitAllocation',
+  UnitSelectionRound: 'UnitSelectionRound',
+  SaleProcess: 'SaleProcess',
+  SaleReservation: 'SaleReservation',
+  SupportingDocument: 'SupportingDocument',
+  FiduciaryAccount: 'FiduciaryAccount',
+  BankMovement: 'BankMovement',
+  ContractDocument: 'ContractDocument',
+  ContractAnnex: 'ContractAnnex',
+  InsurancePolicy: 'InsurancePolicy',
+  ChecklistItem: 'ChecklistItem',
+  TrustConcept: 'TrustConcept',
   MonthlyStatement: 'MonthlyStatement',
   ComiteSession: 'ComiteSession',
   FiduciarioFee: 'FiduciarioFee',
@@ -80,6 +102,21 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const TrustTypeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  rulesConfig: 'rulesConfig',
+  onboardingFieldsSchema: 'onboardingFieldsSchema',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrustTypeScalarFieldEnum = (typeof TrustTypeScalarFieldEnum)[keyof typeof TrustTypeScalarFieldEnum]
 
 
 export const ActorScalarFieldEnum = {
@@ -158,6 +195,10 @@ export const TrustScalarFieldEnum = {
   id: 'id',
   trustId: 'trustId',
   name: 'name',
+  trustTypeId: 'trustTypeId',
+  trustType: 'trustType',
+  trustTypeConfig: 'trustTypeConfig',
+  status: 'status',
   initialCapital: 'initialCapital',
   bondLimitPercent: 'bondLimitPercent',
   otherLimitPercent: 'otherLimitPercent',
@@ -165,11 +206,33 @@ export const TrustScalarFieldEnum = {
   fideicomitenteRFC: 'fideicomitenteRFC',
   fiduciarioName: 'fiduciarioName',
   fiduciarioRFC: 'fiduciarioRFC',
+  fechaFirma: 'fechaFirma',
+  lugarFirma: 'lugarFirma',
+  jurisdiccion: 'jurisdiccion',
+  domicilioLegal: 'domicilioLegal',
+  domicilioFiscal: 'domicilioFiscal',
+  baseCurrency: 'baseCurrency',
+  fechaCierreEjercicioDay: 'fechaCierreEjercicioDay',
+  fechaCierreEjercicioMonth: 'fechaCierreEjercicioMonth',
   constitutionDate: 'constitutionDate',
   expirationDate: 'expirationDate',
   maxTermYears: 'maxTermYears',
   termType: 'termType',
+  fechaObjetivoEntrega: 'fechaObjetivoEntrega',
+  reglasExtincionResumen: 'reglasExtincionResumen',
+  objetoTexto: 'objetoTexto',
+  finalidadCategoria: 'finalidadCategoria',
+  anexosObligatorios: 'anexosObligatorios',
   requiresConsensus: 'requiresConsensus',
+  reportPeriodicity: 'reportPeriodicity',
+  fiscalYearEndMonth: 'fiscalYearEndMonth',
+  fiscalYearEndDay: 'fiscalYearEndDay',
+  observationDays: 'observationDays',
+  moraAutomatica: 'moraAutomatica',
+  diasGracia: 'diasGracia',
+  permisosPortal: 'permisosPortal',
+  tags: 'tags',
+  notasInternas: 'notasInternas',
   rfc: 'rfc',
   satRegistrationNumber: 'satRegistrationNumber',
   satRegisteredAt: 'satRegisteredAt',
@@ -183,6 +246,331 @@ export const TrustScalarFieldEnum = {
 } as const
 
 export type TrustScalarFieldEnum = (typeof TrustScalarFieldEnum)[keyof typeof TrustScalarFieldEnum]
+
+
+export const ContributionScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  contributorId: 'contributorId',
+  concept: 'concept',
+  amount: 'amount',
+  currency: 'currency',
+  contributionType: 'contributionType',
+  dueDate: 'dueDate',
+  paidAt: 'paidAt',
+  status: 'status',
+  evidenceUrl: 'evidenceUrl',
+  evidenceHash: 'evidenceHash',
+  metadata: 'metadata',
+  intimacionSentAt: 'intimacionSentAt',
+  intimacionDocUrl: 'intimacionDocUrl',
+  intimacionTemplate: 'intimacionTemplate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContributionScalarFieldEnum = (typeof ContributionScalarFieldEnum)[keyof typeof ContributionScalarFieldEnum]
+
+
+export const BudgetItemScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  code: 'code',
+  amount: 'amount',
+  currency: 'currency',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BudgetItemScalarFieldEnum = (typeof BudgetItemScalarFieldEnum)[keyof typeof BudgetItemScalarFieldEnum]
+
+
+export const CashflowPlanScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  planType: 'planType',
+  schedule: 'schedule',
+  totalAmount: 'totalAmount',
+  currency: 'currency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CashflowPlanScalarFieldEnum = (typeof CashflowPlanScalarFieldEnum)[keyof typeof CashflowPlanScalarFieldEnum]
+
+
+export const ExpenseScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  budgetItemId: 'budgetItemId',
+  milestoneId: 'milestoneId',
+  concept: 'concept',
+  amount: 'amount',
+  currency: 'currency',
+  expenseType: 'expenseType',
+  paidAt: 'paidAt',
+  fiduciaryAccountId: 'fiduciaryAccountId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
+export const MilestoneScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  description: 'description',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  progressPercent: 'progressPercent',
+  evidenceUrl: 'evidenceUrl',
+  evidenceHash: 'evidenceHash',
+  parentId: 'parentId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MilestoneScalarFieldEnum = (typeof MilestoneScalarFieldEnum)[keyof typeof MilestoneScalarFieldEnum]
+
+
+export const ApprovalPolicyScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  actionType: 'actionType',
+  ruleType: 'ruleType',
+  requiredRoles: 'requiredRoles',
+  deadlineDays: 'deadlineDays',
+  silenceMeans: 'silenceMeans',
+  documentationRequired: 'documentationRequired',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApprovalPolicyScalarFieldEnum = (typeof ApprovalPolicyScalarFieldEnum)[keyof typeof ApprovalPolicyScalarFieldEnum]
+
+
+export const ApprovalRequestScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  actionType: 'actionType',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  status: 'status',
+  requestedBy: 'requestedBy',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy'
+} as const
+
+export type ApprovalRequestScalarFieldEnum = (typeof ApprovalRequestScalarFieldEnum)[keyof typeof ApprovalRequestScalarFieldEnum]
+
+
+export const ApprovalVoteScalarFieldEnum = {
+  id: 'id',
+  requestId: 'requestId',
+  voterId: 'voterId',
+  vote: 'vote',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type ApprovalVoteScalarFieldEnum = (typeof ApprovalVoteScalarFieldEnum)[keyof typeof ApprovalVoteScalarFieldEnum]
+
+
+export const UnitScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  unitType: 'unitType',
+  areaSqm: 'areaSqm',
+  status: 'status',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UnitScalarFieldEnum = (typeof UnitScalarFieldEnum)[keyof typeof UnitScalarFieldEnum]
+
+
+export const UnitAllocationScalarFieldEnum = {
+  id: 'id',
+  unitId: 'unitId',
+  actorId: 'actorId',
+  roundId: 'roundId',
+  allocatedAt: 'allocatedAt',
+  metadata: 'metadata'
+} as const
+
+export type UnitAllocationScalarFieldEnum = (typeof UnitAllocationScalarFieldEnum)[keyof typeof UnitAllocationScalarFieldEnum]
+
+
+export const UnitSelectionRoundScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  roundType: 'roundType',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  minutesUrl: 'minutesUrl',
+  minutesHash: 'minutesHash',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UnitSelectionRoundScalarFieldEnum = (typeof UnitSelectionRoundScalarFieldEnum)[keyof typeof UnitSelectionRoundScalarFieldEnum]
+
+
+export const SaleProcessScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  unitId: 'unitId',
+  status: 'status',
+  buyerActorId: 'buyerActorId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SaleProcessScalarFieldEnum = (typeof SaleProcessScalarFieldEnum)[keyof typeof SaleProcessScalarFieldEnum]
+
+
+export const SaleReservationScalarFieldEnum = {
+  id: 'id',
+  saleProcessId: 'saleProcessId',
+  interestedActorId: 'interestedActorId',
+  contactEmail: 'contactEmail',
+  contactName: 'contactName',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type SaleReservationScalarFieldEnum = (typeof SaleReservationScalarFieldEnum)[keyof typeof SaleReservationScalarFieldEnum]
+
+
+export const SupportingDocumentScalarFieldEnum = {
+  id: 'id',
+  expenseId: 'expenseId',
+  documentUrl: 'documentUrl',
+  documentHash: 'documentHash',
+  docType: 'docType',
+  createdAt: 'createdAt'
+} as const
+
+export type SupportingDocumentScalarFieldEnum = (typeof SupportingDocumentScalarFieldEnum)[keyof typeof SupportingDocumentScalarFieldEnum]
+
+
+export const FiduciaryAccountScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  name: 'name',
+  accountNumber: 'accountNumber',
+  bankName: 'bankName',
+  currency: 'currency',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FiduciaryAccountScalarFieldEnum = (typeof FiduciaryAccountScalarFieldEnum)[keyof typeof FiduciaryAccountScalarFieldEnum]
+
+
+export const BankMovementScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  date: 'date',
+  concept: 'concept',
+  amount: 'amount',
+  balance: 'balance',
+  reference: 'reference',
+  reconciled: 'reconciled',
+  reconciledWith: 'reconciledWith',
+  createdAt: 'createdAt'
+} as const
+
+export type BankMovementScalarFieldEnum = (typeof BankMovementScalarFieldEnum)[keyof typeof BankMovementScalarFieldEnum]
+
+
+export const ContractDocumentScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  docType: 'docType',
+  name: 'name',
+  documentUrl: 'documentUrl',
+  documentHash: 'documentHash',
+  signedAt: 'signedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractDocumentScalarFieldEnum = (typeof ContractDocumentScalarFieldEnum)[keyof typeof ContractDocumentScalarFieldEnum]
+
+
+export const ContractAnnexScalarFieldEnum = {
+  id: 'id',
+  contractDocumentId: 'contractDocumentId',
+  annexType: 'annexType',
+  name: 'name',
+  documentUrl: 'documentUrl',
+  documentHash: 'documentHash',
+  createdAt: 'createdAt'
+} as const
+
+export type ContractAnnexScalarFieldEnum = (typeof ContractAnnexScalarFieldEnum)[keyof typeof ContractAnnexScalarFieldEnum]
+
+
+export const InsurancePolicyScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  policyType: 'policyType',
+  insurer: 'insurer',
+  policyNumber: 'policyNumber',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  documentUrl: 'documentUrl',
+  documentHash: 'documentHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InsurancePolicyScalarFieldEnum = (typeof InsurancePolicyScalarFieldEnum)[keyof typeof InsurancePolicyScalarFieldEnum]
+
+
+export const ChecklistItemScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  completed: 'completed',
+  completedAt: 'completedAt',
+  dueDate: 'dueDate',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChecklistItemScalarFieldEnum = (typeof ChecklistItemScalarFieldEnum)[keyof typeof ChecklistItemScalarFieldEnum]
+
+
+export const TrustConceptScalarFieldEnum = {
+  id: 'id',
+  trustId: 'trustId',
+  conceptKey: 'conceptKey',
+  displayName: 'displayName',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrustConceptScalarFieldEnum = (typeof TrustConceptScalarFieldEnum)[keyof typeof TrustConceptScalarFieldEnum]
 
 
 export const MonthlyStatementScalarFieldEnum = {
@@ -199,6 +587,7 @@ export const MonthlyStatementScalarFieldEnum = {
   documentUrl: 'documentUrl',
   documentHash: 'documentHash',
   status: 'status',
+  reportPhase: 'reportPhase',
   submittedAt: 'submittedAt',
   reviewedAt: 'reviewedAt',
   reviewedBy: 'reviewedBy',
@@ -269,6 +658,7 @@ export const ActorTrustScalarFieldEnum = {
   actorId: 'actorId',
   trustId: 'trustId',
   roleInTrust: 'roleInTrust',
+  partyType: 'partyType',
   assignedAt: 'assignedAt',
   revokedAt: 'revokedAt',
   active: 'active'
@@ -334,19 +724,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

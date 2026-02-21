@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { useAuth } from '../contexts/AuthContext';
-import { Plus, Users, Building2, X, Check, AlertCircle } from 'lucide-react';
+import { Plus, Users, Building2, X, Check, AlertCircle, MoreVertical, Power, PowerOff } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '../components/ui/dialog';
 
 const ROLE_LABELS: Record<string, string> = {
@@ -15,11 +15,34 @@ const ROLE_LABELS: Record<string, string> = {
   REGULADOR: 'Regulador',
 };
 
+/** Etiqueta de moneda por geografía. No usar fallback a MXN para no aplastar el valor guardado. */
+const CURRENCY_LABELS: Record<string, string> = {
+  MXN: 'MXN',
+  ARS: 'ARS',
+  USD: 'USD',
+  EUR: 'EUR',
+};
+function getCurrencyLabel(currency: string | null | undefined): string {
+  if (currency == null || String(currency).trim() === '') return '—';
+  return CURRENCY_LABELS[String(currency).toUpperCase()] ?? String(currency);
+}
+
+/** Formatea un monto con locale según moneda (multi-geografía). Respeta ARS/USD/EUR/MXN del trust. */
+function formatAmount(value: number | string, currency: string | null | undefined): string {
+  const num = typeof value === 'string' ? parseFloat(value) : value;
+  if (Number.isNaN(num)) return '—';
+  const code = getCurrencyLabel(currency);
+  if (code === '—') return `${num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} (moneda no definida)`;
+  const locale = code === 'ARS' ? 'es-AR' : code === 'USD' ? 'en-US' : code === 'EUR' ? 'de-DE' : 'es-MX';
+  return `${num.toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${code}`;
+}
+
 export function TrustsManagementPage() {
   const { actor } = useAuth();
   const queryClient = useQueryClient();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showAssignDialog, setShowAssignDialog] = useState(false);
+  const [showStatusDialog, setShowStatusDialog] = useState(false);
   const [selectedTrust, setSelectedTrust] = useState<string>('');
 
   const { data: trusts, isLoading: trustsLoading } = useQuery({
@@ -39,13 +62,18 @@ export function TrustsManagementPage() {
       initialCapital: number;
       bondLimitPercent?: number;
       otherLimitPercent?: number;
+      trustTypeId?: string;
+      trustTypeConfig?: { presupuestoTotal?: number };
+      baseCurrency?: string;
     }) => {
       console.log('📤 Enviando datos al backend:', data);
       return trustsApi.create(data);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['trusts'] });
+    onSuccess: async () => {
       setShowCreateDialog(false);
+      // Forzar petición GET /api/trusts y actualizar caché (refetchQueries a veces no dispara la petición)
+      const list = await trustsApi.list();
+      queryClient.setQueryData(['trusts'], list);
     },
     onError: (error: any) => {
       console.error('❌ Error creando fideicomiso:', error);
@@ -63,14 +91,38 @@ export function TrustsManagementPage() {
     mutationFn: (data: { actorId: string; trustId: string; roleInTrust: string }) =>
       actorTrustApi.assignActor(data),
     onSuccess: () => {
-      // Invalidar todas las queries relacionadas para que se actualicen los dashboards
       queryClient.invalidateQueries({ queryKey: ['trusts'] });
       queryClient.invalidateQueries({ queryKey: ['actor-trust'] });
       queryClient.invalidateQueries({ queryKey: ['trust-actors', selectedTrust] });
       queryClient.invalidateQueries({ queryKey: ['assets'] });
       queryClient.invalidateQueries({ queryKey: ['alerts'] });
       queryClient.invalidateQueries({ queryKey: ['auditLogs'] });
-      // No cerrar el diálogo para permitir múltiples asignaciones
+    },
+  });
+
+  const revokeActorMutation = useMutation({
+    mutationFn: ({ actorId, trustId }: { actorId: string; trustId: string }) =>
+      actorTrustApi.revokeActor(actorId, trustId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['trusts'] });
+      queryClient.invalidateQueries({ queryKey: ['actor-trust'] });
+      queryClient.invalidateQueries({ queryKey: ['trust-actors', selectedTrust] });
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
+      queryClient.invalidateQueries({ queryKey: ['alerts'] });
+    },
+  });
+
+  const updateTrustStatusMutation = useMutation({
+    mutationFn: ({ trustId, active, status }: { trustId: string; active?: boolean; status?: string }) =>
+      trustsApi.updateStatus(trustId, { active, status }),
+    onSuccess: async () => {
+      const list = await trustsApi.list();
+      queryClient.setQueryData(['trusts'], list);
+      setShowStatusDialog(false);
+      setSelectedTrust('');
+    },
+    onError: (error: any) => {
+      alert(error?.response?.data?.error || error?.message || 'Error al actualizar');
     },
   });
 
@@ -107,55 +159,126 @@ export function TrustsManagementPage() {
 
       {/* Lista de fideicomisos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {trusts?.map((trust: any) => (
-          <Card key={trust.trustId}>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5" />
-                  {trust.trustId}
-                </CardTitle>
-                {trust.active ? (
-                  <Badge variant="default">Activo</Badge>
-                ) : (
-                  <Badge variant="secondary">Inactivo</Badge>
+        {trusts?.map((trust: any) => {
+          const config = trust.trustTypeConfig && typeof trust.trustTypeConfig === 'object' ? trust.trustTypeConfig : {};
+          const hasPresupuestoInConfig = config && 'presupuestoTotal' in config && Number((config as { presupuestoTotal?: number }).presupuestoTotal) > 0;
+          const typeCode = trust.trustTypeRef?.code ?? (trust.trustType === 'CONDOMINIUM' ? 'CONSTRUCCION' : null) ?? (hasPresupuestoInConfig ? 'CONSTRUCCION' : null) ?? null;
+          const typeLabel = trust.trustTypeRef?.name ?? (trust.trustType === 'CONDOMINIUM' ? 'Construcción' : trust.trustType === 'INVESTMENT' ? 'Financiero (Inversión)' : null) ?? (hasPresupuestoInConfig ? 'Construcción' : null) ?? 'Sin tipo';
+          const currency = getCurrencyLabel(trust.baseCurrency);
+          const isConstruction = typeCode === 'CONSTRUCCION';
+          const isFinanciero = typeCode === 'FINANCIERO' || (!typeCode && !isConstruction);
+          const presupuestoTotal = isConstruction && 'presupuestoTotal' in config ? Number((config as { presupuestoTotal?: number }).presupuestoTotal) : null;
+
+          return (
+            <Card key={trust.trustId}>
+              <CardHeader>
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <CardTitle className="flex items-center gap-2">
+                    <Building2 className="h-5 w-5" />
+                    {trust.trustId}
+                  </CardTitle>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <Badge variant="outline" className="text-xs font-normal">
+                      {typeLabel}
+                    </Badge>
+                    {trust.active ? (
+                      <Badge variant="default">Activo</Badge>
+                    ) : (
+                      <Badge variant="secondary">Inactivo</Badge>
+                    )}
+                  </div>
+                </div>
+                {trust.name && <p className="text-sm text-muted-foreground mt-1">{trust.name}</p>}
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 text-sm">
+                  {isConstruction && (
+                    <>
+                      <div>
+                        <span className="text-muted-foreground">Presupuesto total (obra): </span>
+                        <span className="font-semibold">
+                          {presupuestoTotal != null && !Number.isNaN(presupuestoTotal)
+                            ? formatAmount(presupuestoTotal, trust.baseCurrency)
+                            : `— ${currency}`}
+                        </span>
+                      </div>
+                      {trust.status != null && trust.status !== undefined && (
+                        <div>
+                          <span className="text-muted-foreground">Estado: </span>
+                          <span className="font-semibold capitalize">{String(trust.status).toLowerCase()}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {isFinanciero && !isConstruction && (
+                    <>
+                      <div>
+                        <span className="text-muted-foreground">Patrimonio inicial: </span>
+                        <span className="font-semibold">
+                          {formatAmount(trust.initialCapital ?? 0, trust.baseCurrency)}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Límite bonos: </span>
+                        <span className="font-semibold">{trust.bondLimitPercent ?? '—'}%</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Límite otros: </span>
+                        <span className="font-semibold">{trust.otherLimitPercent ?? '—'}%</span>
+                      </div>
+                    </>
+                  )}
+                  {typeCode === 'ADMINISTRATIVO' && (
+                    <>
+                      <div>
+                        <span className="text-muted-foreground">Patrimonio inicial: </span>
+                        <span className="font-semibold">
+                          {formatAmount(trust.initialCapital ?? 0, trust.baseCurrency)}
+                        </span>
+                      </div>
+                      {trust.status && (
+                        <div>
+                          <span className="text-muted-foreground">Estado: </span>
+                          <span className="font-semibold capitalize">{String(trust.status).toLowerCase()}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  <div className="pt-1 border-t mt-1">
+                    <span className="text-muted-foreground text-xs">Moneda: </span>
+                    <span className="text-xs font-medium">{currency}</span>
+                  </div>
+                </div>
+                {actor?.isSuperAdmin && (
+                  <div className="flex gap-2 mt-4">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        setSelectedTrust(trust.trustId);
+                        setShowAssignDialog(true);
+                      }}
+                    >
+                      <Users className="h-4 w-4 mr-2" />
+                      Asignar Usuarios
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      title="Estado / Dar de baja"
+                      onClick={() => {
+                        setSelectedTrust(trust.trustId);
+                        setShowStatusDialog(true);
+                      }}
+                    >
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </div>
                 )}
-              </div>
-              {trust.name && <p className="text-sm text-muted-foreground mt-1">{trust.name}</p>}
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Patrimonio inicial: </span>
-                  <span className="font-semibold">
-                    ${parseFloat(trust.initialCapital).toLocaleString('es-MX')} MXN
-                  </span>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Límite bonos: </span>
-                  <span className="font-semibold">{trust.bondLimitPercent}%</span>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Límite otros: </span>
-                  <span className="font-semibold">{trust.otherLimitPercent}%</span>
-                </div>
-              </div>
-              {actor?.isSuperAdmin && (
-                <Button
-                  variant="outline"
-                  className="w-full mt-4"
-                  onClick={() => {
-                    setSelectedTrust(trust.trustId);
-                    setShowAssignDialog(true);
-                  }}
-                >
-                  <Users className="h-4 w-4 mr-2" />
-                  Asignar Usuarios
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Dialog para crear fideicomiso */}
@@ -174,18 +297,72 @@ export function TrustsManagementPage() {
           open={showAssignDialog}
           onOpenChange={(open) => {
             setShowAssignDialog(open);
-            if (!open) {
-              setSelectedTrust('');
-            }
+            if (!open) setSelectedTrust('');
           }}
           trustId={selectedTrust}
           users={users || []}
-          onAssign={(data) => {
-            assignActorMutation.mutate(data);
-          }}
+          onAssign={(data) => assignActorMutation.mutate(data)}
+          onRevoke={(actorId) => revokeActorMutation.mutate({ actorId, trustId: selectedTrust })}
+          onUpdateRole={(actorId, roleInTrust) =>
+            assignActorMutation.mutate({ actorId, trustId: selectedTrust, roleInTrust })
+          }
           isLoading={assignActorMutation.isPending}
+          isRevoking={revokeActorMutation.isPending}
         />
       )}
+
+      {/* Dialog Estado / Dar de baja (solo SUPER_ADMIN) */}
+      {showStatusDialog && selectedTrust && (() => {
+        const trust = trusts?.find((t: any) => t.trustId === selectedTrust);
+        return (
+          <Dialog open={showStatusDialog} onOpenChange={(open) => { setShowStatusDialog(open); if (!open) setSelectedTrust(''); }}>
+            <DialogContent>
+              <DialogClose onClose={() => setShowStatusDialog(false)} />
+              <DialogHeader>
+                <DialogTitle>Estado del fideicomiso {selectedTrust}</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">{trust?.name || selectedTrust}</p>
+                <div>
+                  <label className="text-sm font-medium block mb-2">En sistema</label>
+                  <div className="flex gap-2">
+                    <Button
+                      variant={trust?.active ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => updateTrustStatusMutation.mutate({ trustId: selectedTrust, active: true })}
+                      disabled={updateTrustStatusMutation.isPending || trust?.active === true}
+                    >
+                      <Power className="h-4 w-4 mr-1" /> Activo (visible)
+                    </Button>
+                    <Button
+                      variant={trust?.active === false ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => updateTrustStatusMutation.mutate({ trustId: selectedTrust, active: false })}
+                      disabled={updateTrustStatusMutation.isPending || trust?.active === false}
+                    >
+                      <PowerOff className="h-4 w-4 mr-1" /> Dar de baja
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Dar de baja lo oculta de la lista para usuarios; no borra datos.</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium block mb-2">Estado del contrato</label>
+                  <select
+                    className="w-full p-2 border rounded-md"
+                    value={trust?.status ?? 'DRAFT'}
+                    onChange={(e) => updateTrustStatusMutation.mutate({ trustId: selectedTrust, status: e.target.value })}
+                    disabled={updateTrustStatusMutation.isPending}
+                  >
+                    <option value="DRAFT">Borrador</option>
+                    <option value="ACTIVO">Activo</option>
+                    <option value="CERRADO">Cerrado</option>
+                  </select>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        );
+      })()}
     </div>
   );
 }
@@ -203,63 +380,99 @@ function CreateTrustDialog({
 }) {
   const [formData, setFormData] = useState({
     name: '',
+    trustTypeId: '' as string,
+    presupuestoTotal: '',
     initialCapital: '',
     bondLimitPercent: '30',
     otherLimitPercent: '70',
+    baseCurrency: 'ARS' as string,
     constitutionDate: '',
     maxTermYears: '30',
     termType: 'STANDARD' as 'STANDARD' | 'FOREIGN' | 'DISABILITY',
+    requiresConsensus: false as boolean,
   });
 
-  // Resetear formulario cuando se abre el diálogo
+  const { data: trustTypes = [], isLoading: typesLoading } = useQuery({
+    queryKey: ['trust-types'],
+    queryFn: () => trustsApi.getTypes(),
+    enabled: open,
+  });
+
+  const selectedType = trustTypes.find((t) => t.id === formData.trustTypeId);
+  const isConstruction = selectedType?.code === 'CONSTRUCCION';
+
   useEffect(() => {
     if (open) {
-      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-      setFormData({
+      const today = new Date().toISOString().split('T')[0];
+      setFormData((prev) => ({
+        ...prev,
         name: '',
+        trustTypeId: '',
+        presupuestoTotal: '',
         initialCapital: '',
         bondLimitPercent: '30',
         otherLimitPercent: '70',
+        baseCurrency: 'ARS',
         constitutionDate: today,
         maxTermYears: '30',
         termType: 'STANDARD',
-      });
+        requiresConsensus: false,
+      }));
     }
   }, [open]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    
-    // Validar que initialCapital esté presente y sea válido
-    if (!formData.initialCapital || isNaN(parseFloat(formData.initialCapital))) {
-      alert('Por favor ingrese un patrimonio inicial válido');
+
+    const rawTypeId = formData.trustTypeId && String(formData.trustTypeId).trim();
+    if (!rawTypeId) {
+      alert('Seleccione el tipo de fideicomiso');
       return;
     }
-    
-    const initialCapitalValue = parseFloat(formData.initialCapital);
-    if (initialCapitalValue <= 0) {
-      alert('El patrimonio inicial debe ser mayor a cero');
-      return;
-    }
-    
-    // Validar fecha de constitución
+
     if (!formData.constitutionDate) {
       alert('Por favor ingrese la fecha de constitución');
       return;
     }
-
     const maxTermYearsValue = parseInt(formData.maxTermYears);
     if (isNaN(maxTermYearsValue) || maxTermYearsValue < 1 || maxTermYearsValue > 99) {
       alert('El plazo máximo debe estar entre 1 y 99 años');
       return;
     }
 
+    if (isConstruction) {
+      const presupuesto = parseFloat(formData.presupuestoTotal);
+      if (!formData.presupuestoTotal || isNaN(presupuesto) || presupuesto <= 0) {
+        alert('Para fideicomiso de construcción ingrese el monto (presupuesto total) mayor a cero');
+        return;
+      }
+      onCreate({
+        name: formData.name || undefined,
+        initialCapital: 0,
+        trustTypeId: rawTypeId,
+        trustTypeConfig: { presupuestoTotal: presupuesto },
+        baseCurrency: (formData.baseCurrency && formData.baseCurrency.trim()) || 'ARS',
+        constitutionDate: formData.constitutionDate,
+        maxTermYears: maxTermYearsValue,
+        termType: formData.termType,
+        requiresConsensus: formData.requiresConsensus,
+      });
+      return;
+    }
+
+    const initialCapitalValue = parseFloat(formData.initialCapital);
+    if (!formData.initialCapital || isNaN(initialCapitalValue) || initialCapitalValue <= 0) {
+      alert('Por favor ingrese un patrimonio inicial válido (mayor a cero)');
+      return;
+    }
+
     onCreate({
-      // trustId se genera automáticamente en el backend
       name: formData.name || undefined,
       initialCapital: initialCapitalValue,
       bondLimitPercent: formData.bondLimitPercent ? parseFloat(formData.bondLimitPercent) : undefined,
       otherLimitPercent: formData.otherLimitPercent ? parseFloat(formData.otherLimitPercent) : undefined,
+      trustTypeId: rawTypeId,
+      baseCurrency: (formData.baseCurrency && formData.baseCurrency.trim()) || 'ARS',
       constitutionDate: formData.constitutionDate,
       maxTermYears: maxTermYearsValue,
       termType: formData.termType,
@@ -284,6 +497,50 @@ function CreateTrustDialog({
           </div>
 
           <div>
+            <label className="text-sm font-medium mb-2 block">
+              Tipo de fideicomiso <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={formData.trustTypeId}
+              onChange={(e) => setFormData({ ...formData, trustTypeId: e.target.value })}
+              required
+              className="w-full p-2 border rounded-md"
+              disabled={typesLoading}
+            >
+              <option value="">Seleccionar tipo</option>
+              {trustTypes.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                  {t.description ? ` — ${t.description}` : ''}
+                </option>
+              ))}
+            </select>
+            {typesLoading && (
+              <p className="text-xs text-muted-foreground mt-1">Cargando tipos...</p>
+            )}
+          </div>
+
+          {isConstruction && (
+            <div>
+              <label className="text-sm font-medium mb-2 block">
+                Presupuesto total (monto obra) <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                value={formData.presupuestoTotal}
+                onChange={(e) => setFormData({ ...formData, presupuestoTotal: e.target.value })}
+                className="w-full p-2 border rounded-md"
+                placeholder="Ej. 5000000"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Monto total de la obra/construcción según contrato
+              </p>
+            </div>
+          )}
+
+          <div>
             <label className="text-sm font-medium mb-2 block">Nombre (opcional)</label>
             <input
               type="text"
@@ -295,44 +552,64 @@ function CreateTrustDialog({
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">
-              Patrimonio Inicial (MXN) <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="number"
-              step="0.01"
-              value={formData.initialCapital}
-              onChange={(e) => setFormData({ ...formData, initialCapital: e.target.value })}
-              required
+            <label className="text-sm font-medium mb-2 block">Moneda base (zona geográfica)</label>
+            <select
+              value={formData.baseCurrency}
+              onChange={(e) => setFormData({ ...formData, baseCurrency: e.target.value })}
               className="w-full p-2 border rounded-md"
-              placeholder="68500000"
-            />
+            >
+              <option value="ARS">ARS (Argentina)</option>
+              <option value="USD">USD (Estados Unidos)</option>
+              <option value="MXN">MXN (México)</option>
+              <option value="EUR">EUR (Eurozona)</option>
+            </select>
+            <p className="text-xs text-muted-foreground mt-1">
+              Moneda para reportes y montos del fideicomiso
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">Límite Bonos (%)</label>
-              <input
-                type="number"
-                step="0.01"
-                value={formData.bondLimitPercent}
-                onChange={(e) => setFormData({ ...formData, bondLimitPercent: e.target.value })}
-                className="w-full p-2 border rounded-md"
-                placeholder="30"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Límite Otros (%)</label>
-              <input
-                type="number"
-                step="0.01"
-                value={formData.otherLimitPercent}
-                onChange={(e) => setFormData({ ...formData, otherLimitPercent: e.target.value })}
-                className="w-full p-2 border rounded-md"
-                placeholder="70"
-              />
-            </div>
-          </div>
+          {!isConstruction && (
+            <>
+              <div>
+                <label className="text-sm font-medium mb-2 block">
+                  Patrimonio inicial <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={formData.initialCapital}
+                  onChange={(e) => setFormData({ ...formData, initialCapital: e.target.value })}
+                  required
+                  className="w-full p-2 border rounded-md"
+                  placeholder="68500000"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Límite Bonos (%)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={formData.bondLimitPercent}
+                    onChange={(e) => setFormData({ ...formData, bondLimitPercent: e.target.value })}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="30"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Límite Otros (%)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={formData.otherLimitPercent}
+                    onChange={(e) => setFormData({ ...formData, otherLimitPercent: e.target.value })}
+                    className="w-full p-2 border rounded-md"
+                    placeholder="70"
+                  />
+                </div>
+              </div>
+            </>
+          )}
 
           <div className="border-t pt-4 space-y-4">
             <h3 className="text-sm font-semibold text-muted-foreground">Plazos y Vigencia</h3>
@@ -437,40 +714,50 @@ function AssignUsersDialog({
   trustId,
   users,
   onAssign,
+  onRevoke,
+  onUpdateRole,
   isLoading,
+  isRevoking,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   trustId: string;
   users: any[];
-  onAssign: (data: any) => void;
+  onAssign: (data: { actorId: string; trustId: string; roleInTrust: string }) => void;
+  onRevoke: (actorId: string) => void;
+  onUpdateRole: (actorId: string, roleInTrust: string) => void;
   isLoading: boolean;
+  isRevoking: boolean;
 }) {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedRole, setSelectedRole] = useState('FIDUCIARIO');
 
-  const { data: trustActors } = useQuery({
+  const { data: trustActors, isError: trustActorsError } = useQuery({
     queryKey: ['trust-actors', trustId],
     queryFn: () => actorTrustApi.getTrustActors(trustId),
     enabled: open && !!trustId,
+    retry: false,
   });
 
-  const assignedActorIds = new Set((trustActors || []).map((a: any) => a.actorId));
-
-  // Filtrar usuarios que no son beneficiarios y que no están ya asignados
+  const assignedActorIds = new Set((trustActors ?? []).map((a: any) => a.actorId));
   const availableUsers = users.filter(
     (user) => user.role !== 'BENEFICIARIO' && !assignedActorIds.has(user.id)
   );
 
   const handleAssign = () => {
     if (!selectedUserId) return;
-    onAssign({
-      actorId: selectedUserId,
-      trustId,
-      roleInTrust: selectedRole,
-    });
-    // Limpiar selección después de asignar para permitir otra asignación
+    onAssign({ actorId: selectedUserId, trustId, roleInTrust: selectedRole });
     setSelectedUserId('');
+  };
+
+  const handleRoleChange = (actorId: string, newRole: string) => {
+    onUpdateRole(actorId, newRole);
+  };
+
+  const handleRevoke = (actorId: string) => {
+    if (window.confirm('¿Revocar el acceso de este usuario al fideicomiso?')) {
+      onRevoke(actorId);
+    }
   };
 
   return (
@@ -532,9 +819,14 @@ function AssignUsersDialog({
             </Button>
           </div>
 
-          {/* Lista de usuarios asignados */}
+          {/* Lista de usuarios asignados: editar rol y revocar */}
           <div>
             <h3 className="text-sm font-semibold mb-3">Usuarios Asignados</h3>
+            {trustActorsError && (
+              <p className="text-sm text-amber-600 dark:text-amber-500 mb-2">
+                No se pudieron cargar los usuarios asignados (fideicomiso no encontrado o sin acceso).
+              </p>
+            )}
             {trustActors && trustActors.length > 0 ? (
               <div className="space-y-2">
                 {trustActors.map((membership: any) => {
@@ -542,17 +834,38 @@ function AssignUsersDialog({
                   return (
                     <div
                       key={membership.id}
-                      className="flex items-center justify-between p-3 border rounded-md"
+                      className="flex flex-wrap items-center justify-between gap-2 p-3 border rounded-md"
                     >
-                      <div>
+                      <div className="min-w-0">
                         <div className="font-medium">{user?.name || user?.email || 'Usuario'}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {ROLE_LABELS[membership.roleInTrust] || membership.roleInTrust}
+                        <div className="flex items-center gap-2 mt-1">
+                          <select
+                            value={membership.roleInTrust}
+                            onChange={(e) => handleRoleChange(membership.actorId, e.target.value)}
+                            disabled={isLoading}
+                            className="text-sm border rounded px-2 py-1 bg-background"
+                          >
+                            {Object.entries(ROLE_LABELS).map(([value, label]) => (
+                              <option key={value} value={value}>
+                                {label}
+                              </option>
+                            ))}
+                          </select>
+                          <Badge variant={membership.active ? 'default' : 'secondary'}>
+                            {membership.active ? 'Activo' : 'Inactivo'}
+                          </Badge>
                         </div>
                       </div>
-                      <Badge variant={membership.active ? 'default' : 'secondary'}>
-                        {membership.active ? 'Activo' : 'Inactivo'}
-                      </Badge>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={() => handleRevoke(membership.actorId)}
+                        disabled={isRevoking}
+                      >
+                        Quitar
+                      </Button>
                     </div>
                   );
                 })}

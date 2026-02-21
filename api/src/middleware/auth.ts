@@ -99,13 +99,15 @@ export function authorize(...allowedRolesOrArray: (ActorRole | ActorRole[])[]): 
     }
 
     // Normalizar allowedRoles a un array plano
-    // Si el primer argumento es un array, usarlo directamente
-    // Si no, usar todos los argumentos como roles individuales
     let rolesArray: ActorRole[];
     if (allowedRolesOrArray.length === 1 && Array.isArray(allowedRolesOrArray[0])) {
       rolesArray = allowedRolesOrArray[0] as ActorRole[];
     } else {
       rolesArray = allowedRolesOrArray as ActorRole[];
+    }
+    // Iteración 10: equivalencias (FIDUCIARIO_ADMIN / FIDUCIARIO_OPERATOR cuentan como FIDUCIARIO)
+    if (rolesArray.includes(ActorRole.FIDUCIARIO) || rolesArray.includes(ActorRole.FIDUCIARIO_ADMIN) || rolesArray.includes(ActorRole.FIDUCIARIO_OPERATOR)) {
+      rolesArray = [...new Set([...rolesArray, ActorRole.FIDUCIARIO, ActorRole.FIDUCIARIO_ADMIN, ActorRole.FIDUCIARIO_OPERATOR])];
     }
 
     if (!rolesArray.includes(req.user.role)) {

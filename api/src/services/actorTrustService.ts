@@ -59,6 +59,7 @@ export async function assignActorToTrust(
           active: true,
           roleInTrust: data.roleInTrust,
           revokedAt: null,
+          ...(data.partyType !== undefined && { partyType: data.partyType }),
         },
       });
 
@@ -90,11 +91,12 @@ export async function assignActorToTrust(
 
       return membership;
     }
-    // Si ya está activo, actualizar el rol
+    // Si ya está activo, actualizar el rol (y partyType si viene)
     const membership = await prisma.actorTrust.update({
       where: { id: existing.id },
       data: {
         roleInTrust: data.roleInTrust,
+        ...(data.partyType !== undefined && { partyType: data.partyType }),
       },
     });
 
@@ -138,6 +140,7 @@ export async function assignActorToTrust(
       actorId: data.actorId,
       trustId: data.trustId,
       roleInTrust: data.roleInTrust,
+      ...(data.partyType !== undefined && { partyType: data.partyType }),
     },
   });
 
@@ -195,6 +198,21 @@ export async function revokeActorFromTrust(actorId: string, trustId: string) {
   });
 }
 
+// Iteración 10: equivalencias de rol (Admin/Operador fiduciario = Fiduciario para permisos)
+const FIDUCIARIO_EQUIVALENTS: ActorRole[] = [
+  ActorRole.FIDUCIARIO,
+  ActorRole.FIDUCIARIO_ADMIN,
+  ActorRole.FIDUCIARIO_OPERATOR,
+];
+
+function expandRoleEquivalents(roles: ActorRole[]): ActorRole[] {
+  const set = new Set(roles);
+  if (roles.some((r) => r === ActorRole.FIDUCIARIO || r === ActorRole.FIDUCIARIO_ADMIN || r === ActorRole.FIDUCIARIO_OPERATOR)) {
+    FIDUCIARIO_EQUIVALENTS.forEach((r) => set.add(r));
+  }
+  return Array.from(set);
+}
+
 /**
  * Verifica si un actor pertenece a un fideicomiso y tiene el rol adecuado
  */
@@ -216,9 +234,10 @@ export async function verifyActorTrustMembership(
     return false;
   }
 
-  // Si se especifican roles requeridos, verificar que el rol del actor los incluye
+  // Si se especifican roles requeridos, verificar que el rol del actor los incluye (con equivalencias)
   if (requiredRoles && requiredRoles.length > 0) {
-    return requiredRoles.includes(membership.roleInTrust);
+    const expanded = expandRoleEquivalents(requiredRoles);
+    return expanded.includes(membership.roleInTrust);
   }
 
   return true;

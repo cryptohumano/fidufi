@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Datos a registrar por tipo de fideicomiso",
+  "description": "Especificación de los datos que deben ingresarse a la base de datos según el tipo de fideicomiso y las reglas del contrato. Referencia: contratos ejemplo ARS (administración/inversión y construcción real state).",
+  "definitions": {
+    "camposComunes": {
+      "description": "Campos que aplican a todos los tipos",
+      "type": "object",
+      "properties": {
+        "trustId": { "type": "string", "description": "ID del contrato (ej. 2026-0007), generado automáticamente si no se envía" },
+        "name": { "type": "string", "description": "Denominación del fideicomiso" },
+        "trustTypeId": { "type": "string", "format": "uuid", "description": "ID del tipo (Construcción, Financiero, Administrativo)" },
+        "baseCurrency": { "type": "string", "enum": ["ARS", "USD", "MXN", "EUR"], "description": "Moneda base para reportes y montos (zona geográfica)" },
+        "constitutionDate": { "type": "string", "format": "date" },
+        "maxTermYears": { "type": "integer" },
+        "termType": { "type": "string", "enum": ["STANDARD", "FOREIGN", "DISABILITY"] },
+        "fideicomitenteName": { "type": "string" },
+        "fideicomitenteRFC": { "type": "string" },
+        "fiduciarioName": { "type": "string" },
+        "fiduciarioRFC": { "type": "string" },
+        "fechaFirma": { "type": "string", "format": "date-time" },
+        "lugarFirma": { "type": "string" },
+        "jurisdiccion": { "type": "string" },
+        "domicilioLegal": { "type": "string" },
+        "domicilioFiscal": { "type": "string" },
+        "objetoTexto": { "type": "string", "description": "Objeto del fideicomiso (texto del contrato)" },
+        "finalidadCategoria": { "type": "string" },
+        "reglasExtincionResumen": { "type": "string" },
+        "reportPeriodicity": { "type": "string", "enum": ["MONTHLY", "QUARTERLY", "ANNUAL"] },
+        "requiresConsensus": { "type": "boolean" }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "title": "CONSTRUCCION",
+      "description": "Fideicomiso de obra/construcción (ej. contrato real state ARS: presupuesto general de urbanización, plan de inversión, hitos, unidades funcionales)",
+      "type": "object",
+      "required": ["trustTypeId", "trustTypeConfig", "baseCurrency"],
+      "properties": {
+        "trustId": { "type": "string" },
+        "name": { "type": "string" },
+        "trustTypeId": { "type": "string", "format": "uuid" },
+        "baseCurrency": { "type": "string", "enum": ["ARS", "USD", "MXN", "EUR"] },
+        "initialCapital": { "type": "number", "const": 0, "description": "En construcción se usa 0; el monto relevante es presupuestoTotal" },
+        "trustTypeConfig": {
+          "type": "object",
+          "required": ["presupuestoTotal"],
+          "properties": {
+            "presupuestoTotal": { "type": "number", "minimum": 0.01, "description": "Presupuesto total de la obra (equivalente al presupuesto general de urbanización del contrato)" }
+          },
+          "additionalProperties": true
+        },
+        "fechaObjetivoEntrega": { "type": "string", "format": "date-time", "description": "Fecha objetivo de entrega de obra (contrato)" },
+        "constitutionDate": { "type": "string", "format": "date" },
+        "maxTermYears": { "type": "integer" },
+        "termType": { "type": "string" },
+        "objetoTexto": { "type": "string" },
+        "finalidadCategoria": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    {
+      "title": "FINANCIERO",
+      "description": "Fideicomiso de inversión (ej. contrato fideicomiso ARS: patrimonio fiduciario, finalidad de inversión, límites de inversión)",
+      "type": "object",
+      "required": ["trustTypeId", "initialCapital", "baseCurrency"],
+      "properties": {
+        "trustId": { "type": "string" },
+        "name": { "type": "string" },
+        "trustTypeId": { "type": "string", "format": "uuid" },
+        "baseCurrency": { "type": "string", "enum": ["ARS", "USD", "MXN", "EUR"] },
+        "initialCapital": { "type": "number", "minimum": 0.01, "description": "Patrimonio inicial / patrimonio fiduciario" },
+        "bondLimitPercent": { "type": "number", "minimum": 0, "maximum": 100, "description": "Límite % para bonos (ej. 30)" },
+        "otherLimitPercent": { "type": "number", "minimum": 0, "maximum": 100, "description": "Límite % para otros activos (ej. 70)" },
+        "constitutionDate": { "type": "string", "format": "date" },
+        "maxTermYears": { "type": "integer" },
+        "termType": { "type": "string" },
+        "objetoTexto": { "type": "string" },
+        "finalidadCategoria": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    {
+      "title": "ADMINISTRATIVO",
+      "description": "Fideicomiso administrativo (administración, conservación, manejo y explotación de bienes)",
+      "type": "object",
+      "required": ["trustTypeId", "baseCurrency"],
+      "properties": {
+        "trustId": { "type": "string" },
+        "name": { "type": "string" },
+        "trustTypeId": { "type": "string", "format": "uuid" },
+        "baseCurrency": { "type": "string", "enum": ["ARS", "USD", "MXN", "EUR"] },
+        "initialCapital": { "type": "number", "minimum": 0 },
+        "constitutionDate": { "type": "string", "format": "date" },
+        "maxTermYears": { "type": "integer" },
+        "termType": { "type": "string" },
+        "objetoTexto": { "type": "string" },
+        "finalidadCategoria": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  ],
+  "ejemplosRegistroAuditoria": {
+    "CONSTRUCCION": {
+      "trustId": "2026-0007",
+      "name": "Construcción Test 5",
+      "trustTypeId": "ce56b41e-a2d1-4849-8b4a-79b70974337b",
+      "baseCurrency": "ARS",
+      "trustTypeConfig": { "presupuestoTotal": 6800000000 },
+      "description": "No debe registrarse initialCapital 0 ni bondLimitPercent/otherLimitPercent como datos principales; sí presupuestoTotal y moneda."
+    },
+    "FINANCIERO": {
+      "trustId": "2026-0008",
+      "name": "Inversión Test",
+      "trustTypeId": "<uuid-financiero>",
+      "baseCurrency": "ARS",
+      "initialCapital": 18000000,
+      "bondLimitPercent": 30,
+      "otherLimitPercent": 70
+    }
+  }
+}

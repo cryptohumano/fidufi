@@ -30,20 +30,35 @@ export type TrustAvgAggregateOutputType = {
   initialCapital: runtime.Decimal | null
   bondLimitPercent: runtime.Decimal | null
   otherLimitPercent: runtime.Decimal | null
+  fechaCierreEjercicioDay: number | null
+  fechaCierreEjercicioMonth: number | null
   maxTermYears: number | null
+  fiscalYearEndMonth: number | null
+  fiscalYearEndDay: number | null
+  observationDays: number | null
+  diasGracia: number | null
 }
 
 export type TrustSumAggregateOutputType = {
   initialCapital: runtime.Decimal | null
   bondLimitPercent: runtime.Decimal | null
   otherLimitPercent: runtime.Decimal | null
+  fechaCierreEjercicioDay: number | null
+  fechaCierreEjercicioMonth: number | null
   maxTermYears: number | null
+  fiscalYearEndMonth: number | null
+  fiscalYearEndDay: number | null
+  observationDays: number | null
+  diasGracia: number | null
 }
 
 export type TrustMinAggregateOutputType = {
   id: string | null
   trustId: string | null
   name: string | null
+  trustTypeId: string | null
+  trustType: string | null
+  status: $Enums.TrustStatus | null
   initialCapital: runtime.Decimal | null
   bondLimitPercent: runtime.Decimal | null
   otherLimitPercent: runtime.Decimal | null
@@ -51,11 +66,30 @@ export type TrustMinAggregateOutputType = {
   fideicomitenteRFC: string | null
   fiduciarioName: string | null
   fiduciarioRFC: string | null
+  fechaFirma: Date | null
+  lugarFirma: string | null
+  jurisdiccion: string | null
+  domicilioLegal: string | null
+  domicilioFiscal: string | null
+  baseCurrency: string | null
+  fechaCierreEjercicioDay: number | null
+  fechaCierreEjercicioMonth: number | null
   constitutionDate: Date | null
   expirationDate: Date | null
   maxTermYears: number | null
   termType: string | null
+  fechaObjetivoEntrega: Date | null
+  reglasExtincionResumen: string | null
+  objetoTexto: string | null
+  finalidadCategoria: string | null
   requiresConsensus: boolean | null
+  reportPeriodicity: string | null
+  fiscalYearEndMonth: number | null
+  fiscalYearEndDay: number | null
+  observationDays: number | null
+  moraAutomatica: boolean | null
+  diasGracia: number | null
+  notasInternas: string | null
   rfc: string | null
   satRegistrationNumber: string | null
   satRegisteredAt: Date | null
@@ -72,6 +106,9 @@ export type TrustMaxAggregateOutputType = {
   id: string | null
   trustId: string | null
   name: string | null
+  trustTypeId: string | null
+  trustType: string | null
+  status: $Enums.TrustStatus | null
   initialCapital: runtime.Decimal | null
   bondLimitPercent: runtime.Decimal | null
   otherLimitPercent: runtime.Decimal | null
@@ -79,11 +116,30 @@ export type TrustMaxAggregateOutputType = {
   fideicomitenteRFC: string | null
   fiduciarioName: string | null
   fiduciarioRFC: string | null
+  fechaFirma: Date | null
+  lugarFirma: string | null
+  jurisdiccion: string | null
+  domicilioLegal: string | null
+  domicilioFiscal: string | null
+  baseCurrency: string | null
+  fechaCierreEjercicioDay: number | null
+  fechaCierreEjercicioMonth: number | null
   constitutionDate: Date | null
   expirationDate: Date | null
   maxTermYears: number | null
   termType: string | null
+  fechaObjetivoEntrega: Date | null
+  reglasExtincionResumen: string | null
+  objetoTexto: string | null
+  finalidadCategoria: string | null
   requiresConsensus: boolean | null
+  reportPeriodicity: string | null
+  fiscalYearEndMonth: number | null
+  fiscalYearEndDay: number | null
+  observationDays: number | null
+  moraAutomatica: boolean | null
+  diasGracia: number | null
+  notasInternas: string | null
   rfc: string | null
   satRegistrationNumber: string | null
   satRegisteredAt: Date | null
@@ -100,6 +156,10 @@ export type TrustCountAggregateOutputType = {
   id: number
   trustId: number
   name: number
+  trustTypeId: number
+  trustType: number
+  trustTypeConfig: number
+  status: number
   initialCapital: number
   bondLimitPercent: number
   otherLimitPercent: number
@@ -107,11 +167,33 @@ export type TrustCountAggregateOutputType = {
   fideicomitenteRFC: number
   fiduciarioName: number
   fiduciarioRFC: number
+  fechaFirma: number
+  lugarFirma: number
+  jurisdiccion: number
+  domicilioLegal: number
+  domicilioFiscal: number
+  baseCurrency: number
+  fechaCierreEjercicioDay: number
+  fechaCierreEjercicioMonth: number
   constitutionDate: number
   expirationDate: number
   maxTermYears: number
   termType: number
+  fechaObjetivoEntrega: number
+  reglasExtincionResumen: number
+  objetoTexto: number
+  finalidadCategoria: number
+  anexosObligatorios: number
   requiresConsensus: number
+  reportPeriodicity: number
+  fiscalYearEndMonth: number
+  fiscalYearEndDay: number
+  observationDays: number
+  moraAutomatica: number
+  diasGracia: number
+  permisosPortal: number
+  tags: number
+  notasInternas: number
   rfc: number
   satRegistrationNumber: number
   satRegisteredAt: number
@@ -130,20 +212,35 @@ export type TrustAvgAggregateInputType = {
   initialCapital?: true
   bondLimitPercent?: true
   otherLimitPercent?: true
+  fechaCierreEjercicioDay?: true
+  fechaCierreEjercicioMonth?: true
   maxTermYears?: true
+  fiscalYearEndMonth?: true
+  fiscalYearEndDay?: true
+  observationDays?: true
+  diasGracia?: true
 }
 
 export type TrustSumAggregateInputType = {
   initialCapital?: true
   bondLimitPercent?: true
   otherLimitPercent?: true
+  fechaCierreEjercicioDay?: true
+  fechaCierreEjercicioMonth?: true
   maxTermYears?: true
+  fiscalYearEndMonth?: true
+  fiscalYearEndDay?: true
+  observationDays?: true
+  diasGracia?: true
 }
 
 export type TrustMinAggregateInputType = {
   id?: true
   trustId?: true
   name?: true
+  trustTypeId?: true
+  trustType?: true
+  status?: true
   initialCapital?: true
   bondLimitPercent?: true
   otherLimitPercent?: true
@@ -151,11 +248,30 @@ export type TrustMinAggregateInputType = {
   fideicomitenteRFC?: true
   fiduciarioName?: true
   fiduciarioRFC?: true
+  fechaFirma?: true
+  lugarFirma?: true
+  jurisdiccion?: true
+  domicilioLegal?: true
+  domicilioFiscal?: true
+  baseCurrency?: true
+  fechaCierreEjercicioDay?: true
+  fechaCierreEjercicioMonth?: true
   constitutionDate?: true
   expirationDate?: true
   maxTermYears?: true
   termType?: true
+  fechaObjetivoEntrega?: true
+  reglasExtincionResumen?: true
+  objetoTexto?: true
+  finalidadCategoria?: true
   requiresConsensus?: true
+  reportPeriodicity?: true
+  fiscalYearEndMonth?: true
+  fiscalYearEndDay?: true
+  observationDays?: true
+  moraAutomatica?: true
+  diasGracia?: true
+  notasInternas?: true
   rfc?: true
   satRegistrationNumber?: true
   satRegisteredAt?: true
@@ -172,6 +288,9 @@ export type TrustMaxAggregateInputType = {
   id?: true
   trustId?: true
   name?: true
+  trustTypeId?: true
+  trustType?: true
+  status?: true
   initialCapital?: true
   bondLimitPercent?: true
   otherLimitPercent?: true
@@ -179,11 +298,30 @@ export type TrustMaxAggregateInputType = {
   fideicomitenteRFC?: true
   fiduciarioName?: true
   fiduciarioRFC?: true
+  fechaFirma?: true
+  lugarFirma?: true
+  jurisdiccion?: true
+  domicilioLegal?: true
+  domicilioFiscal?: true
+  baseCurrency?: true
+  fechaCierreEjercicioDay?: true
+  fechaCierreEjercicioMonth?: true
   constitutionDate?: true
   expirationDate?: true
   maxTermYears?: true
   termType?: true
+  fechaObjetivoEntrega?: true
+  reglasExtincionResumen?: true
+  objetoTexto?: true
+  finalidadCategoria?: true
   requiresConsensus?: true
+  reportPeriodicity?: true
+  fiscalYearEndMonth?: true
+  fiscalYearEndDay?: true
+  observationDays?: true
+  moraAutomatica?: true
+  diasGracia?: true
+  notasInternas?: true
   rfc?: true
   satRegistrationNumber?: true
   satRegisteredAt?: true
@@ -200,6 +338,10 @@ export type TrustCountAggregateInputType = {
   id?: true
   trustId?: true
   name?: true
+  trustTypeId?: true
+  trustType?: true
+  trustTypeConfig?: true
+  status?: true
   initialCapital?: true
   bondLimitPercent?: true
   otherLimitPercent?: true
@@ -207,11 +349,33 @@ export type TrustCountAggregateInputType = {
   fideicomitenteRFC?: true
   fiduciarioName?: true
   fiduciarioRFC?: true
+  fechaFirma?: true
+  lugarFirma?: true
+  jurisdiccion?: true
+  domicilioLegal?: true
+  domicilioFiscal?: true
+  baseCurrency?: true
+  fechaCierreEjercicioDay?: true
+  fechaCierreEjercicioMonth?: true
   constitutionDate?: true
   expirationDate?: true
   maxTermYears?: true
   termType?: true
+  fechaObjetivoEntrega?: true
+  reglasExtincionResumen?: true
+  objetoTexto?: true
+  finalidadCategoria?: true
+  anexosObligatorios?: true
   requiresConsensus?: true
+  reportPeriodicity?: true
+  fiscalYearEndMonth?: true
+  fiscalYearEndDay?: true
+  observationDays?: true
+  moraAutomatica?: true
+  diasGracia?: true
+  permisosPortal?: true
+  tags?: true
+  notasInternas?: true
   rfc?: true
   satRegistrationNumber?: true
   satRegisteredAt?: true
@@ -315,18 +479,44 @@ export type TrustGroupByOutputType = {
   id: string
   trustId: string
   name: string | null
+  trustTypeId: string | null
+  trustType: string | null
+  trustTypeConfig: runtime.JsonValue | null
+  status: $Enums.TrustStatus
   initialCapital: runtime.Decimal
-  bondLimitPercent: runtime.Decimal
-  otherLimitPercent: runtime.Decimal
+  bondLimitPercent: runtime.Decimal | null
+  otherLimitPercent: runtime.Decimal | null
   fideicomitenteName: string | null
   fideicomitenteRFC: string | null
   fiduciarioName: string | null
   fiduciarioRFC: string | null
+  fechaFirma: Date | null
+  lugarFirma: string | null
+  jurisdiccion: string | null
+  domicilioLegal: string | null
+  domicilioFiscal: string | null
+  baseCurrency: string | null
+  fechaCierreEjercicioDay: number | null
+  fechaCierreEjercicioMonth: number | null
   constitutionDate: Date | null
   expirationDate: Date | null
   maxTermYears: number | null
   termType: string | null
+  fechaObjetivoEntrega: Date | null
+  reglasExtincionResumen: string | null
+  objetoTexto: string | null
+  finalidadCategoria: string | null
+  anexosObligatorios: runtime.JsonValue | null
   requiresConsensus: boolean
+  reportPeriodicity: string | null
+  fiscalYearEndMonth: number | null
+  fiscalYearEndDay: number | null
+  observationDays: number | null
+  moraAutomatica: boolean
+  diasGracia: number | null
+  permisosPortal: runtime.JsonValue | null
+  tags: string[]
+  notasInternas: string | null
   rfc: string | null
   satRegistrationNumber: string | null
   satRegisteredAt: Date | null
@@ -366,18 +556,44 @@ export type TrustWhereInput = {
   id?: Prisma.StringFilter<"Trust"> | string
   trustId?: Prisma.StringFilter<"Trust"> | string
   name?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeId?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeConfig?: Prisma.JsonNullableFilter<"Trust">
+  status?: Prisma.EnumTrustStatusFilter<"Trust"> | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.StringNullableFilter<"Trust"> | string | null
   fideicomitenteRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
   fiduciarioName?: Prisma.StringNullableFilter<"Trust"> | string | null
   fiduciarioRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaFirma?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  lugarFirma?: Prisma.StringNullableFilter<"Trust"> | string | null
+  jurisdiccion?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioLegal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioFiscal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  baseCurrency?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaCierreEjercicioDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fechaCierreEjercicioMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
   constitutionDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
   expirationDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
   maxTermYears?: Prisma.IntNullableFilter<"Trust"> | number | null
   termType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaObjetivoEntrega?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  reglasExtincionResumen?: Prisma.StringNullableFilter<"Trust"> | string | null
+  objetoTexto?: Prisma.StringNullableFilter<"Trust"> | string | null
+  finalidadCategoria?: Prisma.StringNullableFilter<"Trust"> | string | null
+  anexosObligatorios?: Prisma.JsonNullableFilter<"Trust">
   requiresConsensus?: Prisma.BoolFilter<"Trust"> | boolean
+  reportPeriodicity?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fiscalYearEndMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fiscalYearEndDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  observationDays?: Prisma.IntNullableFilter<"Trust"> | number | null
+  moraAutomatica?: Prisma.BoolFilter<"Trust"> | boolean
+  diasGracia?: Prisma.IntNullableFilter<"Trust"> | number | null
+  permisosPortal?: Prisma.JsonNullableFilter<"Trust">
+  tags?: Prisma.StringNullableListFilter<"Trust">
+  notasInternas?: Prisma.StringNullableFilter<"Trust"> | string | null
   rfc?: Prisma.StringNullableFilter<"Trust"> | string | null
   satRegistrationNumber?: Prisma.StringNullableFilter<"Trust"> | string | null
   satRegisteredAt?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
@@ -388,30 +604,72 @@ export type TrustWhereInput = {
   active?: Prisma.BoolFilter<"Trust"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
+  trustTypeRef?: Prisma.XOR<Prisma.TrustTypeNullableScalarRelationFilter, Prisma.TrustTypeWhereInput> | null
   fiduciarioFee?: Prisma.XOR<Prisma.FiduciarioFeeNullableScalarRelationFilter, Prisma.FiduciarioFeeWhereInput> | null
   members?: Prisma.ActorTrustListRelationFilter
   comiteSessions?: Prisma.ComiteSessionListRelationFilter
   monthlyStatements?: Prisma.MonthlyStatementListRelationFilter
   exceptionVotes?: Prisma.ExceptionVoteListRelationFilter
   assetTemplates?: Prisma.AssetTemplateListRelationFilter
+  contributions?: Prisma.ContributionListRelationFilter
+  budgetItems?: Prisma.BudgetItemListRelationFilter
+  cashflowPlans?: Prisma.CashflowPlanListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
+  fiduciaryAccounts?: Prisma.FiduciaryAccountListRelationFilter
+  contractDocuments?: Prisma.ContractDocumentListRelationFilter
+  insurancePolicies?: Prisma.InsurancePolicyListRelationFilter
+  checklistItems?: Prisma.ChecklistItemListRelationFilter
+  trustConcepts?: Prisma.TrustConceptListRelationFilter
+  milestones?: Prisma.MilestoneListRelationFilter
+  approvalPolicies?: Prisma.ApprovalPolicyListRelationFilter
+  approvalRequests?: Prisma.ApprovalRequestListRelationFilter
+  units?: Prisma.UnitListRelationFilter
+  unitSelectionRounds?: Prisma.UnitSelectionRoundListRelationFilter
+  saleProcesses?: Prisma.SaleProcessListRelationFilter
 }
 
 export type TrustOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustTypeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustType?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustTypeConfig?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   initialCapital?: Prisma.SortOrder
-  bondLimitPercent?: Prisma.SortOrder
-  otherLimitPercent?: Prisma.SortOrder
+  bondLimitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  otherLimitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   fideicomitenteName?: Prisma.SortOrderInput | Prisma.SortOrder
   fideicomitenteRFC?: Prisma.SortOrderInput | Prisma.SortOrder
   fiduciarioName?: Prisma.SortOrderInput | Prisma.SortOrder
   fiduciarioRFC?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaFirma?: Prisma.SortOrderInput | Prisma.SortOrder
+  lugarFirma?: Prisma.SortOrderInput | Prisma.SortOrder
+  jurisdiccion?: Prisma.SortOrderInput | Prisma.SortOrder
+  domicilioLegal?: Prisma.SortOrderInput | Prisma.SortOrder
+  domicilioFiscal?: Prisma.SortOrderInput | Prisma.SortOrder
+  baseCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   constitutionDate?: Prisma.SortOrderInput | Prisma.SortOrder
   expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   maxTermYears?: Prisma.SortOrderInput | Prisma.SortOrder
   termType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaObjetivoEntrega?: Prisma.SortOrderInput | Prisma.SortOrder
+  reglasExtincionResumen?: Prisma.SortOrderInput | Prisma.SortOrder
+  objetoTexto?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalidadCategoria?: Prisma.SortOrderInput | Prisma.SortOrder
+  anexosObligatorios?: Prisma.SortOrderInput | Prisma.SortOrder
   requiresConsensus?: Prisma.SortOrder
+  reportPeriodicity?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  observationDays?: Prisma.SortOrderInput | Prisma.SortOrder
+  moraAutomatica?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrderInput | Prisma.SortOrder
+  permisosPortal?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  notasInternas?: Prisma.SortOrderInput | Prisma.SortOrder
   rfc?: Prisma.SortOrderInput | Prisma.SortOrder
   satRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   satRegisteredAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -422,12 +680,28 @@ export type TrustOrderByWithRelationInput = {
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  trustTypeRef?: Prisma.TrustTypeOrderByWithRelationInput
   fiduciarioFee?: Prisma.FiduciarioFeeOrderByWithRelationInput
   members?: Prisma.ActorTrustOrderByRelationAggregateInput
   comiteSessions?: Prisma.ComiteSessionOrderByRelationAggregateInput
   monthlyStatements?: Prisma.MonthlyStatementOrderByRelationAggregateInput
   exceptionVotes?: Prisma.ExceptionVoteOrderByRelationAggregateInput
   assetTemplates?: Prisma.AssetTemplateOrderByRelationAggregateInput
+  contributions?: Prisma.ContributionOrderByRelationAggregateInput
+  budgetItems?: Prisma.BudgetItemOrderByRelationAggregateInput
+  cashflowPlans?: Prisma.CashflowPlanOrderByRelationAggregateInput
+  expenses?: Prisma.ExpenseOrderByRelationAggregateInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountOrderByRelationAggregateInput
+  contractDocuments?: Prisma.ContractDocumentOrderByRelationAggregateInput
+  insurancePolicies?: Prisma.InsurancePolicyOrderByRelationAggregateInput
+  checklistItems?: Prisma.ChecklistItemOrderByRelationAggregateInput
+  trustConcepts?: Prisma.TrustConceptOrderByRelationAggregateInput
+  milestones?: Prisma.MilestoneOrderByRelationAggregateInput
+  approvalPolicies?: Prisma.ApprovalPolicyOrderByRelationAggregateInput
+  approvalRequests?: Prisma.ApprovalRequestOrderByRelationAggregateInput
+  units?: Prisma.UnitOrderByRelationAggregateInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundOrderByRelationAggregateInput
+  saleProcesses?: Prisma.SaleProcessOrderByRelationAggregateInput
 }
 
 export type TrustWhereUniqueInput = Prisma.AtLeast<{
@@ -437,18 +711,44 @@ export type TrustWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TrustWhereInput[]
   NOT?: Prisma.TrustWhereInput | Prisma.TrustWhereInput[]
   name?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeId?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeConfig?: Prisma.JsonNullableFilter<"Trust">
+  status?: Prisma.EnumTrustStatusFilter<"Trust"> | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.StringNullableFilter<"Trust"> | string | null
   fideicomitenteRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
   fiduciarioName?: Prisma.StringNullableFilter<"Trust"> | string | null
   fiduciarioRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaFirma?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  lugarFirma?: Prisma.StringNullableFilter<"Trust"> | string | null
+  jurisdiccion?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioLegal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioFiscal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  baseCurrency?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaCierreEjercicioDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fechaCierreEjercicioMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
   constitutionDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
   expirationDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
   maxTermYears?: Prisma.IntNullableFilter<"Trust"> | number | null
   termType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaObjetivoEntrega?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  reglasExtincionResumen?: Prisma.StringNullableFilter<"Trust"> | string | null
+  objetoTexto?: Prisma.StringNullableFilter<"Trust"> | string | null
+  finalidadCategoria?: Prisma.StringNullableFilter<"Trust"> | string | null
+  anexosObligatorios?: Prisma.JsonNullableFilter<"Trust">
   requiresConsensus?: Prisma.BoolFilter<"Trust"> | boolean
+  reportPeriodicity?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fiscalYearEndMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fiscalYearEndDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  observationDays?: Prisma.IntNullableFilter<"Trust"> | number | null
+  moraAutomatica?: Prisma.BoolFilter<"Trust"> | boolean
+  diasGracia?: Prisma.IntNullableFilter<"Trust"> | number | null
+  permisosPortal?: Prisma.JsonNullableFilter<"Trust">
+  tags?: Prisma.StringNullableListFilter<"Trust">
+  notasInternas?: Prisma.StringNullableFilter<"Trust"> | string | null
   rfc?: Prisma.StringNullableFilter<"Trust"> | string | null
   satRegistrationNumber?: Prisma.StringNullableFilter<"Trust"> | string | null
   satRegisteredAt?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
@@ -459,30 +759,72 @@ export type TrustWhereUniqueInput = Prisma.AtLeast<{
   active?: Prisma.BoolFilter<"Trust"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
+  trustTypeRef?: Prisma.XOR<Prisma.TrustTypeNullableScalarRelationFilter, Prisma.TrustTypeWhereInput> | null
   fiduciarioFee?: Prisma.XOR<Prisma.FiduciarioFeeNullableScalarRelationFilter, Prisma.FiduciarioFeeWhereInput> | null
   members?: Prisma.ActorTrustListRelationFilter
   comiteSessions?: Prisma.ComiteSessionListRelationFilter
   monthlyStatements?: Prisma.MonthlyStatementListRelationFilter
   exceptionVotes?: Prisma.ExceptionVoteListRelationFilter
   assetTemplates?: Prisma.AssetTemplateListRelationFilter
+  contributions?: Prisma.ContributionListRelationFilter
+  budgetItems?: Prisma.BudgetItemListRelationFilter
+  cashflowPlans?: Prisma.CashflowPlanListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
+  fiduciaryAccounts?: Prisma.FiduciaryAccountListRelationFilter
+  contractDocuments?: Prisma.ContractDocumentListRelationFilter
+  insurancePolicies?: Prisma.InsurancePolicyListRelationFilter
+  checklistItems?: Prisma.ChecklistItemListRelationFilter
+  trustConcepts?: Prisma.TrustConceptListRelationFilter
+  milestones?: Prisma.MilestoneListRelationFilter
+  approvalPolicies?: Prisma.ApprovalPolicyListRelationFilter
+  approvalRequests?: Prisma.ApprovalRequestListRelationFilter
+  units?: Prisma.UnitListRelationFilter
+  unitSelectionRounds?: Prisma.UnitSelectionRoundListRelationFilter
+  saleProcesses?: Prisma.SaleProcessListRelationFilter
 }, "id" | "trustId">
 
 export type TrustOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustTypeId?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustType?: Prisma.SortOrderInput | Prisma.SortOrder
+  trustTypeConfig?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   initialCapital?: Prisma.SortOrder
-  bondLimitPercent?: Prisma.SortOrder
-  otherLimitPercent?: Prisma.SortOrder
+  bondLimitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
+  otherLimitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   fideicomitenteName?: Prisma.SortOrderInput | Prisma.SortOrder
   fideicomitenteRFC?: Prisma.SortOrderInput | Prisma.SortOrder
   fiduciarioName?: Prisma.SortOrderInput | Prisma.SortOrder
   fiduciarioRFC?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaFirma?: Prisma.SortOrderInput | Prisma.SortOrder
+  lugarFirma?: Prisma.SortOrderInput | Prisma.SortOrder
+  jurisdiccion?: Prisma.SortOrderInput | Prisma.SortOrder
+  domicilioLegal?: Prisma.SortOrderInput | Prisma.SortOrder
+  domicilioFiscal?: Prisma.SortOrderInput | Prisma.SortOrder
+  baseCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   constitutionDate?: Prisma.SortOrderInput | Prisma.SortOrder
   expirationDate?: Prisma.SortOrderInput | Prisma.SortOrder
   maxTermYears?: Prisma.SortOrderInput | Prisma.SortOrder
   termType?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaObjetivoEntrega?: Prisma.SortOrderInput | Prisma.SortOrder
+  reglasExtincionResumen?: Prisma.SortOrderInput | Prisma.SortOrder
+  objetoTexto?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalidadCategoria?: Prisma.SortOrderInput | Prisma.SortOrder
+  anexosObligatorios?: Prisma.SortOrderInput | Prisma.SortOrder
   requiresConsensus?: Prisma.SortOrder
+  reportPeriodicity?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrderInput | Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  observationDays?: Prisma.SortOrderInput | Prisma.SortOrder
+  moraAutomatica?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrderInput | Prisma.SortOrder
+  permisosPortal?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  notasInternas?: Prisma.SortOrderInput | Prisma.SortOrder
   rfc?: Prisma.SortOrderInput | Prisma.SortOrder
   satRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   satRegisteredAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -507,18 +849,44 @@ export type TrustScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Trust"> | string
   trustId?: Prisma.StringWithAggregatesFilter<"Trust"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  trustTypeId?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  trustType?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  trustTypeConfig?: Prisma.JsonNullableWithAggregatesFilter<"Trust">
+  status?: Prisma.EnumTrustStatusWithAggregatesFilter<"Trust"> | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalWithAggregatesFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalWithAggregatesFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalWithAggregatesFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.DecimalNullableWithAggregatesFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.DecimalNullableWithAggregatesFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   fideicomitenteRFC?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   fiduciarioName?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   fiduciarioRFC?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  fechaFirma?: Prisma.DateTimeNullableWithAggregatesFilter<"Trust"> | Date | string | null
+  lugarFirma?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  jurisdiccion?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  domicilioLegal?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  domicilioFiscal?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  baseCurrency?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  fechaCierreEjercicioDay?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
+  fechaCierreEjercicioMonth?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
   constitutionDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Trust"> | Date | string | null
   expirationDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Trust"> | Date | string | null
   maxTermYears?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
   termType?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  fechaObjetivoEntrega?: Prisma.DateTimeNullableWithAggregatesFilter<"Trust"> | Date | string | null
+  reglasExtincionResumen?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  objetoTexto?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  finalidadCategoria?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  anexosObligatorios?: Prisma.JsonNullableWithAggregatesFilter<"Trust">
   requiresConsensus?: Prisma.BoolWithAggregatesFilter<"Trust"> | boolean
+  reportPeriodicity?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
+  fiscalYearEndMonth?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
+  fiscalYearEndDay?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
+  observationDays?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
+  moraAutomatica?: Prisma.BoolWithAggregatesFilter<"Trust"> | boolean
+  diasGracia?: Prisma.IntNullableWithAggregatesFilter<"Trust"> | number | null
+  permisosPortal?: Prisma.JsonNullableWithAggregatesFilter<"Trust">
+  tags?: Prisma.StringNullableListFilter<"Trust">
+  notasInternas?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   rfc?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   satRegistrationNumber?: Prisma.StringNullableWithAggregatesFilter<"Trust"> | string | null
   satRegisteredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Trust"> | Date | string | null
@@ -535,18 +903,43 @@ export type TrustCreateInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -557,30 +950,72 @@ export type TrustCreateInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -597,24 +1032,64 @@ export type TrustUncheckedCreateInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -625,30 +1100,72 @@ export type TrustUpdateInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -665,24 +1182,65 @@ export type TrustUncheckedUpdateInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateManyInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -699,18 +1257,43 @@ export type TrustUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -727,18 +1310,44 @@ export type TrustUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -751,10 +1360,32 @@ export type TrustUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type TrustListRelationFilter = {
+  every?: Prisma.TrustWhereInput
+  some?: Prisma.TrustWhereInput
+  none?: Prisma.TrustWhereInput
+}
+
+export type TrustOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type TrustCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  trustTypeId?: Prisma.SortOrder
+  trustType?: Prisma.SortOrder
+  trustTypeConfig?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   initialCapital?: Prisma.SortOrder
   bondLimitPercent?: Prisma.SortOrder
   otherLimitPercent?: Prisma.SortOrder
@@ -762,11 +1393,33 @@ export type TrustCountOrderByAggregateInput = {
   fideicomitenteRFC?: Prisma.SortOrder
   fiduciarioName?: Prisma.SortOrder
   fiduciarioRFC?: Prisma.SortOrder
+  fechaFirma?: Prisma.SortOrder
+  lugarFirma?: Prisma.SortOrder
+  jurisdiccion?: Prisma.SortOrder
+  domicilioLegal?: Prisma.SortOrder
+  domicilioFiscal?: Prisma.SortOrder
+  baseCurrency?: Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrder
   constitutionDate?: Prisma.SortOrder
   expirationDate?: Prisma.SortOrder
   maxTermYears?: Prisma.SortOrder
   termType?: Prisma.SortOrder
+  fechaObjetivoEntrega?: Prisma.SortOrder
+  reglasExtincionResumen?: Prisma.SortOrder
+  objetoTexto?: Prisma.SortOrder
+  finalidadCategoria?: Prisma.SortOrder
+  anexosObligatorios?: Prisma.SortOrder
   requiresConsensus?: Prisma.SortOrder
+  reportPeriodicity?: Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrder
+  observationDays?: Prisma.SortOrder
+  moraAutomatica?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrder
+  permisosPortal?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
+  notasInternas?: Prisma.SortOrder
   rfc?: Prisma.SortOrder
   satRegistrationNumber?: Prisma.SortOrder
   satRegisteredAt?: Prisma.SortOrder
@@ -783,13 +1436,22 @@ export type TrustAvgOrderByAggregateInput = {
   initialCapital?: Prisma.SortOrder
   bondLimitPercent?: Prisma.SortOrder
   otherLimitPercent?: Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrder
   maxTermYears?: Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrder
+  observationDays?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrder
 }
 
 export type TrustMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  trustTypeId?: Prisma.SortOrder
+  trustType?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   initialCapital?: Prisma.SortOrder
   bondLimitPercent?: Prisma.SortOrder
   otherLimitPercent?: Prisma.SortOrder
@@ -797,11 +1459,30 @@ export type TrustMaxOrderByAggregateInput = {
   fideicomitenteRFC?: Prisma.SortOrder
   fiduciarioName?: Prisma.SortOrder
   fiduciarioRFC?: Prisma.SortOrder
+  fechaFirma?: Prisma.SortOrder
+  lugarFirma?: Prisma.SortOrder
+  jurisdiccion?: Prisma.SortOrder
+  domicilioLegal?: Prisma.SortOrder
+  domicilioFiscal?: Prisma.SortOrder
+  baseCurrency?: Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrder
   constitutionDate?: Prisma.SortOrder
   expirationDate?: Prisma.SortOrder
   maxTermYears?: Prisma.SortOrder
   termType?: Prisma.SortOrder
+  fechaObjetivoEntrega?: Prisma.SortOrder
+  reglasExtincionResumen?: Prisma.SortOrder
+  objetoTexto?: Prisma.SortOrder
+  finalidadCategoria?: Prisma.SortOrder
   requiresConsensus?: Prisma.SortOrder
+  reportPeriodicity?: Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrder
+  observationDays?: Prisma.SortOrder
+  moraAutomatica?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrder
+  notasInternas?: Prisma.SortOrder
   rfc?: Prisma.SortOrder
   satRegistrationNumber?: Prisma.SortOrder
   satRegisteredAt?: Prisma.SortOrder
@@ -818,6 +1499,9 @@ export type TrustMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   trustId?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  trustTypeId?: Prisma.SortOrder
+  trustType?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   initialCapital?: Prisma.SortOrder
   bondLimitPercent?: Prisma.SortOrder
   otherLimitPercent?: Prisma.SortOrder
@@ -825,11 +1509,30 @@ export type TrustMinOrderByAggregateInput = {
   fideicomitenteRFC?: Prisma.SortOrder
   fiduciarioName?: Prisma.SortOrder
   fiduciarioRFC?: Prisma.SortOrder
+  fechaFirma?: Prisma.SortOrder
+  lugarFirma?: Prisma.SortOrder
+  jurisdiccion?: Prisma.SortOrder
+  domicilioLegal?: Prisma.SortOrder
+  domicilioFiscal?: Prisma.SortOrder
+  baseCurrency?: Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrder
   constitutionDate?: Prisma.SortOrder
   expirationDate?: Prisma.SortOrder
   maxTermYears?: Prisma.SortOrder
   termType?: Prisma.SortOrder
+  fechaObjetivoEntrega?: Prisma.SortOrder
+  reglasExtincionResumen?: Prisma.SortOrder
+  objetoTexto?: Prisma.SortOrder
+  finalidadCategoria?: Prisma.SortOrder
   requiresConsensus?: Prisma.SortOrder
+  reportPeriodicity?: Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrder
+  observationDays?: Prisma.SortOrder
+  moraAutomatica?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrder
+  notasInternas?: Prisma.SortOrder
   rfc?: Prisma.SortOrder
   satRegistrationNumber?: Prisma.SortOrder
   satRegisteredAt?: Prisma.SortOrder
@@ -846,7 +1549,13 @@ export type TrustSumOrderByAggregateInput = {
   initialCapital?: Prisma.SortOrder
   bondLimitPercent?: Prisma.SortOrder
   otherLimitPercent?: Prisma.SortOrder
+  fechaCierreEjercicioDay?: Prisma.SortOrder
+  fechaCierreEjercicioMonth?: Prisma.SortOrder
   maxTermYears?: Prisma.SortOrder
+  fiscalYearEndMonth?: Prisma.SortOrder
+  fiscalYearEndDay?: Prisma.SortOrder
+  observationDays?: Prisma.SortOrder
+  diasGracia?: Prisma.SortOrder
 }
 
 export type TrustScalarRelationFilter = {
@@ -859,12 +1568,285 @@ export type TrustNullableScalarRelationFilter = {
   isNot?: Prisma.TrustWhereInput | null
 }
 
+export type TrustCreateNestedManyWithoutTrustTypeRefInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput> | Prisma.TrustCreateWithoutTrustTypeRefInput[] | Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput[]
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput | Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput[]
+  createMany?: Prisma.TrustCreateManyTrustTypeRefInputEnvelope
+  connect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+}
+
+export type TrustUncheckedCreateNestedManyWithoutTrustTypeRefInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput> | Prisma.TrustCreateWithoutTrustTypeRefInput[] | Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput[]
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput | Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput[]
+  createMany?: Prisma.TrustCreateManyTrustTypeRefInputEnvelope
+  connect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+}
+
+export type TrustUpdateManyWithoutTrustTypeRefNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput> | Prisma.TrustCreateWithoutTrustTypeRefInput[] | Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput[]
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput | Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput[]
+  upsert?: Prisma.TrustUpsertWithWhereUniqueWithoutTrustTypeRefInput | Prisma.TrustUpsertWithWhereUniqueWithoutTrustTypeRefInput[]
+  createMany?: Prisma.TrustCreateManyTrustTypeRefInputEnvelope
+  set?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  disconnect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  delete?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  connect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  update?: Prisma.TrustUpdateWithWhereUniqueWithoutTrustTypeRefInput | Prisma.TrustUpdateWithWhereUniqueWithoutTrustTypeRefInput[]
+  updateMany?: Prisma.TrustUpdateManyWithWhereWithoutTrustTypeRefInput | Prisma.TrustUpdateManyWithWhereWithoutTrustTypeRefInput[]
+  deleteMany?: Prisma.TrustScalarWhereInput | Prisma.TrustScalarWhereInput[]
+}
+
+export type TrustUncheckedUpdateManyWithoutTrustTypeRefNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput> | Prisma.TrustCreateWithoutTrustTypeRefInput[] | Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput[]
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput | Prisma.TrustCreateOrConnectWithoutTrustTypeRefInput[]
+  upsert?: Prisma.TrustUpsertWithWhereUniqueWithoutTrustTypeRefInput | Prisma.TrustUpsertWithWhereUniqueWithoutTrustTypeRefInput[]
+  createMany?: Prisma.TrustCreateManyTrustTypeRefInputEnvelope
+  set?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  disconnect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  delete?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  connect?: Prisma.TrustWhereUniqueInput | Prisma.TrustWhereUniqueInput[]
+  update?: Prisma.TrustUpdateWithWhereUniqueWithoutTrustTypeRefInput | Prisma.TrustUpdateWithWhereUniqueWithoutTrustTypeRefInput[]
+  updateMany?: Prisma.TrustUpdateManyWithWhereWithoutTrustTypeRefInput | Prisma.TrustUpdateManyWithWhereWithoutTrustTypeRefInput[]
+  deleteMany?: Prisma.TrustScalarWhereInput | Prisma.TrustScalarWhereInput[]
+}
+
+export type TrustCreatetagsInput = {
+  set: string[]
+}
+
+export type EnumTrustStatusFieldUpdateOperationsInput = {
+  set?: $Enums.TrustStatus
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type TrustUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type TrustCreateNestedOneWithoutContributionsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutContributionsInput, Prisma.TrustUncheckedCreateWithoutContributionsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutContributionsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutContributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutContributionsInput, Prisma.TrustUncheckedCreateWithoutContributionsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutContributionsInput
+  upsert?: Prisma.TrustUpsertWithoutContributionsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutContributionsInput, Prisma.TrustUpdateWithoutContributionsInput>, Prisma.TrustUncheckedUpdateWithoutContributionsInput>
+}
+
+export type TrustCreateNestedOneWithoutBudgetItemsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutBudgetItemsInput, Prisma.TrustUncheckedCreateWithoutBudgetItemsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutBudgetItemsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutBudgetItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutBudgetItemsInput, Prisma.TrustUncheckedCreateWithoutBudgetItemsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutBudgetItemsInput
+  upsert?: Prisma.TrustUpsertWithoutBudgetItemsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutBudgetItemsInput, Prisma.TrustUpdateWithoutBudgetItemsInput>, Prisma.TrustUncheckedUpdateWithoutBudgetItemsInput>
+}
+
+export type TrustCreateNestedOneWithoutCashflowPlansInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutCashflowPlansInput, Prisma.TrustUncheckedCreateWithoutCashflowPlansInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutCashflowPlansInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutCashflowPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutCashflowPlansInput, Prisma.TrustUncheckedCreateWithoutCashflowPlansInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutCashflowPlansInput
+  upsert?: Prisma.TrustUpsertWithoutCashflowPlansInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutCashflowPlansInput, Prisma.TrustUpdateWithoutCashflowPlansInput>, Prisma.TrustUncheckedUpdateWithoutCashflowPlansInput>
+}
+
+export type TrustCreateNestedOneWithoutExpensesInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutExpensesInput, Prisma.TrustUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutExpensesInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutExpensesInput, Prisma.TrustUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutExpensesInput
+  upsert?: Prisma.TrustUpsertWithoutExpensesInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutExpensesInput, Prisma.TrustUpdateWithoutExpensesInput>, Prisma.TrustUncheckedUpdateWithoutExpensesInput>
+}
+
+export type TrustCreateNestedOneWithoutMilestonesInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutMilestonesInput, Prisma.TrustUncheckedCreateWithoutMilestonesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutMilestonesInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutMilestonesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutMilestonesInput, Prisma.TrustUncheckedCreateWithoutMilestonesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutMilestonesInput
+  upsert?: Prisma.TrustUpsertWithoutMilestonesInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutMilestonesInput, Prisma.TrustUpdateWithoutMilestonesInput>, Prisma.TrustUncheckedUpdateWithoutMilestonesInput>
+}
+
+export type TrustCreateNestedOneWithoutApprovalPoliciesInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedCreateWithoutApprovalPoliciesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutApprovalPoliciesInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutApprovalPoliciesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedCreateWithoutApprovalPoliciesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutApprovalPoliciesInput
+  upsert?: Prisma.TrustUpsertWithoutApprovalPoliciesInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutApprovalPoliciesInput, Prisma.TrustUpdateWithoutApprovalPoliciesInput>, Prisma.TrustUncheckedUpdateWithoutApprovalPoliciesInput>
+}
+
+export type TrustCreateNestedOneWithoutApprovalRequestsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutApprovalRequestsInput, Prisma.TrustUncheckedCreateWithoutApprovalRequestsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutApprovalRequestsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutApprovalRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutApprovalRequestsInput, Prisma.TrustUncheckedCreateWithoutApprovalRequestsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutApprovalRequestsInput
+  upsert?: Prisma.TrustUpsertWithoutApprovalRequestsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutApprovalRequestsInput, Prisma.TrustUpdateWithoutApprovalRequestsInput>, Prisma.TrustUncheckedUpdateWithoutApprovalRequestsInput>
+}
+
+export type TrustCreateNestedOneWithoutUnitsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutUnitsInput, Prisma.TrustUncheckedCreateWithoutUnitsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutUnitsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutUnitsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutUnitsInput, Prisma.TrustUncheckedCreateWithoutUnitsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutUnitsInput
+  upsert?: Prisma.TrustUpsertWithoutUnitsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutUnitsInput, Prisma.TrustUpdateWithoutUnitsInput>, Prisma.TrustUncheckedUpdateWithoutUnitsInput>
+}
+
+export type TrustCreateNestedOneWithoutUnitSelectionRoundsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedCreateWithoutUnitSelectionRoundsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutUnitSelectionRoundsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutUnitSelectionRoundsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedCreateWithoutUnitSelectionRoundsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutUnitSelectionRoundsInput
+  upsert?: Prisma.TrustUpsertWithoutUnitSelectionRoundsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutUnitSelectionRoundsInput, Prisma.TrustUpdateWithoutUnitSelectionRoundsInput>, Prisma.TrustUncheckedUpdateWithoutUnitSelectionRoundsInput>
+}
+
+export type TrustCreateNestedOneWithoutSaleProcessesInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutSaleProcessesInput, Prisma.TrustUncheckedCreateWithoutSaleProcessesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutSaleProcessesInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutSaleProcessesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutSaleProcessesInput, Prisma.TrustUncheckedCreateWithoutSaleProcessesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutSaleProcessesInput
+  upsert?: Prisma.TrustUpsertWithoutSaleProcessesInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutSaleProcessesInput, Prisma.TrustUpdateWithoutSaleProcessesInput>, Prisma.TrustUncheckedUpdateWithoutSaleProcessesInput>
+}
+
+export type TrustCreateNestedOneWithoutFiduciaryAccountsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedCreateWithoutFiduciaryAccountsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutFiduciaryAccountsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutFiduciaryAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedCreateWithoutFiduciaryAccountsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutFiduciaryAccountsInput
+  upsert?: Prisma.TrustUpsertWithoutFiduciaryAccountsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutFiduciaryAccountsInput, Prisma.TrustUpdateWithoutFiduciaryAccountsInput>, Prisma.TrustUncheckedUpdateWithoutFiduciaryAccountsInput>
+}
+
+export type TrustCreateNestedOneWithoutContractDocumentsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutContractDocumentsInput, Prisma.TrustUncheckedCreateWithoutContractDocumentsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutContractDocumentsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutContractDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutContractDocumentsInput, Prisma.TrustUncheckedCreateWithoutContractDocumentsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutContractDocumentsInput
+  upsert?: Prisma.TrustUpsertWithoutContractDocumentsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutContractDocumentsInput, Prisma.TrustUpdateWithoutContractDocumentsInput>, Prisma.TrustUncheckedUpdateWithoutContractDocumentsInput>
+}
+
+export type TrustCreateNestedOneWithoutInsurancePoliciesInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedCreateWithoutInsurancePoliciesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutInsurancePoliciesInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutInsurancePoliciesNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedCreateWithoutInsurancePoliciesInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutInsurancePoliciesInput
+  upsert?: Prisma.TrustUpsertWithoutInsurancePoliciesInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutInsurancePoliciesInput, Prisma.TrustUpdateWithoutInsurancePoliciesInput>, Prisma.TrustUncheckedUpdateWithoutInsurancePoliciesInput>
+}
+
+export type TrustCreateNestedOneWithoutChecklistItemsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutChecklistItemsInput, Prisma.TrustUncheckedCreateWithoutChecklistItemsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutChecklistItemsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutChecklistItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutChecklistItemsInput, Prisma.TrustUncheckedCreateWithoutChecklistItemsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutChecklistItemsInput
+  upsert?: Prisma.TrustUpsertWithoutChecklistItemsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutChecklistItemsInput, Prisma.TrustUpdateWithoutChecklistItemsInput>, Prisma.TrustUncheckedUpdateWithoutChecklistItemsInput>
+}
+
+export type TrustCreateNestedOneWithoutTrustConceptsInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustConceptsInput, Prisma.TrustUncheckedCreateWithoutTrustConceptsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustConceptsInput
+  connect?: Prisma.TrustWhereUniqueInput
+}
+
+export type TrustUpdateOneRequiredWithoutTrustConceptsNestedInput = {
+  create?: Prisma.XOR<Prisma.TrustCreateWithoutTrustConceptsInput, Prisma.TrustUncheckedCreateWithoutTrustConceptsInput>
+  connectOrCreate?: Prisma.TrustCreateOrConnectWithoutTrustConceptsInput
+  upsert?: Prisma.TrustUpsertWithoutTrustConceptsInput
+  connect?: Prisma.TrustWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutTrustConceptsInput, Prisma.TrustUpdateWithoutTrustConceptsInput>, Prisma.TrustUncheckedUpdateWithoutTrustConceptsInput>
 }
 
 export type TrustCreateNestedOneWithoutMonthlyStatementsInput = {
@@ -955,22 +1937,47 @@ export type TrustUpdateOneWithoutAssetTemplatesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrustUpdateToOneWithWhereWithoutAssetTemplatesInput, Prisma.TrustUpdateWithoutAssetTemplatesInput>, Prisma.TrustUncheckedUpdateWithoutAssetTemplatesInput>
 }
 
-export type TrustCreateWithoutMonthlyStatementsInput = {
+export type TrustCreateWithoutTrustTypeRefInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -984,26 +1991,4979 @@ export type TrustCreateWithoutMonthlyStatementsInput = {
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutTrustTypeRefInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutTrustTypeRefInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput>
+}
+
+export type TrustCreateManyTrustTypeRefInputEnvelope = {
+  data: Prisma.TrustCreateManyTrustTypeRefInput | Prisma.TrustCreateManyTrustTypeRefInput[]
+  skipDuplicates?: boolean
+}
+
+export type TrustUpsertWithWhereUniqueWithoutTrustTypeRefInput = {
+  where: Prisma.TrustWhereUniqueInput
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutTrustTypeRefInput, Prisma.TrustUncheckedUpdateWithoutTrustTypeRefInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutTrustTypeRefInput, Prisma.TrustUncheckedCreateWithoutTrustTypeRefInput>
+}
+
+export type TrustUpdateWithWhereUniqueWithoutTrustTypeRefInput = {
+  where: Prisma.TrustWhereUniqueInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutTrustTypeRefInput, Prisma.TrustUncheckedUpdateWithoutTrustTypeRefInput>
+}
+
+export type TrustUpdateManyWithWhereWithoutTrustTypeRefInput = {
+  where: Prisma.TrustScalarWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateManyMutationInput, Prisma.TrustUncheckedUpdateManyWithoutTrustTypeRefInput>
+}
+
+export type TrustScalarWhereInput = {
+  AND?: Prisma.TrustScalarWhereInput | Prisma.TrustScalarWhereInput[]
+  OR?: Prisma.TrustScalarWhereInput[]
+  NOT?: Prisma.TrustScalarWhereInput | Prisma.TrustScalarWhereInput[]
+  id?: Prisma.StringFilter<"Trust"> | string
+  trustId?: Prisma.StringFilter<"Trust"> | string
+  name?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeId?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  trustTypeConfig?: Prisma.JsonNullableFilter<"Trust">
+  status?: Prisma.EnumTrustStatusFilter<"Trust"> | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.DecimalNullableFilter<"Trust"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fideicomitenteRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fiduciarioName?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fiduciarioRFC?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaFirma?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  lugarFirma?: Prisma.StringNullableFilter<"Trust"> | string | null
+  jurisdiccion?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioLegal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  domicilioFiscal?: Prisma.StringNullableFilter<"Trust"> | string | null
+  baseCurrency?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaCierreEjercicioDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fechaCierreEjercicioMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
+  constitutionDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  expirationDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  maxTermYears?: Prisma.IntNullableFilter<"Trust"> | number | null
+  termType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fechaObjetivoEntrega?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  reglasExtincionResumen?: Prisma.StringNullableFilter<"Trust"> | string | null
+  objetoTexto?: Prisma.StringNullableFilter<"Trust"> | string | null
+  finalidadCategoria?: Prisma.StringNullableFilter<"Trust"> | string | null
+  anexosObligatorios?: Prisma.JsonNullableFilter<"Trust">
+  requiresConsensus?: Prisma.BoolFilter<"Trust"> | boolean
+  reportPeriodicity?: Prisma.StringNullableFilter<"Trust"> | string | null
+  fiscalYearEndMonth?: Prisma.IntNullableFilter<"Trust"> | number | null
+  fiscalYearEndDay?: Prisma.IntNullableFilter<"Trust"> | number | null
+  observationDays?: Prisma.IntNullableFilter<"Trust"> | number | null
+  moraAutomatica?: Prisma.BoolFilter<"Trust"> | boolean
+  diasGracia?: Prisma.IntNullableFilter<"Trust"> | number | null
+  permisosPortal?: Prisma.JsonNullableFilter<"Trust">
+  tags?: Prisma.StringNullableListFilter<"Trust">
+  notasInternas?: Prisma.StringNullableFilter<"Trust"> | string | null
+  rfc?: Prisma.StringNullableFilter<"Trust"> | string | null
+  satRegistrationNumber?: Prisma.StringNullableFilter<"Trust"> | string | null
+  satRegisteredAt?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  terminationDate?: Prisma.DateTimeNullableFilter<"Trust"> | Date | string | null
+  terminationType?: Prisma.StringNullableFilter<"Trust"> | string | null
+  terminationReason?: Prisma.StringNullableFilter<"Trust"> | string | null
+  transmissionCompleted?: Prisma.BoolFilter<"Trust"> | boolean
+  active?: Prisma.BoolFilter<"Trust"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Trust"> | Date | string
+}
+
+export type TrustCreateWithoutContributionsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutContributionsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutContributionsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutContributionsInput, Prisma.TrustUncheckedCreateWithoutContributionsInput>
+}
+
+export type TrustUpsertWithoutContributionsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutContributionsInput, Prisma.TrustUncheckedUpdateWithoutContributionsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutContributionsInput, Prisma.TrustUncheckedCreateWithoutContributionsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutContributionsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutContributionsInput, Prisma.TrustUncheckedUpdateWithoutContributionsInput>
+}
+
+export type TrustUpdateWithoutContributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutContributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutBudgetItemsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutBudgetItemsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutBudgetItemsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutBudgetItemsInput, Prisma.TrustUncheckedCreateWithoutBudgetItemsInput>
+}
+
+export type TrustUpsertWithoutBudgetItemsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutBudgetItemsInput, Prisma.TrustUncheckedUpdateWithoutBudgetItemsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutBudgetItemsInput, Prisma.TrustUncheckedCreateWithoutBudgetItemsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutBudgetItemsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutBudgetItemsInput, Prisma.TrustUncheckedUpdateWithoutBudgetItemsInput>
+}
+
+export type TrustUpdateWithoutBudgetItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutBudgetItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutCashflowPlansInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutCashflowPlansInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutCashflowPlansInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutCashflowPlansInput, Prisma.TrustUncheckedCreateWithoutCashflowPlansInput>
+}
+
+export type TrustUpsertWithoutCashflowPlansInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutCashflowPlansInput, Prisma.TrustUncheckedUpdateWithoutCashflowPlansInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutCashflowPlansInput, Prisma.TrustUncheckedCreateWithoutCashflowPlansInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutCashflowPlansInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutCashflowPlansInput, Prisma.TrustUncheckedUpdateWithoutCashflowPlansInput>
+}
+
+export type TrustUpdateWithoutCashflowPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutCashflowPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutExpensesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutExpensesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutExpensesInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutExpensesInput, Prisma.TrustUncheckedCreateWithoutExpensesInput>
+}
+
+export type TrustUpsertWithoutExpensesInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutExpensesInput, Prisma.TrustUncheckedUpdateWithoutExpensesInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutExpensesInput, Prisma.TrustUncheckedCreateWithoutExpensesInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutExpensesInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutExpensesInput, Prisma.TrustUncheckedUpdateWithoutExpensesInput>
+}
+
+export type TrustUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutMilestonesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutMilestonesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutMilestonesInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutMilestonesInput, Prisma.TrustUncheckedCreateWithoutMilestonesInput>
+}
+
+export type TrustUpsertWithoutMilestonesInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutMilestonesInput, Prisma.TrustUncheckedUpdateWithoutMilestonesInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutMilestonesInput, Prisma.TrustUncheckedCreateWithoutMilestonesInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutMilestonesInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutMilestonesInput, Prisma.TrustUncheckedUpdateWithoutMilestonesInput>
+}
+
+export type TrustUpdateWithoutMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutMilestonesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutApprovalPoliciesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutApprovalPoliciesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutApprovalPoliciesInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedCreateWithoutApprovalPoliciesInput>
+}
+
+export type TrustUpsertWithoutApprovalPoliciesInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedUpdateWithoutApprovalPoliciesInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedCreateWithoutApprovalPoliciesInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutApprovalPoliciesInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutApprovalPoliciesInput, Prisma.TrustUncheckedUpdateWithoutApprovalPoliciesInput>
+}
+
+export type TrustUpdateWithoutApprovalPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutApprovalPoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutApprovalRequestsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutApprovalRequestsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutApprovalRequestsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutApprovalRequestsInput, Prisma.TrustUncheckedCreateWithoutApprovalRequestsInput>
+}
+
+export type TrustUpsertWithoutApprovalRequestsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutApprovalRequestsInput, Prisma.TrustUncheckedUpdateWithoutApprovalRequestsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutApprovalRequestsInput, Prisma.TrustUncheckedCreateWithoutApprovalRequestsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutApprovalRequestsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutApprovalRequestsInput, Prisma.TrustUncheckedUpdateWithoutApprovalRequestsInput>
+}
+
+export type TrustUpdateWithoutApprovalRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutApprovalRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutUnitsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutUnitsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutUnitsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutUnitsInput, Prisma.TrustUncheckedCreateWithoutUnitsInput>
+}
+
+export type TrustUpsertWithoutUnitsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutUnitsInput, Prisma.TrustUncheckedUpdateWithoutUnitsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutUnitsInput, Prisma.TrustUncheckedCreateWithoutUnitsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutUnitsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutUnitsInput, Prisma.TrustUncheckedUpdateWithoutUnitsInput>
+}
+
+export type TrustUpdateWithoutUnitsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutUnitsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutUnitSelectionRoundsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutUnitSelectionRoundsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutUnitSelectionRoundsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedCreateWithoutUnitSelectionRoundsInput>
+}
+
+export type TrustUpsertWithoutUnitSelectionRoundsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedUpdateWithoutUnitSelectionRoundsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedCreateWithoutUnitSelectionRoundsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutUnitSelectionRoundsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutUnitSelectionRoundsInput, Prisma.TrustUncheckedUpdateWithoutUnitSelectionRoundsInput>
+}
+
+export type TrustUpdateWithoutUnitSelectionRoundsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutUnitSelectionRoundsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutSaleProcessesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutSaleProcessesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutSaleProcessesInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutSaleProcessesInput, Prisma.TrustUncheckedCreateWithoutSaleProcessesInput>
+}
+
+export type TrustUpsertWithoutSaleProcessesInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutSaleProcessesInput, Prisma.TrustUncheckedUpdateWithoutSaleProcessesInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutSaleProcessesInput, Prisma.TrustUncheckedCreateWithoutSaleProcessesInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutSaleProcessesInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutSaleProcessesInput, Prisma.TrustUncheckedUpdateWithoutSaleProcessesInput>
+}
+
+export type TrustUpdateWithoutSaleProcessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutSaleProcessesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutFiduciaryAccountsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutFiduciaryAccountsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutFiduciaryAccountsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedCreateWithoutFiduciaryAccountsInput>
+}
+
+export type TrustUpsertWithoutFiduciaryAccountsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedUpdateWithoutFiduciaryAccountsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedCreateWithoutFiduciaryAccountsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutFiduciaryAccountsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutFiduciaryAccountsInput, Prisma.TrustUncheckedUpdateWithoutFiduciaryAccountsInput>
+}
+
+export type TrustUpdateWithoutFiduciaryAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutFiduciaryAccountsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutContractDocumentsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutContractDocumentsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutContractDocumentsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutContractDocumentsInput, Prisma.TrustUncheckedCreateWithoutContractDocumentsInput>
+}
+
+export type TrustUpsertWithoutContractDocumentsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutContractDocumentsInput, Prisma.TrustUncheckedUpdateWithoutContractDocumentsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutContractDocumentsInput, Prisma.TrustUncheckedCreateWithoutContractDocumentsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutContractDocumentsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutContractDocumentsInput, Prisma.TrustUncheckedUpdateWithoutContractDocumentsInput>
+}
+
+export type TrustUpdateWithoutContractDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutContractDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutInsurancePoliciesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutInsurancePoliciesInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutInsurancePoliciesInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedCreateWithoutInsurancePoliciesInput>
+}
+
+export type TrustUpsertWithoutInsurancePoliciesInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedUpdateWithoutInsurancePoliciesInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedCreateWithoutInsurancePoliciesInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutInsurancePoliciesInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutInsurancePoliciesInput, Prisma.TrustUncheckedUpdateWithoutInsurancePoliciesInput>
+}
+
+export type TrustUpdateWithoutInsurancePoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutInsurancePoliciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutChecklistItemsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutChecklistItemsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutChecklistItemsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutChecklistItemsInput, Prisma.TrustUncheckedCreateWithoutChecklistItemsInput>
+}
+
+export type TrustUpsertWithoutChecklistItemsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutChecklistItemsInput, Prisma.TrustUncheckedUpdateWithoutChecklistItemsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutChecklistItemsInput, Prisma.TrustUncheckedCreateWithoutChecklistItemsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutChecklistItemsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutChecklistItemsInput, Prisma.TrustUncheckedUpdateWithoutChecklistItemsInput>
+}
+
+export type TrustUpdateWithoutChecklistItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutChecklistItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutTrustConceptsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
+}
+
+export type TrustUncheckedCreateWithoutTrustConceptsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
+}
+
+export type TrustCreateOrConnectWithoutTrustConceptsInput = {
+  where: Prisma.TrustWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrustCreateWithoutTrustConceptsInput, Prisma.TrustUncheckedCreateWithoutTrustConceptsInput>
+}
+
+export type TrustUpsertWithoutTrustConceptsInput = {
+  update: Prisma.XOR<Prisma.TrustUpdateWithoutTrustConceptsInput, Prisma.TrustUncheckedUpdateWithoutTrustConceptsInput>
+  create: Prisma.XOR<Prisma.TrustCreateWithoutTrustConceptsInput, Prisma.TrustUncheckedCreateWithoutTrustConceptsInput>
+  where?: Prisma.TrustWhereInput
+}
+
+export type TrustUpdateToOneWithWhereWithoutTrustConceptsInput = {
+  where?: Prisma.TrustWhereInput
+  data: Prisma.XOR<Prisma.TrustUpdateWithoutTrustConceptsInput, Prisma.TrustUncheckedUpdateWithoutTrustConceptsInput>
+}
+
+export type TrustUpdateWithoutTrustConceptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutTrustConceptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateWithoutMonthlyStatementsInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
+  fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
+  members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
+  comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutMonthlyStatementsInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1019,6 +6979,21 @@ export type TrustUncheckedCreateWithoutMonthlyStatementsInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutMonthlyStatementsInput = {
@@ -1041,18 +7016,43 @@ export type TrustUpdateWithoutMonthlyStatementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1063,29 +7063,71 @@ export type TrustUpdateWithoutMonthlyStatementsInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutMonthlyStatementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1101,24 +7143,64 @@ export type TrustUncheckedUpdateWithoutMonthlyStatementsInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateWithoutComiteSessionsInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1129,29 +7211,71 @@ export type TrustCreateWithoutComiteSessionsInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutComiteSessionsInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1167,6 +7291,21 @@ export type TrustUncheckedCreateWithoutComiteSessionsInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutComiteSessionsInput = {
@@ -1189,18 +7328,43 @@ export type TrustUpdateWithoutComiteSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1211,29 +7375,71 @@ export type TrustUpdateWithoutComiteSessionsInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutComiteSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1249,24 +7455,64 @@ export type TrustUncheckedUpdateWithoutComiteSessionsInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateWithoutFiduciarioFeeInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1277,29 +7523,71 @@ export type TrustCreateWithoutFiduciarioFeeInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutFiduciarioFeeInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1315,6 +7603,21 @@ export type TrustUncheckedCreateWithoutFiduciarioFeeInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutFiduciarioFeeInput = {
@@ -1337,18 +7640,43 @@ export type TrustUpdateWithoutFiduciarioFeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1359,29 +7687,71 @@ export type TrustUpdateWithoutFiduciarioFeeInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutFiduciarioFeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1397,24 +7767,64 @@ export type TrustUncheckedUpdateWithoutFiduciarioFeeInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateWithoutMembersInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1425,29 +7835,71 @@ export type TrustCreateWithoutMembersInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutMembersInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1463,6 +7915,21 @@ export type TrustUncheckedCreateWithoutMembersInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutMembersInput = {
@@ -1485,18 +7952,43 @@ export type TrustUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1507,29 +7999,71 @@ export type TrustUpdateWithoutMembersInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1545,24 +8079,64 @@ export type TrustUncheckedUpdateWithoutMembersInput = {
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateWithoutExceptionVotesInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1573,29 +8147,71 @@ export type TrustCreateWithoutExceptionVotesInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutExceptionVotesInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1611,6 +8227,21 @@ export type TrustUncheckedCreateWithoutExceptionVotesInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   assetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutExceptionVotesInput = {
@@ -1633,18 +8264,43 @@ export type TrustUpdateWithoutExceptionVotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1655,29 +8311,71 @@ export type TrustUpdateWithoutExceptionVotesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutExceptionVotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1693,24 +8391,64 @@ export type TrustUncheckedUpdateWithoutExceptionVotesInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustCreateWithoutAssetTemplatesInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1721,29 +8459,71 @@ export type TrustCreateWithoutAssetTemplatesInput = {
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  trustTypeRef?: Prisma.TrustTypeCreateNestedOneWithoutTrustsInput
   fiduciarioFee?: Prisma.FiduciarioFeeCreateNestedOneWithoutTrustInput
   members?: Prisma.ActorTrustCreateNestedManyWithoutTrustInput
   comiteSessions?: Prisma.ComiteSessionCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessCreateNestedManyWithoutTrustInput
 }
 
 export type TrustUncheckedCreateWithoutAssetTemplatesInput = {
   id?: string
   trustId: string
   name?: string | null
+  trustTypeId?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
   initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: string | null
   fideicomitenteRFC?: string | null
   fiduciarioName?: string | null
   fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
   constitutionDate?: Date | string | null
   expirationDate?: Date | string | null
   maxTermYears?: number | null
   termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
   rfc?: string | null
   satRegistrationNumber?: string | null
   satRegisteredAt?: Date | string | null
@@ -1759,6 +8539,21 @@ export type TrustUncheckedCreateWithoutAssetTemplatesInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedCreateNestedManyWithoutTrustInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutTrustInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutTrustInput
+  contributions?: Prisma.ContributionUncheckedCreateNestedManyWithoutTrustInput
+  budgetItems?: Prisma.BudgetItemUncheckedCreateNestedManyWithoutTrustInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedCreateNestedManyWithoutTrustInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutTrustInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedCreateNestedManyWithoutTrustInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedCreateNestedManyWithoutTrustInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedCreateNestedManyWithoutTrustInput
+  checklistItems?: Prisma.ChecklistItemUncheckedCreateNestedManyWithoutTrustInput
+  trustConcepts?: Prisma.TrustConceptUncheckedCreateNestedManyWithoutTrustInput
+  milestones?: Prisma.MilestoneUncheckedCreateNestedManyWithoutTrustInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedCreateNestedManyWithoutTrustInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutTrustInput
+  units?: Prisma.UnitUncheckedCreateNestedManyWithoutTrustInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedCreateNestedManyWithoutTrustInput
+  saleProcesses?: Prisma.SaleProcessUncheckedCreateNestedManyWithoutTrustInput
 }
 
 export type TrustCreateOrConnectWithoutAssetTemplatesInput = {
@@ -1781,18 +8576,43 @@ export type TrustUpdateWithoutAssetTemplatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1803,29 +8623,71 @@ export type TrustUpdateWithoutAssetTemplatesInput = {
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trustTypeRef?: Prisma.TrustTypeUpdateOneWithoutTrustsNestedInput
   fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
   members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
   comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
 }
 
 export type TrustUncheckedUpdateWithoutAssetTemplatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   trustId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
   initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  bondLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  otherLimitPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1841,6 +8703,275 @@ export type TrustUncheckedUpdateWithoutAssetTemplatesInput = {
   comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
   exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustCreateManyTrustTypeRefInput = {
+  id?: string
+  trustId: string
+  name?: string | null
+  trustType?: string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.TrustStatus
+  initialCapital: runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: string | null
+  fideicomitenteRFC?: string | null
+  fiduciarioName?: string | null
+  fiduciarioRFC?: string | null
+  fechaFirma?: Date | string | null
+  lugarFirma?: string | null
+  jurisdiccion?: string | null
+  domicilioLegal?: string | null
+  domicilioFiscal?: string | null
+  baseCurrency?: string | null
+  fechaCierreEjercicioDay?: number | null
+  fechaCierreEjercicioMonth?: number | null
+  constitutionDate?: Date | string | null
+  expirationDate?: Date | string | null
+  maxTermYears?: number | null
+  termType?: string | null
+  fechaObjetivoEntrega?: Date | string | null
+  reglasExtincionResumen?: string | null
+  objetoTexto?: string | null
+  finalidadCategoria?: string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: boolean
+  reportPeriodicity?: string | null
+  fiscalYearEndMonth?: number | null
+  fiscalYearEndDay?: number | null
+  observationDays?: number | null
+  moraAutomatica?: boolean
+  diasGracia?: number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustCreatetagsInput | string[]
+  notasInternas?: string | null
+  rfc?: string | null
+  satRegistrationNumber?: string | null
+  satRegisteredAt?: Date | string | null
+  terminationDate?: Date | string | null
+  terminationType?: string | null
+  terminationReason?: string | null
+  transmissionCompleted?: boolean
+  active?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TrustUpdateWithoutTrustTypeRefInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateWithoutTrustTypeRefInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fiduciarioFee?: Prisma.FiduciarioFeeUncheckedUpdateOneWithoutTrustNestedInput
+  members?: Prisma.ActorTrustUncheckedUpdateManyWithoutTrustNestedInput
+  comiteSessions?: Prisma.ComiteSessionUncheckedUpdateManyWithoutTrustNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutTrustNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutTrustNestedInput
+  assetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutTrustNestedInput
+  contributions?: Prisma.ContributionUncheckedUpdateManyWithoutTrustNestedInput
+  budgetItems?: Prisma.BudgetItemUncheckedUpdateManyWithoutTrustNestedInput
+  cashflowPlans?: Prisma.CashflowPlanUncheckedUpdateManyWithoutTrustNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutTrustNestedInput
+  fiduciaryAccounts?: Prisma.FiduciaryAccountUncheckedUpdateManyWithoutTrustNestedInput
+  contractDocuments?: Prisma.ContractDocumentUncheckedUpdateManyWithoutTrustNestedInput
+  insurancePolicies?: Prisma.InsurancePolicyUncheckedUpdateManyWithoutTrustNestedInput
+  checklistItems?: Prisma.ChecklistItemUncheckedUpdateManyWithoutTrustNestedInput
+  trustConcepts?: Prisma.TrustConceptUncheckedUpdateManyWithoutTrustNestedInput
+  milestones?: Prisma.MilestoneUncheckedUpdateManyWithoutTrustNestedInput
+  approvalPolicies?: Prisma.ApprovalPolicyUncheckedUpdateManyWithoutTrustNestedInput
+  approvalRequests?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutTrustNestedInput
+  units?: Prisma.UnitUncheckedUpdateManyWithoutTrustNestedInput
+  unitSelectionRounds?: Prisma.UnitSelectionRoundUncheckedUpdateManyWithoutTrustNestedInput
+  saleProcesses?: Prisma.SaleProcessUncheckedUpdateManyWithoutTrustNestedInput
+}
+
+export type TrustUncheckedUpdateManyWithoutTrustTypeRefInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trustId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trustTypeConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumTrustStatusFieldUpdateOperationsInput | $Enums.TrustStatus
+  initialCapital?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  bondLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otherLimitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fideicomitenteName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fideicomitenteRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiduciarioRFC?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaFirma?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lugarFirma?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jurisdiccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioLegal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domicilioFiscal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  baseCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCierreEjercicioDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fechaCierreEjercicioMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  constitutionDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expirationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  maxTermYears?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  termType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaObjetivoEntrega?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reglasExtincionResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objetoTexto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  finalidadCategoria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  anexosObligatorios?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  requiresConsensus?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  reportPeriodicity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalYearEndMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fiscalYearEndDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  observationDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  moraAutomatica?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  diasGracia?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permisosPortal?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  tags?: Prisma.TrustUpdatetagsInput | string[]
+  notasInternas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rfc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  satRegisteredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  terminationType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  terminationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transmissionCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1854,6 +8985,21 @@ export type TrustCountOutputType = {
   monthlyStatements: number
   exceptionVotes: number
   assetTemplates: number
+  contributions: number
+  budgetItems: number
+  cashflowPlans: number
+  expenses: number
+  fiduciaryAccounts: number
+  contractDocuments: number
+  insurancePolicies: number
+  checklistItems: number
+  trustConcepts: number
+  milestones: number
+  approvalPolicies: number
+  approvalRequests: number
+  units: number
+  unitSelectionRounds: number
+  saleProcesses: number
 }
 
 export type TrustCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1862,6 +9008,21 @@ export type TrustCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   monthlyStatements?: boolean | TrustCountOutputTypeCountMonthlyStatementsArgs
   exceptionVotes?: boolean | TrustCountOutputTypeCountExceptionVotesArgs
   assetTemplates?: boolean | TrustCountOutputTypeCountAssetTemplatesArgs
+  contributions?: boolean | TrustCountOutputTypeCountContributionsArgs
+  budgetItems?: boolean | TrustCountOutputTypeCountBudgetItemsArgs
+  cashflowPlans?: boolean | TrustCountOutputTypeCountCashflowPlansArgs
+  expenses?: boolean | TrustCountOutputTypeCountExpensesArgs
+  fiduciaryAccounts?: boolean | TrustCountOutputTypeCountFiduciaryAccountsArgs
+  contractDocuments?: boolean | TrustCountOutputTypeCountContractDocumentsArgs
+  insurancePolicies?: boolean | TrustCountOutputTypeCountInsurancePoliciesArgs
+  checklistItems?: boolean | TrustCountOutputTypeCountChecklistItemsArgs
+  trustConcepts?: boolean | TrustCountOutputTypeCountTrustConceptsArgs
+  milestones?: boolean | TrustCountOutputTypeCountMilestonesArgs
+  approvalPolicies?: boolean | TrustCountOutputTypeCountApprovalPoliciesArgs
+  approvalRequests?: boolean | TrustCountOutputTypeCountApprovalRequestsArgs
+  units?: boolean | TrustCountOutputTypeCountUnitsArgs
+  unitSelectionRounds?: boolean | TrustCountOutputTypeCountUnitSelectionRoundsArgs
+  saleProcesses?: boolean | TrustCountOutputTypeCountSaleProcessesArgs
 }
 
 /**
@@ -1909,11 +9070,120 @@ export type TrustCountOutputTypeCountAssetTemplatesArgs<ExtArgs extends runtime.
   where?: Prisma.AssetTemplateWhereInput
 }
 
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountContributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContributionWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountBudgetItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BudgetItemWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountCashflowPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CashflowPlanWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExpenseWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountFiduciaryAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FiduciaryAccountWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountContractDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractDocumentWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountInsurancePoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InsurancePolicyWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountChecklistItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChecklistItemWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountTrustConceptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrustConceptWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MilestoneWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountApprovalPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApprovalPolicyWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountApprovalRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApprovalRequestWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountUnitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnitWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountUnitSelectionRoundsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnitSelectionRoundWhereInput
+}
+
+/**
+ * TrustCountOutputType without action
+ */
+export type TrustCountOutputTypeCountSaleProcessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SaleProcessWhereInput
+}
+
 
 export type TrustSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   trustId?: boolean
   name?: boolean
+  trustTypeId?: boolean
+  trustType?: boolean
+  trustTypeConfig?: boolean
+  status?: boolean
   initialCapital?: boolean
   bondLimitPercent?: boolean
   otherLimitPercent?: boolean
@@ -1921,11 +9191,33 @@ export type TrustSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   fideicomitenteRFC?: boolean
   fiduciarioName?: boolean
   fiduciarioRFC?: boolean
+  fechaFirma?: boolean
+  lugarFirma?: boolean
+  jurisdiccion?: boolean
+  domicilioLegal?: boolean
+  domicilioFiscal?: boolean
+  baseCurrency?: boolean
+  fechaCierreEjercicioDay?: boolean
+  fechaCierreEjercicioMonth?: boolean
   constitutionDate?: boolean
   expirationDate?: boolean
   maxTermYears?: boolean
   termType?: boolean
+  fechaObjetivoEntrega?: boolean
+  reglasExtincionResumen?: boolean
+  objetoTexto?: boolean
+  finalidadCategoria?: boolean
+  anexosObligatorios?: boolean
   requiresConsensus?: boolean
+  reportPeriodicity?: boolean
+  fiscalYearEndMonth?: boolean
+  fiscalYearEndDay?: boolean
+  observationDays?: boolean
+  moraAutomatica?: boolean
+  diasGracia?: boolean
+  permisosPortal?: boolean
+  tags?: boolean
+  notasInternas?: boolean
   rfc?: boolean
   satRegistrationNumber?: boolean
   satRegisteredAt?: boolean
@@ -1936,12 +9228,28 @@ export type TrustSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
   fiduciarioFee?: boolean | Prisma.Trust$fiduciarioFeeArgs<ExtArgs>
   members?: boolean | Prisma.Trust$membersArgs<ExtArgs>
   comiteSessions?: boolean | Prisma.Trust$comiteSessionsArgs<ExtArgs>
   monthlyStatements?: boolean | Prisma.Trust$monthlyStatementsArgs<ExtArgs>
   exceptionVotes?: boolean | Prisma.Trust$exceptionVotesArgs<ExtArgs>
   assetTemplates?: boolean | Prisma.Trust$assetTemplatesArgs<ExtArgs>
+  contributions?: boolean | Prisma.Trust$contributionsArgs<ExtArgs>
+  budgetItems?: boolean | Prisma.Trust$budgetItemsArgs<ExtArgs>
+  cashflowPlans?: boolean | Prisma.Trust$cashflowPlansArgs<ExtArgs>
+  expenses?: boolean | Prisma.Trust$expensesArgs<ExtArgs>
+  fiduciaryAccounts?: boolean | Prisma.Trust$fiduciaryAccountsArgs<ExtArgs>
+  contractDocuments?: boolean | Prisma.Trust$contractDocumentsArgs<ExtArgs>
+  insurancePolicies?: boolean | Prisma.Trust$insurancePoliciesArgs<ExtArgs>
+  checklistItems?: boolean | Prisma.Trust$checklistItemsArgs<ExtArgs>
+  trustConcepts?: boolean | Prisma.Trust$trustConceptsArgs<ExtArgs>
+  milestones?: boolean | Prisma.Trust$milestonesArgs<ExtArgs>
+  approvalPolicies?: boolean | Prisma.Trust$approvalPoliciesArgs<ExtArgs>
+  approvalRequests?: boolean | Prisma.Trust$approvalRequestsArgs<ExtArgs>
+  units?: boolean | Prisma.Trust$unitsArgs<ExtArgs>
+  unitSelectionRounds?: boolean | Prisma.Trust$unitSelectionRoundsArgs<ExtArgs>
+  saleProcesses?: boolean | Prisma.Trust$saleProcessesArgs<ExtArgs>
   _count?: boolean | Prisma.TrustCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trust"]>
 
@@ -1949,6 +9257,10 @@ export type TrustSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   trustId?: boolean
   name?: boolean
+  trustTypeId?: boolean
+  trustType?: boolean
+  trustTypeConfig?: boolean
+  status?: boolean
   initialCapital?: boolean
   bondLimitPercent?: boolean
   otherLimitPercent?: boolean
@@ -1956,11 +9268,33 @@ export type TrustSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   fideicomitenteRFC?: boolean
   fiduciarioName?: boolean
   fiduciarioRFC?: boolean
+  fechaFirma?: boolean
+  lugarFirma?: boolean
+  jurisdiccion?: boolean
+  domicilioLegal?: boolean
+  domicilioFiscal?: boolean
+  baseCurrency?: boolean
+  fechaCierreEjercicioDay?: boolean
+  fechaCierreEjercicioMonth?: boolean
   constitutionDate?: boolean
   expirationDate?: boolean
   maxTermYears?: boolean
   termType?: boolean
+  fechaObjetivoEntrega?: boolean
+  reglasExtincionResumen?: boolean
+  objetoTexto?: boolean
+  finalidadCategoria?: boolean
+  anexosObligatorios?: boolean
   requiresConsensus?: boolean
+  reportPeriodicity?: boolean
+  fiscalYearEndMonth?: boolean
+  fiscalYearEndDay?: boolean
+  observationDays?: boolean
+  moraAutomatica?: boolean
+  diasGracia?: boolean
+  permisosPortal?: boolean
+  tags?: boolean
+  notasInternas?: boolean
   rfc?: boolean
   satRegistrationNumber?: boolean
   satRegisteredAt?: boolean
@@ -1971,12 +9305,17 @@ export type TrustSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
 }, ExtArgs["result"]["trust"]>
 
 export type TrustSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   trustId?: boolean
   name?: boolean
+  trustTypeId?: boolean
+  trustType?: boolean
+  trustTypeConfig?: boolean
+  status?: boolean
   initialCapital?: boolean
   bondLimitPercent?: boolean
   otherLimitPercent?: boolean
@@ -1984,11 +9323,33 @@ export type TrustSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   fideicomitenteRFC?: boolean
   fiduciarioName?: boolean
   fiduciarioRFC?: boolean
+  fechaFirma?: boolean
+  lugarFirma?: boolean
+  jurisdiccion?: boolean
+  domicilioLegal?: boolean
+  domicilioFiscal?: boolean
+  baseCurrency?: boolean
+  fechaCierreEjercicioDay?: boolean
+  fechaCierreEjercicioMonth?: boolean
   constitutionDate?: boolean
   expirationDate?: boolean
   maxTermYears?: boolean
   termType?: boolean
+  fechaObjetivoEntrega?: boolean
+  reglasExtincionResumen?: boolean
+  objetoTexto?: boolean
+  finalidadCategoria?: boolean
+  anexosObligatorios?: boolean
   requiresConsensus?: boolean
+  reportPeriodicity?: boolean
+  fiscalYearEndMonth?: boolean
+  fiscalYearEndDay?: boolean
+  observationDays?: boolean
+  moraAutomatica?: boolean
+  diasGracia?: boolean
+  permisosPortal?: boolean
+  tags?: boolean
+  notasInternas?: boolean
   rfc?: boolean
   satRegistrationNumber?: boolean
   satRegisteredAt?: boolean
@@ -1999,12 +9360,17 @@ export type TrustSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
 }, ExtArgs["result"]["trust"]>
 
 export type TrustSelectScalar = {
   id?: boolean
   trustId?: boolean
   name?: boolean
+  trustTypeId?: boolean
+  trustType?: boolean
+  trustTypeConfig?: boolean
+  status?: boolean
   initialCapital?: boolean
   bondLimitPercent?: boolean
   otherLimitPercent?: boolean
@@ -2012,11 +9378,33 @@ export type TrustSelectScalar = {
   fideicomitenteRFC?: boolean
   fiduciarioName?: boolean
   fiduciarioRFC?: boolean
+  fechaFirma?: boolean
+  lugarFirma?: boolean
+  jurisdiccion?: boolean
+  domicilioLegal?: boolean
+  domicilioFiscal?: boolean
+  baseCurrency?: boolean
+  fechaCierreEjercicioDay?: boolean
+  fechaCierreEjercicioMonth?: boolean
   constitutionDate?: boolean
   expirationDate?: boolean
   maxTermYears?: boolean
   termType?: boolean
+  fechaObjetivoEntrega?: boolean
+  reglasExtincionResumen?: boolean
+  objetoTexto?: boolean
+  finalidadCategoria?: boolean
+  anexosObligatorios?: boolean
   requiresConsensus?: boolean
+  reportPeriodicity?: boolean
+  fiscalYearEndMonth?: boolean
+  fiscalYearEndDay?: boolean
+  observationDays?: boolean
+  moraAutomatica?: boolean
+  diasGracia?: boolean
+  permisosPortal?: boolean
+  tags?: boolean
+  notasInternas?: boolean
   rfc?: boolean
   satRegistrationNumber?: boolean
   satRegisteredAt?: boolean
@@ -2029,45 +9417,107 @@ export type TrustSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TrustOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trustId" | "name" | "initialCapital" | "bondLimitPercent" | "otherLimitPercent" | "fideicomitenteName" | "fideicomitenteRFC" | "fiduciarioName" | "fiduciarioRFC" | "constitutionDate" | "expirationDate" | "maxTermYears" | "termType" | "requiresConsensus" | "rfc" | "satRegistrationNumber" | "satRegisteredAt" | "terminationDate" | "terminationType" | "terminationReason" | "transmissionCompleted" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["trust"]>
+export type TrustOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "trustId" | "name" | "trustTypeId" | "trustType" | "trustTypeConfig" | "status" | "initialCapital" | "bondLimitPercent" | "otherLimitPercent" | "fideicomitenteName" | "fideicomitenteRFC" | "fiduciarioName" | "fiduciarioRFC" | "fechaFirma" | "lugarFirma" | "jurisdiccion" | "domicilioLegal" | "domicilioFiscal" | "baseCurrency" | "fechaCierreEjercicioDay" | "fechaCierreEjercicioMonth" | "constitutionDate" | "expirationDate" | "maxTermYears" | "termType" | "fechaObjetivoEntrega" | "reglasExtincionResumen" | "objetoTexto" | "finalidadCategoria" | "anexosObligatorios" | "requiresConsensus" | "reportPeriodicity" | "fiscalYearEndMonth" | "fiscalYearEndDay" | "observationDays" | "moraAutomatica" | "diasGracia" | "permisosPortal" | "tags" | "notasInternas" | "rfc" | "satRegistrationNumber" | "satRegisteredAt" | "terminationDate" | "terminationType" | "terminationReason" | "transmissionCompleted" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["trust"]>
 export type TrustInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
   fiduciarioFee?: boolean | Prisma.Trust$fiduciarioFeeArgs<ExtArgs>
   members?: boolean | Prisma.Trust$membersArgs<ExtArgs>
   comiteSessions?: boolean | Prisma.Trust$comiteSessionsArgs<ExtArgs>
   monthlyStatements?: boolean | Prisma.Trust$monthlyStatementsArgs<ExtArgs>
   exceptionVotes?: boolean | Prisma.Trust$exceptionVotesArgs<ExtArgs>
   assetTemplates?: boolean | Prisma.Trust$assetTemplatesArgs<ExtArgs>
+  contributions?: boolean | Prisma.Trust$contributionsArgs<ExtArgs>
+  budgetItems?: boolean | Prisma.Trust$budgetItemsArgs<ExtArgs>
+  cashflowPlans?: boolean | Prisma.Trust$cashflowPlansArgs<ExtArgs>
+  expenses?: boolean | Prisma.Trust$expensesArgs<ExtArgs>
+  fiduciaryAccounts?: boolean | Prisma.Trust$fiduciaryAccountsArgs<ExtArgs>
+  contractDocuments?: boolean | Prisma.Trust$contractDocumentsArgs<ExtArgs>
+  insurancePolicies?: boolean | Prisma.Trust$insurancePoliciesArgs<ExtArgs>
+  checklistItems?: boolean | Prisma.Trust$checklistItemsArgs<ExtArgs>
+  trustConcepts?: boolean | Prisma.Trust$trustConceptsArgs<ExtArgs>
+  milestones?: boolean | Prisma.Trust$milestonesArgs<ExtArgs>
+  approvalPolicies?: boolean | Prisma.Trust$approvalPoliciesArgs<ExtArgs>
+  approvalRequests?: boolean | Prisma.Trust$approvalRequestsArgs<ExtArgs>
+  units?: boolean | Prisma.Trust$unitsArgs<ExtArgs>
+  unitSelectionRounds?: boolean | Prisma.Trust$unitSelectionRoundsArgs<ExtArgs>
+  saleProcesses?: boolean | Prisma.Trust$saleProcessesArgs<ExtArgs>
   _count?: boolean | Prisma.TrustCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type TrustIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TrustIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TrustIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
+}
+export type TrustIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  trustTypeRef?: boolean | Prisma.Trust$trustTypeRefArgs<ExtArgs>
+}
 
 export type $TrustPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Trust"
   objects: {
+    trustTypeRef: Prisma.$TrustTypePayload<ExtArgs> | null
     fiduciarioFee: Prisma.$FiduciarioFeePayload<ExtArgs> | null
     members: Prisma.$ActorTrustPayload<ExtArgs>[]
     comiteSessions: Prisma.$ComiteSessionPayload<ExtArgs>[]
     monthlyStatements: Prisma.$MonthlyStatementPayload<ExtArgs>[]
     exceptionVotes: Prisma.$ExceptionVotePayload<ExtArgs>[]
     assetTemplates: Prisma.$AssetTemplatePayload<ExtArgs>[]
+    contributions: Prisma.$ContributionPayload<ExtArgs>[]
+    budgetItems: Prisma.$BudgetItemPayload<ExtArgs>[]
+    cashflowPlans: Prisma.$CashflowPlanPayload<ExtArgs>[]
+    expenses: Prisma.$ExpensePayload<ExtArgs>[]
+    fiduciaryAccounts: Prisma.$FiduciaryAccountPayload<ExtArgs>[]
+    contractDocuments: Prisma.$ContractDocumentPayload<ExtArgs>[]
+    insurancePolicies: Prisma.$InsurancePolicyPayload<ExtArgs>[]
+    checklistItems: Prisma.$ChecklistItemPayload<ExtArgs>[]
+    trustConcepts: Prisma.$TrustConceptPayload<ExtArgs>[]
+    milestones: Prisma.$MilestonePayload<ExtArgs>[]
+    approvalPolicies: Prisma.$ApprovalPolicyPayload<ExtArgs>[]
+    approvalRequests: Prisma.$ApprovalRequestPayload<ExtArgs>[]
+    units: Prisma.$UnitPayload<ExtArgs>[]
+    unitSelectionRounds: Prisma.$UnitSelectionRoundPayload<ExtArgs>[]
+    saleProcesses: Prisma.$SaleProcessPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     trustId: string
     name: string | null
+    trustTypeId: string | null
+    trustType: string | null
+    trustTypeConfig: runtime.JsonValue | null
+    status: $Enums.TrustStatus
     initialCapital: runtime.Decimal
-    bondLimitPercent: runtime.Decimal
-    otherLimitPercent: runtime.Decimal
+    bondLimitPercent: runtime.Decimal | null
+    otherLimitPercent: runtime.Decimal | null
     fideicomitenteName: string | null
     fideicomitenteRFC: string | null
     fiduciarioName: string | null
     fiduciarioRFC: string | null
+    fechaFirma: Date | null
+    lugarFirma: string | null
+    jurisdiccion: string | null
+    domicilioLegal: string | null
+    domicilioFiscal: string | null
+    baseCurrency: string | null
+    fechaCierreEjercicioDay: number | null
+    fechaCierreEjercicioMonth: number | null
     constitutionDate: Date | null
     expirationDate: Date | null
     maxTermYears: number | null
     termType: string | null
+    fechaObjetivoEntrega: Date | null
+    reglasExtincionResumen: string | null
+    objetoTexto: string | null
+    finalidadCategoria: string | null
+    anexosObligatorios: runtime.JsonValue | null
     requiresConsensus: boolean
+    reportPeriodicity: string | null
+    fiscalYearEndMonth: number | null
+    fiscalYearEndDay: number | null
+    observationDays: number | null
+    moraAutomatica: boolean
+    diasGracia: number | null
+    permisosPortal: runtime.JsonValue | null
+    tags: string[]
+    notasInternas: string | null
     rfc: string | null
     satRegistrationNumber: string | null
     satRegisteredAt: Date | null
@@ -2472,12 +9922,28 @@ readonly fields: TrustFieldRefs;
  */
 export interface Prisma__TrustClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  trustTypeRef<T extends Prisma.Trust$trustTypeRefArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$trustTypeRefArgs<ExtArgs>>): Prisma.Prisma__TrustTypeClient<runtime.Types.Result.GetResult<Prisma.$TrustTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   fiduciarioFee<T extends Prisma.Trust$fiduciarioFeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$fiduciarioFeeArgs<ExtArgs>>): Prisma.Prisma__FiduciarioFeeClient<runtime.Types.Result.GetResult<Prisma.$FiduciarioFeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   members<T extends Prisma.Trust$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActorTrustPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comiteSessions<T extends Prisma.Trust$comiteSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$comiteSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComiteSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   monthlyStatements<T extends Prisma.Trust$monthlyStatementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$monthlyStatementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MonthlyStatementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exceptionVotes<T extends Prisma.Trust$exceptionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$exceptionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExceptionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assetTemplates<T extends Prisma.Trust$assetTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$assetTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contributions<T extends Prisma.Trust$contributionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$contributionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  budgetItems<T extends Prisma.Trust$budgetItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$budgetItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BudgetItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cashflowPlans<T extends Prisma.Trust$cashflowPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$cashflowPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CashflowPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  expenses<T extends Prisma.Trust$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fiduciaryAccounts<T extends Prisma.Trust$fiduciaryAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$fiduciaryAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FiduciaryAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contractDocuments<T extends Prisma.Trust$contractDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$contractDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  insurancePolicies<T extends Prisma.Trust$insurancePoliciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$insurancePoliciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InsurancePolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  checklistItems<T extends Prisma.Trust$checklistItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$checklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trustConcepts<T extends Prisma.Trust$trustConceptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$trustConceptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrustConceptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  milestones<T extends Prisma.Trust$milestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvalPolicies<T extends Prisma.Trust$approvalPoliciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$approvalPoliciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalPolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  approvalRequests<T extends Prisma.Trust$approvalRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$approvalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  units<T extends Prisma.Trust$unitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$unitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unitSelectionRounds<T extends Prisma.Trust$unitSelectionRoundsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$unitSelectionRoundsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitSelectionRoundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  saleProcesses<T extends Prisma.Trust$saleProcessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Trust$saleProcessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleProcessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2510,6 +9976,10 @@ export interface TrustFieldRefs {
   readonly id: Prisma.FieldRef<"Trust", 'String'>
   readonly trustId: Prisma.FieldRef<"Trust", 'String'>
   readonly name: Prisma.FieldRef<"Trust", 'String'>
+  readonly trustTypeId: Prisma.FieldRef<"Trust", 'String'>
+  readonly trustType: Prisma.FieldRef<"Trust", 'String'>
+  readonly trustTypeConfig: Prisma.FieldRef<"Trust", 'Json'>
+  readonly status: Prisma.FieldRef<"Trust", 'TrustStatus'>
   readonly initialCapital: Prisma.FieldRef<"Trust", 'Decimal'>
   readonly bondLimitPercent: Prisma.FieldRef<"Trust", 'Decimal'>
   readonly otherLimitPercent: Prisma.FieldRef<"Trust", 'Decimal'>
@@ -2517,11 +9987,33 @@ export interface TrustFieldRefs {
   readonly fideicomitenteRFC: Prisma.FieldRef<"Trust", 'String'>
   readonly fiduciarioName: Prisma.FieldRef<"Trust", 'String'>
   readonly fiduciarioRFC: Prisma.FieldRef<"Trust", 'String'>
+  readonly fechaFirma: Prisma.FieldRef<"Trust", 'DateTime'>
+  readonly lugarFirma: Prisma.FieldRef<"Trust", 'String'>
+  readonly jurisdiccion: Prisma.FieldRef<"Trust", 'String'>
+  readonly domicilioLegal: Prisma.FieldRef<"Trust", 'String'>
+  readonly domicilioFiscal: Prisma.FieldRef<"Trust", 'String'>
+  readonly baseCurrency: Prisma.FieldRef<"Trust", 'String'>
+  readonly fechaCierreEjercicioDay: Prisma.FieldRef<"Trust", 'Int'>
+  readonly fechaCierreEjercicioMonth: Prisma.FieldRef<"Trust", 'Int'>
   readonly constitutionDate: Prisma.FieldRef<"Trust", 'DateTime'>
   readonly expirationDate: Prisma.FieldRef<"Trust", 'DateTime'>
   readonly maxTermYears: Prisma.FieldRef<"Trust", 'Int'>
   readonly termType: Prisma.FieldRef<"Trust", 'String'>
+  readonly fechaObjetivoEntrega: Prisma.FieldRef<"Trust", 'DateTime'>
+  readonly reglasExtincionResumen: Prisma.FieldRef<"Trust", 'String'>
+  readonly objetoTexto: Prisma.FieldRef<"Trust", 'String'>
+  readonly finalidadCategoria: Prisma.FieldRef<"Trust", 'String'>
+  readonly anexosObligatorios: Prisma.FieldRef<"Trust", 'Json'>
   readonly requiresConsensus: Prisma.FieldRef<"Trust", 'Boolean'>
+  readonly reportPeriodicity: Prisma.FieldRef<"Trust", 'String'>
+  readonly fiscalYearEndMonth: Prisma.FieldRef<"Trust", 'Int'>
+  readonly fiscalYearEndDay: Prisma.FieldRef<"Trust", 'Int'>
+  readonly observationDays: Prisma.FieldRef<"Trust", 'Int'>
+  readonly moraAutomatica: Prisma.FieldRef<"Trust", 'Boolean'>
+  readonly diasGracia: Prisma.FieldRef<"Trust", 'Int'>
+  readonly permisosPortal: Prisma.FieldRef<"Trust", 'Json'>
+  readonly tags: Prisma.FieldRef<"Trust", 'String[]'>
+  readonly notasInternas: Prisma.FieldRef<"Trust", 'String'>
   readonly rfc: Prisma.FieldRef<"Trust", 'String'>
   readonly satRegistrationNumber: Prisma.FieldRef<"Trust", 'String'>
   readonly satRegisteredAt: Prisma.FieldRef<"Trust", 'DateTime'>
@@ -2781,6 +10273,10 @@ export type TrustCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    */
   data: Prisma.TrustCreateManyInput | Prisma.TrustCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrustIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2851,6 +10347,10 @@ export type TrustUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many Trusts to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrustIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2917,6 +10417,25 @@ export type TrustDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Trusts to delete.
    */
   limit?: number
+}
+
+/**
+ * Trust.trustTypeRef
+ */
+export type Trust$trustTypeRefArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrustType
+   */
+  select?: Prisma.TrustTypeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrustType
+   */
+  omit?: Prisma.TrustTypeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrustTypeInclude<ExtArgs> | null
+  where?: Prisma.TrustTypeWhereInput
 }
 
 /**
@@ -3056,6 +10575,366 @@ export type Trust$assetTemplatesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.AssetTemplateScalarFieldEnum | Prisma.AssetTemplateScalarFieldEnum[]
+}
+
+/**
+ * Trust.contributions
+ */
+export type Trust$contributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Contribution
+   */
+  select?: Prisma.ContributionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Contribution
+   */
+  omit?: Prisma.ContributionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContributionInclude<ExtArgs> | null
+  where?: Prisma.ContributionWhereInput
+  orderBy?: Prisma.ContributionOrderByWithRelationInput | Prisma.ContributionOrderByWithRelationInput[]
+  cursor?: Prisma.ContributionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContributionScalarFieldEnum | Prisma.ContributionScalarFieldEnum[]
+}
+
+/**
+ * Trust.budgetItems
+ */
+export type Trust$budgetItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BudgetItem
+   */
+  select?: Prisma.BudgetItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BudgetItem
+   */
+  omit?: Prisma.BudgetItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BudgetItemInclude<ExtArgs> | null
+  where?: Prisma.BudgetItemWhereInput
+  orderBy?: Prisma.BudgetItemOrderByWithRelationInput | Prisma.BudgetItemOrderByWithRelationInput[]
+  cursor?: Prisma.BudgetItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BudgetItemScalarFieldEnum | Prisma.BudgetItemScalarFieldEnum[]
+}
+
+/**
+ * Trust.cashflowPlans
+ */
+export type Trust$cashflowPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CashflowPlan
+   */
+  select?: Prisma.CashflowPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CashflowPlan
+   */
+  omit?: Prisma.CashflowPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CashflowPlanInclude<ExtArgs> | null
+  where?: Prisma.CashflowPlanWhereInput
+  orderBy?: Prisma.CashflowPlanOrderByWithRelationInput | Prisma.CashflowPlanOrderByWithRelationInput[]
+  cursor?: Prisma.CashflowPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CashflowPlanScalarFieldEnum | Prisma.CashflowPlanScalarFieldEnum[]
+}
+
+/**
+ * Trust.expenses
+ */
+export type Trust$expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Expense
+   */
+  select?: Prisma.ExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Expense
+   */
+  omit?: Prisma.ExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExpenseInclude<ExtArgs> | null
+  where?: Prisma.ExpenseWhereInput
+  orderBy?: Prisma.ExpenseOrderByWithRelationInput | Prisma.ExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.ExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
+}
+
+/**
+ * Trust.fiduciaryAccounts
+ */
+export type Trust$fiduciaryAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FiduciaryAccount
+   */
+  select?: Prisma.FiduciaryAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FiduciaryAccount
+   */
+  omit?: Prisma.FiduciaryAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FiduciaryAccountInclude<ExtArgs> | null
+  where?: Prisma.FiduciaryAccountWhereInput
+  orderBy?: Prisma.FiduciaryAccountOrderByWithRelationInput | Prisma.FiduciaryAccountOrderByWithRelationInput[]
+  cursor?: Prisma.FiduciaryAccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FiduciaryAccountScalarFieldEnum | Prisma.FiduciaryAccountScalarFieldEnum[]
+}
+
+/**
+ * Trust.contractDocuments
+ */
+export type Trust$contractDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContractDocument
+   */
+  select?: Prisma.ContractDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContractDocument
+   */
+  omit?: Prisma.ContractDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractDocumentInclude<ExtArgs> | null
+  where?: Prisma.ContractDocumentWhereInput
+  orderBy?: Prisma.ContractDocumentOrderByWithRelationInput | Prisma.ContractDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.ContractDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContractDocumentScalarFieldEnum | Prisma.ContractDocumentScalarFieldEnum[]
+}
+
+/**
+ * Trust.insurancePolicies
+ */
+export type Trust$insurancePoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InsurancePolicy
+   */
+  select?: Prisma.InsurancePolicySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InsurancePolicy
+   */
+  omit?: Prisma.InsurancePolicyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InsurancePolicyInclude<ExtArgs> | null
+  where?: Prisma.InsurancePolicyWhereInput
+  orderBy?: Prisma.InsurancePolicyOrderByWithRelationInput | Prisma.InsurancePolicyOrderByWithRelationInput[]
+  cursor?: Prisma.InsurancePolicyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InsurancePolicyScalarFieldEnum | Prisma.InsurancePolicyScalarFieldEnum[]
+}
+
+/**
+ * Trust.checklistItems
+ */
+export type Trust$checklistItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChecklistItem
+   */
+  select?: Prisma.ChecklistItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChecklistItem
+   */
+  omit?: Prisma.ChecklistItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChecklistItemInclude<ExtArgs> | null
+  where?: Prisma.ChecklistItemWhereInput
+  orderBy?: Prisma.ChecklistItemOrderByWithRelationInput | Prisma.ChecklistItemOrderByWithRelationInput[]
+  cursor?: Prisma.ChecklistItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChecklistItemScalarFieldEnum | Prisma.ChecklistItemScalarFieldEnum[]
+}
+
+/**
+ * Trust.trustConcepts
+ */
+export type Trust$trustConceptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrustConcept
+   */
+  select?: Prisma.TrustConceptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrustConcept
+   */
+  omit?: Prisma.TrustConceptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrustConceptInclude<ExtArgs> | null
+  where?: Prisma.TrustConceptWhereInput
+  orderBy?: Prisma.TrustConceptOrderByWithRelationInput | Prisma.TrustConceptOrderByWithRelationInput[]
+  cursor?: Prisma.TrustConceptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrustConceptScalarFieldEnum | Prisma.TrustConceptScalarFieldEnum[]
+}
+
+/**
+ * Trust.milestones
+ */
+export type Trust$milestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Milestone
+   */
+  select?: Prisma.MilestoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Milestone
+   */
+  omit?: Prisma.MilestoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MilestoneInclude<ExtArgs> | null
+  where?: Prisma.MilestoneWhereInput
+  orderBy?: Prisma.MilestoneOrderByWithRelationInput | Prisma.MilestoneOrderByWithRelationInput[]
+  cursor?: Prisma.MilestoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MilestoneScalarFieldEnum | Prisma.MilestoneScalarFieldEnum[]
+}
+
+/**
+ * Trust.approvalPolicies
+ */
+export type Trust$approvalPoliciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApprovalPolicy
+   */
+  select?: Prisma.ApprovalPolicySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApprovalPolicy
+   */
+  omit?: Prisma.ApprovalPolicyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApprovalPolicyInclude<ExtArgs> | null
+  where?: Prisma.ApprovalPolicyWhereInput
+  orderBy?: Prisma.ApprovalPolicyOrderByWithRelationInput | Prisma.ApprovalPolicyOrderByWithRelationInput[]
+  cursor?: Prisma.ApprovalPolicyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApprovalPolicyScalarFieldEnum | Prisma.ApprovalPolicyScalarFieldEnum[]
+}
+
+/**
+ * Trust.approvalRequests
+ */
+export type Trust$approvalRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApprovalRequest
+   */
+  select?: Prisma.ApprovalRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApprovalRequest
+   */
+  omit?: Prisma.ApprovalRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApprovalRequestInclude<ExtArgs> | null
+  where?: Prisma.ApprovalRequestWhereInput
+  orderBy?: Prisma.ApprovalRequestOrderByWithRelationInput | Prisma.ApprovalRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ApprovalRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApprovalRequestScalarFieldEnum | Prisma.ApprovalRequestScalarFieldEnum[]
+}
+
+/**
+ * Trust.units
+ */
+export type Trust$unitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Unit
+   */
+  select?: Prisma.UnitSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Unit
+   */
+  omit?: Prisma.UnitOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnitInclude<ExtArgs> | null
+  where?: Prisma.UnitWhereInput
+  orderBy?: Prisma.UnitOrderByWithRelationInput | Prisma.UnitOrderByWithRelationInput[]
+  cursor?: Prisma.UnitWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnitScalarFieldEnum | Prisma.UnitScalarFieldEnum[]
+}
+
+/**
+ * Trust.unitSelectionRounds
+ */
+export type Trust$unitSelectionRoundsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnitSelectionRound
+   */
+  select?: Prisma.UnitSelectionRoundSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnitSelectionRound
+   */
+  omit?: Prisma.UnitSelectionRoundOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnitSelectionRoundInclude<ExtArgs> | null
+  where?: Prisma.UnitSelectionRoundWhereInput
+  orderBy?: Prisma.UnitSelectionRoundOrderByWithRelationInput | Prisma.UnitSelectionRoundOrderByWithRelationInput[]
+  cursor?: Prisma.UnitSelectionRoundWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnitSelectionRoundScalarFieldEnum | Prisma.UnitSelectionRoundScalarFieldEnum[]
+}
+
+/**
+ * Trust.saleProcesses
+ */
+export type Trust$saleProcessesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SaleProcess
+   */
+  select?: Prisma.SaleProcessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SaleProcess
+   */
+  omit?: Prisma.SaleProcessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SaleProcessInclude<ExtArgs> | null
+  where?: Prisma.SaleProcessWhereInput
+  orderBy?: Prisma.SaleProcessOrderByWithRelationInput | Prisma.SaleProcessOrderByWithRelationInput[]
+  cursor?: Prisma.SaleProcessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SaleProcessScalarFieldEnum | Prisma.SaleProcessScalarFieldEnum[]
 }
 
 /**

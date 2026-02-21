@@ -22,8 +22,23 @@ import { AuditLogsPage } from './pages/AuditLogsPage';
 import { TrustsManagementPage } from './pages/TrustsManagementPage';
 import { ComiteSessionFormPage } from './pages/ComiteSessionFormPage';
 import { MonthlyStatementsPage } from './pages/MonthlyStatementsPage';
+import ContributionsPage from './pages/ContributionsPage';
 
 function App() {
+  // #region agent log
+  fetch('http://localhost:7242/ingest/5d4ace75-5167-468d-a08d-1792e7aa6769', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      location: 'App.tsx:App',
+      message: 'ContributionsPage binding check',
+      data: { contributionsPageType: typeof ContributionsPage },
+      timestamp: Date.now(),
+      hypothesisId: 'H1',
+      runId: 'post-fix',
+    }),
+  }).catch(() => {});
+  // #endregion
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -47,6 +62,7 @@ function App() {
               <Route path="/trusts/:trustId/sessions/new" element={<ComiteSessionFormPage />} />
               <Route path="/trusts/:trustId/sessions/:sessionId/edit" element={<ComiteSessionFormPage />} />
               <Route path="/trusts/:trustId/statements" element={<MonthlyStatementsPage />} />
+              <Route path="/trusts/:trustId/contributions" element={<ContributionsPage />} />
               <Route path="/admin" element={<AdminDashboardPage />} />
               <Route path="/audit-logs" element={<AuditLogsPage />} />
               <Route path="/trusts/manage" element={<TrustsManagementPage />} />

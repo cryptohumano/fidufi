@@ -15,6 +15,20 @@ import comiteSessionsRouter from './routes/comiteSessions';
 import monthlyStatementsRouter from './routes/monthlyStatements';
 import exceptionVotesRouter from './routes/exceptionVotes';
 import assetTemplatesRouter from './routes/assetTemplates';
+import contributionsRouter from './routes/contributions';
+import budgetItemsRouter from './routes/budgetItems';
+import expensesRouter from './routes/expenses';
+import fiduciaryAccountsRouter from './routes/fiduciaryAccounts';
+import contractDocumentsRouter from './routes/contractDocuments';
+import insurancePoliciesRouter from './routes/insurancePolicies';
+import milestonesRouter from './routes/milestones';
+import approvalPoliciesRouter from './routes/approvalPolicies';
+import unitsRouter from './routes/units';
+import saleProcessesRouter from './routes/saleProcesses';
+import checklistRouter from './routes/checklist';
+import trustConceptsRouter from './routes/trustConcepts';
+import { authenticate } from './middleware/auth';
+import { getTrustTypes } from './services/trustService';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -40,6 +54,15 @@ app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/actors', actorsRouter);
 app.use('/api/assets', assetsRouter);
+// Tipos de fideicomiso: ruta explícita para evitar que GET /api/trusts/types sea capturada por /:trustId
+app.get('/api/trusts/types', authenticate, async (_req, res) => {
+  try {
+    const types = await getTrustTypes();
+    res.json(types);
+  } catch (err: any) {
+    res.status(400).json({ error: err?.message ?? 'Error al cargar tipos' });
+  }
+});
 app.use('/api/trusts', trustsRouter);
 app.use('/api/alerts', alertsRouter);
 app.use('/api/actor-trust', actorTrustRouter);
@@ -48,6 +71,18 @@ app.use('/api/comite-sessions', comiteSessionsRouter);
 app.use('/api/monthly-statements', monthlyStatementsRouter);
 app.use('/api/exception-votes', exceptionVotesRouter);
 app.use('/api/asset-templates', assetTemplatesRouter);
+app.use('/api/contributions', contributionsRouter);
+app.use('/api/budget-items', budgetItemsRouter);
+app.use('/api/expenses', expensesRouter);
+app.use('/api/fiduciary-accounts', fiduciaryAccountsRouter);
+app.use('/api/contract-documents', contractDocumentsRouter);
+app.use('/api/insurance-policies', insurancePoliciesRouter);
+app.use('/api/milestones', milestonesRouter);
+app.use('/api/approval-policies', approvalPoliciesRouter);
+app.use('/api/units', unitsRouter);
+app.use('/api/sale-processes', saleProcessesRouter);
+app.use('/api/checklist', checklistRouter);
+app.use('/api/trust-concepts', trustConceptsRouter);
 
 // Root endpoint
 app.get('/', (req, res) => {

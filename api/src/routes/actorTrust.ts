@@ -11,6 +11,7 @@ import {
   getActorTrusts,
   getTrustActors,
 } from '../services/actorTrustService';
+import { getTrust } from '../services/trustService';
 
 const router = Router();
 
@@ -94,9 +95,34 @@ router.get('/actor/:actorId', async (req, res) => {
  * Obtiene todos los actores asignados a un fideicomiso
  */
 router.get('/trust/:trustId', async (req, res) => {
+  // #region agent log
+  const _log = (msg: string, data: Record<string, unknown>) => {
+    fetch('http://localhost:7242/ingest/5d4ace75-5167-468d-a08d-1792e7aa6769', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ location: 'actorTrust.ts:GET/trust/:trustId', message: msg, data, timestamp: Date.now(), hypothesisId: 'H1', runId: 'getTrustActors' }),
+    }).catch(() => {});
+  };
+  // #endregion
   try {
     const { trustId } = req.params;
     const { role } = req.query;
+    // #region agent log
+    _log('entry', { trustId });
+    // #endregion
+
+    // Asegurar que el fideicomiso existe; si no, 404 en lugar de 400
+    try {
+      await getTrust(trustId);
+    } catch (err: any) {
+      if (err?.message?.includes('no encontrado')) {
+        // #region agent log
+        _log('trust not found, returning 404', { trustId, errorMessage: err?.message });
+        // #endregion
+        return res.status(404).json({ error: err.message });
+      }
+      throw err;
+    }
 
     // Verificar que el usuario tiene acceso al fideicomiso o es Super Admin
     const isSuperAdmin = req.user?.actor?.isSuperAdmin || req.user?.role === ActorRole.SUPER_ADMIN;
@@ -116,6 +142,9 @@ router.get('/trust/:trustId', async (req, res) => {
       trustId,
       role ? (role as any) : undefined
     );
+    // #region agent log
+    _log('success', { trustId, actorCount: actors?.length ?? 0 });
+    // #endregion
     res.json(actors);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
