@@ -61,7 +61,9 @@ export const ModelName = {
   FiduciarioFee: 'FiduciarioFee',
   MonthlyFeePayment: 'MonthlyFeePayment',
   ActorTrust: 'ActorTrust',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  ExceptionVote: 'ExceptionVote',
+  AssetTemplate: 'AssetTemplate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -167,6 +169,7 @@ export const TrustScalarFieldEnum = {
   expirationDate: 'expirationDate',
   maxTermYears: 'maxTermYears',
   termType: 'termType',
+  requiresConsensus: 'requiresConsensus',
   rfc: 'rfc',
   satRegistrationNumber: 'satRegistrationNumber',
   satRegisteredAt: 'satRegisteredAt',
@@ -289,6 +292,38 @@ export const AuditLogScalarFieldEnum = {
 } as const
 
 export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const ExceptionVoteScalarFieldEnum = {
+  id: 'id',
+  assetId: 'assetId',
+  trustId: 'trustId',
+  voterId: 'voterId',
+  vote: 'vote',
+  reason: 'reason',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type ExceptionVoteScalarFieldEnum = (typeof ExceptionVoteScalarFieldEnum)[keyof typeof ExceptionVoteScalarFieldEnum]
+
+
+export const AssetTemplateScalarFieldEnum = {
+  id: 'id',
+  assetType: 'assetType',
+  trustId: 'trustId',
+  name: 'name',
+  description: 'description',
+  defaultFields: 'defaultFields',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssetTemplateScalarFieldEnum = (typeof AssetTemplateScalarFieldEnum)[keyof typeof AssetTemplateScalarFieldEnum]
 
 
 export const SortOrder = {

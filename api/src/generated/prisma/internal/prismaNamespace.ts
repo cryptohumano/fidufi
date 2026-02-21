@@ -394,7 +394,9 @@ export const ModelName = {
   FiduciarioFee: 'FiduciarioFee',
   MonthlyFeePayment: 'MonthlyFeePayment',
   ActorTrust: 'ActorTrust',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  ExceptionVote: 'ExceptionVote',
+  AssetTemplate: 'AssetTemplate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "actor" | "asset" | "alert" | "ruleModification" | "trust" | "monthlyStatement" | "comiteSession" | "fiduciarioFee" | "monthlyFeePayment" | "actorTrust" | "auditLog"
+    modelProps: "actor" | "asset" | "alert" | "ruleModification" | "trust" | "monthlyStatement" | "comiteSession" | "fiduciarioFee" | "monthlyFeePayment" | "actorTrust" | "auditLog" | "exceptionVote" | "assetTemplate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1230,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ExceptionVote: {
+      payload: Prisma.$ExceptionVotePayload<ExtArgs>
+      fields: Prisma.ExceptionVoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExceptionVoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExceptionVoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        findFirst: {
+          args: Prisma.ExceptionVoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExceptionVoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        findMany: {
+          args: Prisma.ExceptionVoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>[]
+        }
+        create: {
+          args: Prisma.ExceptionVoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        createMany: {
+          args: Prisma.ExceptionVoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExceptionVoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>[]
+        }
+        delete: {
+          args: Prisma.ExceptionVoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        update: {
+          args: Prisma.ExceptionVoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        deleteMany: {
+          args: Prisma.ExceptionVoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExceptionVoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExceptionVoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>[]
+        }
+        upsert: {
+          args: Prisma.ExceptionVoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExceptionVotePayload>
+        }
+        aggregate: {
+          args: Prisma.ExceptionVoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExceptionVote>
+        }
+        groupBy: {
+          args: Prisma.ExceptionVoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExceptionVoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExceptionVoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExceptionVoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    AssetTemplate: {
+      payload: Prisma.$AssetTemplatePayload<ExtArgs>
+      fields: Prisma.AssetTemplateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AssetTemplateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AssetTemplateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        findFirst: {
+          args: Prisma.AssetTemplateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AssetTemplateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        findMany: {
+          args: Prisma.AssetTemplateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>[]
+        }
+        create: {
+          args: Prisma.AssetTemplateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        createMany: {
+          args: Prisma.AssetTemplateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AssetTemplateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>[]
+        }
+        delete: {
+          args: Prisma.AssetTemplateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        update: {
+          args: Prisma.AssetTemplateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        deleteMany: {
+          args: Prisma.AssetTemplateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AssetTemplateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AssetTemplateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>[]
+        }
+        upsert: {
+          args: Prisma.AssetTemplateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetTemplatePayload>
+        }
+        aggregate: {
+          args: Prisma.AssetTemplateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAssetTemplate>
+        }
+        groupBy: {
+          args: Prisma.AssetTemplateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetTemplateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AssetTemplateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetTemplateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1354,6 +1504,7 @@ export const TrustScalarFieldEnum = {
   expirationDate: 'expirationDate',
   maxTermYears: 'maxTermYears',
   termType: 'termType',
+  requiresConsensus: 'requiresConsensus',
   rfc: 'rfc',
   satRegistrationNumber: 'satRegistrationNumber',
   satRegisteredAt: 'satRegisteredAt',
@@ -1476,6 +1627,38 @@ export const AuditLogScalarFieldEnum = {
 } as const
 
 export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const ExceptionVoteScalarFieldEnum = {
+  id: 'id',
+  assetId: 'assetId',
+  trustId: 'trustId',
+  voterId: 'voterId',
+  vote: 'vote',
+  reason: 'reason',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type ExceptionVoteScalarFieldEnum = (typeof ExceptionVoteScalarFieldEnum)[keyof typeof ExceptionVoteScalarFieldEnum]
+
+
+export const AssetTemplateScalarFieldEnum = {
+  id: 'id',
+  assetType: 'assetType',
+  trustId: 'trustId',
+  name: 'name',
+  description: 'description',
+  defaultFields: 'defaultFields',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssetTemplateScalarFieldEnum = (typeof AssetTemplateScalarFieldEnum)[keyof typeof AssetTemplateScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1770,6 +1953,8 @@ export type GlobalOmitConfig = {
   monthlyFeePayment?: Prisma.MonthlyFeePaymentOmit
   actorTrust?: Prisma.ActorTrustOmit
   auditLog?: Prisma.AuditLogOmit
+  exceptionVote?: Prisma.ExceptionVoteOmit
+  assetTemplate?: Prisma.AssetTemplateOmit
 }
 
 /* Types for Logging */

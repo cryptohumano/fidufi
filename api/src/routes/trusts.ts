@@ -141,7 +141,9 @@ router.post('/', authenticate, requireSuperAdmin, async (req, res) => {
       // Plazos y vigencia
       constitutionDate: constitutionDate ? new Date(constitutionDate) : undefined,
       maxTermYears: maxTermYears ? parseInt(String(maxTermYears), 10) : undefined,
-      termType,
+      termType: termType as 'STANDARD' | 'FOREIGN' | 'DISABILITY' | undefined,
+      // Consenso del Comité Técnico
+      requiresConsensus: req.body.requiresConsensus || false,
       // Obligaciones fiscales
       rfc,
       satRegistrationNumber,

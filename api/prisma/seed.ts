@@ -937,6 +937,125 @@ async function main() {
 
   console.log('📝 NOTA: Los activos con estado PENDING_REVIEW y EXCEPTION_APPROVED requieren aprobación del COMITE_TECNICO');
   
+  // 10. Crear plantillas de activos por defecto
+  console.log('📝 Creando plantillas de activos por defecto...');
+  
+  // Obtener el Super Admin para usar como creador
+  const superAdminForTemplates = await prisma.actor.findUnique({
+    where: { email: 'admin@fidufi.mx' },
+  });
+
+  if (superAdminForTemplates) {
+    // Plantilla global para Bonos Gubernamentales
+    await prisma.assetTemplate.upsert({
+      where: {
+        assetType_trustId_name: {
+          assetType: 'GovernmentBond',
+          trustId: null,
+          name: 'Bono Gubernamental Estándar',
+        },
+      },
+      update: {},
+      create: {
+        assetType: 'GovernmentBond',
+        trustId: null, // Plantilla global
+        name: 'Bono Gubernamental Estándar',
+        description: 'Plantilla por defecto para bonos gubernamentales federales',
+        defaultFields: {
+          description: 'Bono del Gobierno Federal inscrito en el Registro Nacional de Valores',
+        },
+        isDefault: true,
+        isActive: true,
+        createdBy: superAdminForTemplates.id,
+      },
+    });
+    console.log('✅ Plantilla creada: Bono Gubernamental Estándar');
+
+    // Plantilla global para Préstamos Hipotecarios
+    await prisma.assetTemplate.upsert({
+      where: {
+        assetType_trustId_name: {
+          assetType: 'MortgageLoan',
+          trustId: null,
+          name: 'Préstamo Hipotecario Vivienda Social',
+        },
+      },
+      update: {},
+      create: {
+        assetType: 'MortgageLoan',
+        trustId: null,
+        name: 'Préstamo Hipotecario Vivienda Social',
+        description: 'Plantilla por defecto para préstamos hipotecarios de vivienda social',
+        defaultFields: {
+          description: 'Préstamo hipotecario para vivienda de interés social',
+          mortgageData: {
+            termYears: 15, // Plazo estándar entre 10-20 años
+            hasMortgageGuarantee: true,
+            hasLifeInsurance: true,
+            hasFireInsurance: true,
+            interestRate: 8.5, // Tasa de interés estándar
+          },
+        },
+        isDefault: true,
+        isActive: true,
+        createdBy: superAdminForTemplates.id,
+      },
+    });
+    console.log('✅ Plantilla creada: Préstamo Hipotecario Vivienda Social');
+
+    // Plantilla global para Reservas de Seguros
+    await prisma.assetTemplate.upsert({
+      where: {
+        assetType_trustId_name: {
+          assetType: 'InsuranceReserve',
+          trustId: null,
+          name: 'Reserva de Seguros Estándar',
+        },
+      },
+      update: {},
+      create: {
+        assetType: 'InsuranceReserve',
+        trustId: null,
+        name: 'Reserva de Seguros Estándar',
+        description: 'Plantilla por defecto para reservas técnicas de seguros',
+        defaultFields: {
+          description: 'Reserva técnica aprobada por CNBV para instituciones de seguros',
+        },
+        isDefault: true,
+        isActive: true,
+        createdBy: superAdminForTemplates.id,
+      },
+    });
+    console.log('✅ Plantilla creada: Reserva de Seguros Estándar');
+
+    // Plantilla específica del fideicomiso 10045 para Bonos
+    await prisma.assetTemplate.upsert({
+      where: {
+        assetType_trustId_name: {
+          assetType: 'GovernmentBond',
+          trustId: '10045',
+          name: 'Bono Gubernamental - Fideicomiso 10045',
+        },
+      },
+      update: {},
+      create: {
+        assetType: 'GovernmentBond',
+        trustId: '10045',
+        name: 'Bono Gubernamental - Fideicomiso 10045',
+        description: 'Plantilla específica para bonos del fideicomiso 10045',
+        defaultFields: {
+          description: 'Bono del Gobierno Federal para Fideicomiso de Pensiones y Jubilaciones - Banco del Ahorro Nacional',
+        },
+        isDefault: true,
+        isActive: true,
+        createdBy: superAdminForTemplates.id,
+      },
+    });
+    console.log('✅ Plantilla creada: Bono Gubernamental - Fideicomiso 10045');
+  } else {
+    console.warn('⚠️  No se encontró Super Admin, omitiendo creación de plantillas');
+  }
+  
   // Log final: Seed completado
   console.log('📋 Creando logs de auditoría iniciales...');
   await createAuditLog({

@@ -11,6 +11,7 @@ import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { Link } from 'react-router-dom';
 import { Plus, FileText, XCircle, Filter } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useTrustSelection } from '../contexts/TrustSelectionContext';
 import { AssetsDataTable } from '../components/assets/AssetsDataTable';
 
 const ITEMS_PER_PAGE = 10;
@@ -34,7 +35,7 @@ const COMPLIANCE_STATUSES = [
 
 function AssetsList() {
   const { actor } = useAuth();
-  const [trustId] = useState('10045');
+  const { selectedTrustId } = useTrustSelection();
   const [selectedAssetType, setSelectedAssetType] = useState<string>('');
   const [selectedComplianceStatus, setSelectedComplianceStatus] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +43,7 @@ function AssetsList() {
   // Para beneficiarios, el backend filtra automáticamente basado en el rol
   // No necesitamos pasar beneficiaryId explícitamente, el backend lo detecta del token
   const { data, isLoading, error } = useQuery({
-    queryKey: ['assets', trustId, actor?.id, actor?.role, selectedAssetType, selectedComplianceStatus, currentPage],
+    queryKey: ['assets', selectedTrustId, actor?.id, actor?.role, selectedAssetType, selectedComplianceStatus, currentPage],
     queryFn: () => {
       const filters: {
         assetType?: string;
@@ -62,9 +63,9 @@ function AssetsList() {
         filters.complianceStatus = selectedComplianceStatus;
       }
       
-      return assetsApi.list(trustId, filters);
+      return assetsApi.list(selectedTrustId, filters);
     },
-    enabled: !!actor,
+    enabled: !!actor && !!selectedTrustId,
   });
 
   // Resetear a página 1 cuando cambia cualquier filtro

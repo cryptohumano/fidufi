@@ -14,28 +14,35 @@ import { PatrimonyCard } from '../../components/compliance/PatrimonyCard';
 import { TrustTimeline } from '../../components/trust/TrustTimeline';
 import { QuarterlyTimeline } from '../../components/trust/QuarterlyTimeline';
 import { ComiteSessionsCalendar } from '../../components/comite/ComiteSessionsCalendar';
+import { useTrustSelection } from '../../contexts/TrustSelectionContext';
 import { FileText, AlertCircle, TrendingUp, Plus, Eye, BarChart3, Users, Building2, Activity, Clock, User } from 'lucide-react';
 
 function FiduciarioDashboard() {
+  const { selectedTrustId, trusts, hasMultipleTrusts, setSelectedTrustId } = useTrustSelection();
+
   const { data: assetsData } = useQuery({
-    queryKey: ['assets', '10045'],
-    queryFn: () => assetsApi.list('10045', { limit: 5 }),
+    queryKey: ['assets', selectedTrustId],
+    queryFn: () => assetsApi.list(selectedTrustId, { limit: 5 }),
+    enabled: !!selectedTrustId,
   });
 
   const { data: alertsData } = useQuery({
-    queryKey: ['alerts'],
-    queryFn: () => alertsApi.list(undefined, { acknowledged: false }),
+    queryKey: ['alerts', selectedTrustId],
+    queryFn: () => alertsApi.list(selectedTrustId, { acknowledged: false }),
+    enabled: !!selectedTrustId,
   });
 
   const { data: trustSummary } = useQuery({
-    queryKey: ['trust', '10045', 'summary'],
-    queryFn: () => trustsApi.getSummary('10045'),
+    queryKey: ['trust', selectedTrustId, 'summary'],
+    queryFn: () => trustsApi.getSummary(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   // Analytics avanzados de cumplimiento
   const { data: analytics } = useQuery({
-    queryKey: ['trust', '10045', 'analytics'],
-    queryFn: () => trustsApi.getAnalytics('10045'),
+    queryKey: ['trust', selectedTrustId, 'analytics'],
+    queryFn: () => trustsApi.getAnalytics(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   // Logs de auditoría recientes (propios del fiduciario y logs de activos)
@@ -60,13 +67,62 @@ function FiduciarioDashboard() {
   // Extraer el array de logs del objeto de respuesta
   const recentLogs = Array.isArray(recentLogsData?.logs) ? recentLogsData.logs : [];
 
+  if (!selectedTrustId) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <Card className="p-8 text-center">
+          <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">No hay fideicomisos asignados</h1>
+          <p className="text-muted-foreground">
+            No tienes acceso a ningún fideicomiso. Contacta al administrador para que te asigne a uno.
+          </p>
+        </Card>
+      </div>
+    );
+  }
+
+  const selectedTrust = trusts.find(t => t.trustId === selectedTrustId);
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Dashboard - Fiduciario</h1>
-        <p className="text-muted-foreground">
-          Gestiona el registro de activos y monitorea el cumplimiento del fideicomiso
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Dashboard - Fiduciario</h1>
+            <p className="text-muted-foreground">
+              Gestiona el registro de activos y monitorea el cumplimiento del fideicomiso
+            </p>
+          </div>
+          {hasMultipleTrusts && (
+            <div className="flex items-center gap-2">
+              <label htmlFor="trust-select" className="text-sm font-medium">
+                Fideicomiso:
+              </label>
+              <select
+                id="trust-select"
+                value={selectedTrustId}
+                onChange={(e) => setSelectedTrustId(e.target.value)}
+                className="px-3 py-2 border rounded-md bg-background"
+              >
+                {trusts.map((trust) => (
+                  <option key={trust.trustId} value={trust.trustId}>
+                    {trust.name || trust.trustId}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+        {selectedTrust && (
+          <div className="mb-4 p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">
+              <strong>Fideicomiso:</strong> {selectedTrust.name || selectedTrust.trustId}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <strong>Límites:</strong> {selectedTrust.bondLimitPercent}% bonos / {selectedTrust.otherLimitPercent}% otros
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Métricas Clave */}
@@ -167,17 +223,17 @@ function FiduciarioDashboard() {
 
       {/* Timeline del Fideicomiso */}
       <div className="mb-8">
-        <TrustTimeline trustId="10045" />
+        <TrustTimeline trustId={selectedTrustId} />
       </div>
 
       {/* Timeline Trimestral */}
       <div className="mb-8">
-        <QuarterlyTimeline trustId="10045" />
+        <QuarterlyTimeline trustId={selectedTrustId} />
       </div>
 
       {/* Calendario de Reuniones */}
       <div className="mb-8">
-        <ComiteSessionsCalendar trustId="10045" showCreateButton={true} />
+        <ComiteSessionsCalendar trustId={selectedTrustId} showCreateButton={true} />
       </div>
 
       {/* Indicadores de Cumplimiento */}
@@ -234,7 +290,7 @@ function FiduciarioDashboard() {
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/trusts/10045">
+              <Link to={`/trusts/${selectedTrustId}`}>
                 <BarChart3 className="h-4 w-4 mr-2" />
                 Ver Analytics Completos
               </Link>
@@ -252,7 +308,7 @@ function FiduciarioDashboard() {
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/trusts/10045/statements">
+              <Link to={`/trusts/${selectedTrustId}/statements`}>
                 <FileText className="h-4 w-4 mr-2" />
                 Estados de Cuenta Mensuales
               </Link>

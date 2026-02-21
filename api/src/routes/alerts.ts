@@ -24,7 +24,7 @@ router.get('/', optionalAuthenticate, async (req, res) => {
       return res.status(400).json({ error: 'actorId es requerido (autenticación o query param)' });
     }
     
-    const { acknowledged, limit, offset, alertType, alertSubtype, severity } = req.query;
+    const { acknowledged, limit, offset, alertType, alertSubtype, severity, trustId } = req.query;
 
     const where: any = {
       actorId: actorId as string,
@@ -46,9 +46,64 @@ router.get('/', optionalAuthenticate, async (req, res) => {
       where.severity = severity as string;
     }
 
+    // Filtrar por trustId si se proporciona
+    // Las alertas pueden estar asociadas a un activo (assetId) o no
+    // Si tienen assetId, filtrar por asset.trustId
+    // Si no tienen assetId, el actor ya está filtrado por actorId, así que solo necesitamos
+    // verificar que el actor pertenece al trustId (esto ya está implícito porque el actorId
+    // viene del JWT y solo puede pertenecer a fideicomisos a los que tiene acceso)
+    let finalWhere: any = { ...where };
+
+    if (trustId) {
+      const trustIdStr = trustId as string;
+      
+      // Obtener los actores que pertenecen a este fideicomiso
+      const actorTrusts = await prisma.actorTrust.findMany({
+        where: { trustId: trustIdStr },
+        select: { actorId: true },
+      });
+      const actorIdsInTrust = actorTrusts.map(at => at.actorId);
+
+      // Verificar que el actor actual pertenece al trustId
+      if (!actorIdsInTrust.includes(actorId)) {
+        // El actor no pertenece a este fideicomiso, retornar array vacío
+        return res.json({
+          alerts: [],
+          total: 0,
+          limit: limit ? parseInt(limit as string) : 100,
+          offset: offset ? parseInt(offset as string) : 0,
+        });
+      }
+
+      // Construir condición OR para filtrar por trustId
+      const orConditions: any[] = [
+        // Alertas con activo que pertenece al trustId
+        {
+          asset: {
+            trustId: trustIdStr,
+          },
+        },
+      ];
+
+      // Agregar condición para alertas sin activo (el actorId ya está filtrado arriba)
+      orConditions.push({
+        assetId: null,
+      });
+
+      // Combinar las condiciones originales con el filtro de trustId
+      finalWhere = {
+        ...where,
+        AND: [
+          {
+            OR: orConditions,
+          },
+        ],
+      };
+    }
+
     const [alerts, total] = await Promise.all([
       prisma.alert.findMany({
-        where,
+        where: finalWhere,
         include: {
           asset: {
             select: {
@@ -64,7 +119,7 @@ router.get('/', optionalAuthenticate, async (req, res) => {
         take: limit ? parseInt(limit as string) : 100,
         skip: offset ? parseInt(offset as string) : 0,
       }),
-      prisma.alert.count({ where }),
+      prisma.alert.count({ where: finalWhere }),
     ]);
 
     res.json({

@@ -10,24 +10,26 @@ import { Card } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { ProtectedRoute } from '../../components/layout/ProtectedRoute';
 import { useAuth } from '../../contexts/AuthContext';
-import { AlertCircle, FileText, Info, Eye } from 'lucide-react';
+import { useTrustSelection } from '../../contexts/TrustSelectionContext';
+import { AlertCircle, FileText, Info, Eye, Building2 } from 'lucide-react';
 
 function BeneficiarioDashboard() {
   const { actor } = useAuth();
+  const { selectedTrustId, trusts, hasMultipleTrusts, setSelectedTrustId } = useTrustSelection();
 
-  // Obtener solo las alertas del beneficiario
+  // Obtener solo las alertas del beneficiario filtradas por fideicomiso
   const { data: alertsData } = useQuery({
-    queryKey: ['alerts', actor?.id],
-    queryFn: () => alertsApi.list(actor?.id, { acknowledged: false }),
-    enabled: !!actor?.id,
+    queryKey: ['alerts', selectedTrustId, actor?.id],
+    queryFn: () => alertsApi.list(selectedTrustId, { acknowledged: false }),
+    enabled: !!selectedTrustId && !!actor?.id,
   });
 
   // Obtener solo los activos asociados a este beneficiario
   // El backend filtra automáticamente basado en el rol del usuario autenticado
   const { data: assetsData } = useQuery({
-    queryKey: ['assets', '10045', actor?.id, actor?.role],
-    queryFn: () => assetsApi.list('10045'),
-    enabled: !!actor?.id,
+    queryKey: ['assets', selectedTrustId, actor?.id, actor?.role],
+    queryFn: () => assetsApi.list(selectedTrustId),
+    enabled: !!actor?.id && !!selectedTrustId,
   });
 
   // Extraer el array de alertas
@@ -36,13 +38,59 @@ function BeneficiarioDashboard() {
   // Extraer el array de activos asociados
   const assets = Array.isArray(assetsData?.assets) ? assetsData.assets : [];
 
+  if (!selectedTrustId) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <Card className="p-8 text-center">
+          <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">No hay fideicomisos asignados</h1>
+          <p className="text-muted-foreground">
+            No tienes acceso a ningún fideicomiso. Contacta al administrador para que te asigne a uno.
+          </p>
+        </Card>
+      </div>
+    );
+  }
+
+  const selectedTrust = trusts.find(t => t.trustId === selectedTrustId);
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Mi Panel - Beneficiario</h1>
-        <p className="text-muted-foreground">
-          Consulta información sobre activos del fideicomiso y alertas relacionadas contigo
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Mi Panel - Beneficiario</h1>
+            <p className="text-muted-foreground">
+              Consulta información sobre activos del fideicomiso y alertas relacionadas contigo
+            </p>
+          </div>
+          {hasMultipleTrusts && (
+            <div className="flex items-center gap-2">
+              <label htmlFor="trust-select" className="text-sm font-medium">
+                Fideicomiso:
+              </label>
+              <select
+                id="trust-select"
+                value={selectedTrustId}
+                onChange={(e) => setSelectedTrustId(e.target.value)}
+                className="px-3 py-2 border rounded-md bg-background"
+              >
+                {trusts.map((trust) => (
+                  <option key={trust.trustId} value={trust.trustId}>
+                    {trust.name || trust.trustId}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+        {selectedTrust && (
+          <div className="mb-4 p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">
+              <strong>Fideicomiso:</strong> {selectedTrust.name || selectedTrust.trustId}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -94,7 +142,7 @@ function BeneficiarioDashboard() {
               <div key={alert.id} className="p-4 border rounded-md">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <p className="font-medium mb-1">{alert.message}</p>
+                    <p className="font-medium mb-1">{processAlertMessage(alert, selectedTrustId)}</p>
                     {alert.asset && (
                       <div className="mt-2 text-sm text-muted-foreground">
                         <p>Activo: {alert.asset.assetType}</p>

@@ -10,6 +10,8 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
+import { useTrustSelection } from '../contexts/TrustSelectionContext';
+import { processAlertMessage } from '../utils/alertUtils';
 import { 
   AlertCircle, 
   CheckCircle2, 
@@ -32,15 +34,16 @@ const ALERT_TYPES = [
 
 function AlertsList() {
   const { actor } = useAuth();
+  const { selectedTrustId } = useTrustSelection();
   const queryClient = useQueryClient();
   const [selectedAlertType, setSelectedAlertType] = useState<string>('');
   const [selectedSeverity, setSelectedSeverity] = useState<string>('');
   const [showAcknowledged, setShowAcknowledged] = useState<boolean | undefined>(undefined);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['alerts', actor?.id],
-    queryFn: () => alertsApi.list(actor?.id),
-    enabled: !!actor?.id,
+    queryKey: ['alerts', selectedTrustId],
+    queryFn: () => alertsApi.list(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   const acknowledgeMutation = useMutation({
@@ -192,7 +195,7 @@ function AlertsList() {
                           <span className="text-xs text-muted-foreground">(Leída)</span>
                         )}
                       </div>
-                      <p className="text-muted-foreground mb-2">{alert.message}</p>
+                      <p className="text-muted-foreground mb-2">{processAlertMessage(alert, selectedTrustId)}</p>
                       <div className="flex items-center gap-4 text-xs text-muted-foreground">
                         <span>{new Date(alert.createdAt).toLocaleString('es-MX')}</span>
                         {alert.asset && (

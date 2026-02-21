@@ -182,9 +182,34 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
   // 7. Determinar cumplimiento general
   const allResults = [...investmentResults, ...mortgageResults];
   const isCompliant = allResults.every((r) => r.compliant);
-  const complianceStatus: ComplianceStatus = isCompliant
-    ? ComplianceStatus.COMPLIANT
-    : ComplianceStatus.NON_COMPLIANT;
+  
+  // Determinar el estado de cumplimiento:
+  // - Si cumple todo → COMPLIANT
+  // - Si solo viola reglas de límites de inversión → PENDING_REVIEW (puede tener excepción)
+  // - Si viola reglas de préstamos hipotecarios → NON_COMPLIANT (no puede tener excepción)
+  // - Si viola ambas → NON_COMPLIANT (las reglas de préstamos no pueden tener excepción)
+  let complianceStatus: ComplianceStatus;
+  
+  if (isCompliant) {
+    complianceStatus = ComplianceStatus.COMPLIANT;
+  } else {
+    // Verificar si hay violaciones de reglas de préstamos hipotecarios
+    const hasMortgageViolations = mortgageResults.some((r) => !r.compliant);
+    
+    // Verificar si hay violaciones de límites de inversión
+    const hasInvestmentLimitViolations = investmentResults.some((r) => !r.compliant);
+    
+    if (hasMortgageViolations) {
+      // Si viola reglas de préstamos hipotecarios, NO puede tener excepción
+      complianceStatus = ComplianceStatus.NON_COMPLIANT;
+    } else if (hasInvestmentLimitViolations) {
+      // Si solo viola límites de inversión, puede ser aprobado como excepción
+      complianceStatus = ComplianceStatus.PENDING_REVIEW;
+    } else {
+      // Por defecto, si no cumple algo pero no identificamos el tipo, marcarlo como NON_COMPLIANT
+      complianceStatus = ComplianceStatus.NON_COMPLIANT;
+    }
+  }
 
   // 8. Validar beneficiario si se especifica
   if (data.beneficiaryId) {
@@ -584,6 +609,50 @@ export async function approveException(
     }
   }
 
+  // 5. Verificar si el fideicomiso requiere consenso
+  const trust = await prisma.trust.findUnique({
+    where: { trustId: asset.trustId },
+  });
+
+  if (trust?.requiresConsensus) {
+    // Si requiere consenso, usar el sistema de votaciones
+    const { voteException } = await import('./exceptionVoteService');
+    const voteResult = await voteException({
+      assetId,
+      voterId: approvedBy,
+      vote: 'APPROVE',
+      reason,
+      requestInfo,
+    });
+    
+    // Obtener el activo actualizado después de la votación
+    const updatedAsset = await prisma.asset.findUnique({
+      where: { id: assetId },
+      include: {
+        actor: {
+          select: {
+            id: true,
+            name: true,
+            role: true,
+          },
+        },
+        beneficiary: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return {
+      asset: updatedAsset,
+      alert: null, // Las alertas se manejan en voteException
+      voteResult,
+    };
+  }
+
   // 5. Actualizar el activo a EXCEPTION_APPROVED
   const updatedAsset = await prisma.asset.update({
     where: { id: assetId },
@@ -756,7 +825,51 @@ export async function rejectException(
     }
   }
 
-  // 5. Actualizar el activo a NON_COMPLIANT
+  // 5. Verificar si el fideicomiso requiere consenso
+  const trust = await prisma.trust.findUnique({
+    where: { trustId: asset.trustId },
+  });
+
+  if (trust?.requiresConsensus) {
+    // Si requiere consenso, usar el sistema de votaciones
+    const { voteException } = await import('./exceptionVoteService');
+    const voteResult = await voteException({
+      assetId,
+      voterId: rejectedBy,
+      vote: 'REJECT',
+      reason,
+      requestInfo,
+    });
+    
+    // Obtener el activo actualizado después de la votación
+    const updatedAsset = await prisma.asset.findUnique({
+      where: { id: assetId },
+      include: {
+        actor: {
+          select: {
+            id: true,
+            name: true,
+            role: true,
+          },
+        },
+        beneficiary: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return {
+      asset: updatedAsset,
+      voteResult,
+    };
+  }
+
+  // 6. Si no requiere consenso, proceder con rechazo directo
+  // Actualizar el activo a NON_COMPLIANT
   const updatedAsset = await prisma.asset.update({
     where: { id: assetId },
     data: {

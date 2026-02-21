@@ -4,6 +4,7 @@
 
 import { Router } from 'express';
 import { authenticate, requireSuperAdmin } from '../middleware/auth';
+import { ActorRole } from '../generated/prisma/enums';
 import {
   assignActorToTrust,
   revokeActorFromTrust,
@@ -76,7 +77,8 @@ router.get('/actor/:actorId', async (req, res) => {
     const { actorId } = req.params;
 
     // Solo puede ver sus propios fideicomisos o ser Super Admin
-    if (req.user?.actorId !== actorId && !req.user?.isSuperAdmin) {
+    const isSuperAdmin = req.user?.actor?.isSuperAdmin || req.user?.role === ActorRole.SUPER_ADMIN;
+    if (req.user?.actorId !== actorId && !isSuperAdmin) {
       return res.status(403).json({ error: 'No autorizado' });
     }
 
@@ -97,7 +99,8 @@ router.get('/trust/:trustId', async (req, res) => {
     const { role } = req.query;
 
     // Verificar que el usuario tiene acceso al fideicomiso o es Super Admin
-    if (!req.user?.isSuperAdmin) {
+    const isSuperAdmin = req.user?.actor?.isSuperAdmin || req.user?.role === ActorRole.SUPER_ADMIN;
+    if (!isSuperAdmin) {
       const { verifyActorTrustMembership } = await import('../services/actorTrustService');
       const hasAccess = await verifyActorTrustMembership(
         req.user!.actorId,

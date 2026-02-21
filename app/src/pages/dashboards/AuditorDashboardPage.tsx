@@ -8,22 +8,28 @@ import { assetsApi, alertsApi, trustsApi } from '../../lib/api';
 import { Card } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { ProtectedRoute } from '../../components/layout/ProtectedRoute';
+import { useTrustSelection } from '../../contexts/TrustSelectionContext';
 import { FileText, AlertCircle, TrendingUp, Eye, Download, Building2 } from 'lucide-react';
 
 function AuditorDashboard() {
+  const { selectedTrustId, trusts, hasMultipleTrusts, setSelectedTrustId } = useTrustSelection();
+
   const { data: assetsData } = useQuery({
-    queryKey: ['assets', '10045'],
-    queryFn: () => assetsApi.list('10045'),
+    queryKey: ['assets', selectedTrustId],
+    queryFn: () => assetsApi.list(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   const { data: alertsData } = useQuery({
-    queryKey: ['alerts'],
-    queryFn: () => alertsApi.list(),
+    queryKey: ['alerts', selectedTrustId],
+    queryFn: () => alertsApi.list(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   const { data: trustSummary } = useQuery({
-    queryKey: ['trust', '10045', 'summary'],
-    queryFn: () => trustsApi.getSummary('10045'),
+    queryKey: ['trust', selectedTrustId, 'summary'],
+    queryFn: () => trustsApi.getSummary(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   // Extraer el array de activos del objeto de respuesta
@@ -109,7 +115,7 @@ function AuditorDashboard() {
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/trusts/10045/organization">
+              <Link to={`/trusts/${selectedTrustId}/organization`}>
                 <Building2 className="h-4 w-4 mr-2" />
                 Ver Estructura Organizacional
               </Link>

@@ -92,3 +92,13 @@ export type ActorTrust = Prisma.ActorTrustModel
  * 
  */
 export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model ExceptionVote
+ * 
+ */
+export type ExceptionVote = Prisma.ExceptionVoteModel
+/**
+ * Model AssetTemplate
+ * 
+ */
+export type AssetTemplate = Prisma.AssetTemplateModel

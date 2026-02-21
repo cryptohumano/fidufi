@@ -333,6 +333,7 @@ function AssetDetail() {
           assetId={asset.id}
           assetType={asset.assetType}
           valueMxn={asset.valueMxn}
+          trustId={asset.trustId}
         />
       )}
     </div>

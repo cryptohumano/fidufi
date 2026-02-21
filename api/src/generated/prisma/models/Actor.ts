@@ -248,6 +248,8 @@ export type ActorWhereInput = {
   ruleModifications?: Prisma.RuleModificationListRelationFilter
   trustMemberships?: Prisma.ActorTrustListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  exceptionVotes?: Prisma.ExceptionVoteListRelationFilter
+  createdAssetTemplates?: Prisma.AssetTemplateListRelationFilter
 }
 
 export type ActorOrderByWithRelationInput = {
@@ -270,6 +272,8 @@ export type ActorOrderByWithRelationInput = {
   ruleModifications?: Prisma.RuleModificationOrderByRelationAggregateInput
   trustMemberships?: Prisma.ActorTrustOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  exceptionVotes?: Prisma.ExceptionVoteOrderByRelationAggregateInput
+  createdAssetTemplates?: Prisma.AssetTemplateOrderByRelationAggregateInput
 }
 
 export type ActorWhereUniqueInput = Prisma.AtLeast<{
@@ -295,6 +299,8 @@ export type ActorWhereUniqueInput = Prisma.AtLeast<{
   ruleModifications?: Prisma.RuleModificationListRelationFilter
   trustMemberships?: Prisma.ActorTrustListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  exceptionVotes?: Prisma.ExceptionVoteListRelationFilter
+  createdAssetTemplates?: Prisma.AssetTemplateListRelationFilter
 }, "id" | "email" | "primaryDid" | "ethereumAddress" | "polkadotAccountId">
 
 export type ActorOrderByWithAggregationInput = {
@@ -355,6 +361,8 @@ export type ActorCreateInput = {
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateInput = {
@@ -377,6 +385,8 @@ export type ActorUncheckedCreateInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUpdateInput = {
@@ -399,6 +409,8 @@ export type ActorUpdateInput = {
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateInput = {
@@ -421,6 +433,8 @@ export type ActorUncheckedUpdateInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorCreateManyInput = {
@@ -635,6 +649,34 @@ export type ActorUpdateOneWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.ActorUpdateWithoutAuditLogsInput>, Prisma.ActorUncheckedUpdateWithoutAuditLogsInput>
 }
 
+export type ActorCreateNestedOneWithoutExceptionVotesInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutExceptionVotesInput, Prisma.ActorUncheckedCreateWithoutExceptionVotesInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutExceptionVotesInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutExceptionVotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutExceptionVotesInput, Prisma.ActorUncheckedCreateWithoutExceptionVotesInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutExceptionVotesInput
+  upsert?: Prisma.ActorUpsertWithoutExceptionVotesInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutExceptionVotesInput, Prisma.ActorUpdateWithoutExceptionVotesInput>, Prisma.ActorUncheckedUpdateWithoutExceptionVotesInput>
+}
+
+export type ActorCreateNestedOneWithoutCreatedAssetTemplatesInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedCreateWithoutCreatedAssetTemplatesInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCreatedAssetTemplatesInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutCreatedAssetTemplatesNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedCreateWithoutCreatedAssetTemplatesInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCreatedAssetTemplatesInput
+  upsert?: Prisma.ActorUpsertWithoutCreatedAssetTemplatesInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutCreatedAssetTemplatesInput, Prisma.ActorUpdateWithoutCreatedAssetTemplatesInput>, Prisma.ActorUncheckedUpdateWithoutCreatedAssetTemplatesInput>
+}
+
 export type ActorCreateWithoutRegisteredAssetsInput = {
   id?: string
   name?: string | null
@@ -654,6 +696,8 @@ export type ActorCreateWithoutRegisteredAssetsInput = {
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutRegisteredAssetsInput = {
@@ -675,6 +719,8 @@ export type ActorUncheckedCreateWithoutRegisteredAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutRegisteredAssetsInput = {
@@ -701,6 +747,8 @@ export type ActorCreateWithoutBeneficiaryAssetsInput = {
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutBeneficiaryAssetsInput = {
@@ -722,6 +770,8 @@ export type ActorUncheckedCreateWithoutBeneficiaryAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutBeneficiaryAssetsInput = {
@@ -759,6 +809,8 @@ export type ActorUpdateWithoutRegisteredAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutRegisteredAssetsInput = {
@@ -780,6 +832,8 @@ export type ActorUncheckedUpdateWithoutRegisteredAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUpsertWithoutBeneficiaryAssetsInput = {
@@ -812,6 +866,8 @@ export type ActorUpdateWithoutBeneficiaryAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutBeneficiaryAssetsInput = {
@@ -833,6 +889,8 @@ export type ActorUncheckedUpdateWithoutBeneficiaryAssetsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorCreateWithoutAlertsInput = {
@@ -854,6 +912,8 @@ export type ActorCreateWithoutAlertsInput = {
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutAlertsInput = {
@@ -875,6 +935,8 @@ export type ActorUncheckedCreateWithoutAlertsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutAlertsInput = {
@@ -912,6 +974,8 @@ export type ActorUpdateWithoutAlertsInput = {
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutAlertsInput = {
@@ -933,6 +997,8 @@ export type ActorUncheckedUpdateWithoutAlertsInput = {
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorCreateWithoutRuleModificationsInput = {
@@ -954,6 +1020,8 @@ export type ActorCreateWithoutRuleModificationsInput = {
   alerts?: Prisma.AlertCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutRuleModificationsInput = {
@@ -975,6 +1043,8 @@ export type ActorUncheckedCreateWithoutRuleModificationsInput = {
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutRuleModificationsInput = {
@@ -1012,6 +1082,8 @@ export type ActorUpdateWithoutRuleModificationsInput = {
   alerts?: Prisma.AlertUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutRuleModificationsInput = {
@@ -1033,6 +1105,8 @@ export type ActorUncheckedUpdateWithoutRuleModificationsInput = {
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorCreateWithoutTrustMembershipsInput = {
@@ -1054,6 +1128,8 @@ export type ActorCreateWithoutTrustMembershipsInput = {
   alerts?: Prisma.AlertCreateNestedManyWithoutActorInput
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutTrustMembershipsInput = {
@@ -1075,6 +1151,8 @@ export type ActorUncheckedCreateWithoutTrustMembershipsInput = {
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutActorInput
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutTrustMembershipsInput = {
@@ -1112,6 +1190,8 @@ export type ActorUpdateWithoutTrustMembershipsInput = {
   alerts?: Prisma.AlertUpdateManyWithoutActorNestedInput
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutTrustMembershipsInput = {
@@ -1133,6 +1213,8 @@ export type ActorUncheckedUpdateWithoutTrustMembershipsInput = {
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutActorNestedInput
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorCreateWithoutAuditLogsInput = {
@@ -1154,6 +1236,8 @@ export type ActorCreateWithoutAuditLogsInput = {
   alerts?: Prisma.AlertCreateNestedManyWithoutActorInput
   ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorUncheckedCreateWithoutAuditLogsInput = {
@@ -1175,6 +1259,8 @@ export type ActorUncheckedCreateWithoutAuditLogsInput = {
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutActorInput
   ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
   trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type ActorCreateOrConnectWithoutAuditLogsInput = {
@@ -1212,6 +1298,8 @@ export type ActorUpdateWithoutAuditLogsInput = {
   alerts?: Prisma.AlertUpdateManyWithoutActorNestedInput
   ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
 }
 
 export type ActorUncheckedUpdateWithoutAuditLogsInput = {
@@ -1233,6 +1321,224 @@ export type ActorUncheckedUpdateWithoutAuditLogsInput = {
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutActorNestedInput
   ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
   trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type ActorCreateWithoutExceptionVotesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  passwordHash?: string | null
+  role: $Enums.ActorRole
+  isSuperAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  primaryDid?: string | null
+  ethereumAddress?: string | null
+  polkadotAccountId?: string | null
+  ensName?: string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetCreateNestedManyWithoutActorInput
+  beneficiaryAssets?: Prisma.AssetCreateNestedManyWithoutBeneficiaryInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutActorInput
+  ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
+  trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  createdAssetTemplates?: Prisma.AssetTemplateCreateNestedManyWithoutCreatorInput
+}
+
+export type ActorUncheckedCreateWithoutExceptionVotesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  passwordHash?: string | null
+  role: $Enums.ActorRole
+  isSuperAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  primaryDid?: string | null
+  ethereumAddress?: string | null
+  polkadotAccountId?: string | null
+  ensName?: string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUncheckedCreateNestedManyWithoutActorInput
+  beneficiaryAssets?: Prisma.AssetUncheckedCreateNestedManyWithoutBeneficiaryInput
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutActorInput
+  ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
+  trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type ActorCreateOrConnectWithoutExceptionVotesInput = {
+  where: Prisma.ActorWhereUniqueInput
+  create: Prisma.XOR<Prisma.ActorCreateWithoutExceptionVotesInput, Prisma.ActorUncheckedCreateWithoutExceptionVotesInput>
+}
+
+export type ActorUpsertWithoutExceptionVotesInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutExceptionVotesInput, Prisma.ActorUncheckedUpdateWithoutExceptionVotesInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutExceptionVotesInput, Prisma.ActorUncheckedCreateWithoutExceptionVotesInput>
+  where?: Prisma.ActorWhereInput
+}
+
+export type ActorUpdateToOneWithWhereWithoutExceptionVotesInput = {
+  where?: Prisma.ActorWhereInput
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutExceptionVotesInput, Prisma.ActorUncheckedUpdateWithoutExceptionVotesInput>
+}
+
+export type ActorUpdateWithoutExceptionVotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryDid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethereumAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polkadotAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ensName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUpdateManyWithoutActorNestedInput
+  beneficiaryAssets?: Prisma.AssetUpdateManyWithoutBeneficiaryNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutActorNestedInput
+  ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
+  trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUpdateManyWithoutCreatorNestedInput
+}
+
+export type ActorUncheckedUpdateWithoutExceptionVotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryDid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethereumAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polkadotAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ensName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUncheckedUpdateManyWithoutActorNestedInput
+  beneficiaryAssets?: Prisma.AssetUncheckedUpdateManyWithoutBeneficiaryNestedInput
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutActorNestedInput
+  ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
+  trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  createdAssetTemplates?: Prisma.AssetTemplateUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type ActorCreateWithoutCreatedAssetTemplatesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  passwordHash?: string | null
+  role: $Enums.ActorRole
+  isSuperAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  primaryDid?: string | null
+  ethereumAddress?: string | null
+  polkadotAccountId?: string | null
+  ensName?: string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetCreateNestedManyWithoutActorInput
+  beneficiaryAssets?: Prisma.AssetCreateNestedManyWithoutBeneficiaryInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutActorInput
+  ruleModifications?: Prisma.RuleModificationCreateNestedManyWithoutActorInput
+  trustMemberships?: Prisma.ActorTrustCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteCreateNestedManyWithoutVoterInput
+}
+
+export type ActorUncheckedCreateWithoutCreatedAssetTemplatesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  passwordHash?: string | null
+  role: $Enums.ActorRole
+  isSuperAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  primaryDid?: string | null
+  ethereumAddress?: string | null
+  polkadotAccountId?: string | null
+  ensName?: string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUncheckedCreateNestedManyWithoutActorInput
+  beneficiaryAssets?: Prisma.AssetUncheckedCreateNestedManyWithoutBeneficiaryInput
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutActorInput
+  ruleModifications?: Prisma.RuleModificationUncheckedCreateNestedManyWithoutActorInput
+  trustMemberships?: Prisma.ActorTrustUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedCreateNestedManyWithoutVoterInput
+}
+
+export type ActorCreateOrConnectWithoutCreatedAssetTemplatesInput = {
+  where: Prisma.ActorWhereUniqueInput
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedCreateWithoutCreatedAssetTemplatesInput>
+}
+
+export type ActorUpsertWithoutCreatedAssetTemplatesInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedUpdateWithoutCreatedAssetTemplatesInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedCreateWithoutCreatedAssetTemplatesInput>
+  where?: Prisma.ActorWhereInput
+}
+
+export type ActorUpdateToOneWithWhereWithoutCreatedAssetTemplatesInput = {
+  where?: Prisma.ActorWhereInput
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutCreatedAssetTemplatesInput, Prisma.ActorUncheckedUpdateWithoutCreatedAssetTemplatesInput>
+}
+
+export type ActorUpdateWithoutCreatedAssetTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryDid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethereumAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polkadotAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ensName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUpdateManyWithoutActorNestedInput
+  beneficiaryAssets?: Prisma.AssetUpdateManyWithoutBeneficiaryNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutActorNestedInput
+  ruleModifications?: Prisma.RuleModificationUpdateManyWithoutActorNestedInput
+  trustMemberships?: Prisma.ActorTrustUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUpdateManyWithoutVoterNestedInput
+}
+
+export type ActorUncheckedUpdateWithoutCreatedAssetTemplatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumActorRoleFieldUpdateOperationsInput | $Enums.ActorRole
+  isSuperAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  primaryDid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethereumAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  polkadotAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ensName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  popCredentials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  registeredAssets?: Prisma.AssetUncheckedUpdateManyWithoutActorNestedInput
+  beneficiaryAssets?: Prisma.AssetUncheckedUpdateManyWithoutBeneficiaryNestedInput
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutActorNestedInput
+  ruleModifications?: Prisma.RuleModificationUncheckedUpdateManyWithoutActorNestedInput
+  trustMemberships?: Prisma.ActorTrustUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  exceptionVotes?: Prisma.ExceptionVoteUncheckedUpdateManyWithoutVoterNestedInput
 }
 
 
@@ -1247,6 +1553,8 @@ export type ActorCountOutputType = {
   ruleModifications: number
   trustMemberships: number
   auditLogs: number
+  exceptionVotes: number
+  createdAssetTemplates: number
 }
 
 export type ActorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1256,6 +1564,8 @@ export type ActorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   ruleModifications?: boolean | ActorCountOutputTypeCountRuleModificationsArgs
   trustMemberships?: boolean | ActorCountOutputTypeCountTrustMembershipsArgs
   auditLogs?: boolean | ActorCountOutputTypeCountAuditLogsArgs
+  exceptionVotes?: boolean | ActorCountOutputTypeCountExceptionVotesArgs
+  createdAssetTemplates?: boolean | ActorCountOutputTypeCountCreatedAssetTemplatesArgs
 }
 
 /**
@@ -1310,6 +1620,20 @@ export type ActorCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountExceptionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExceptionVoteWhereInput
+}
+
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountCreatedAssetTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssetTemplateWhereInput
+}
+
 
 export type ActorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1331,6 +1655,8 @@ export type ActorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   ruleModifications?: boolean | Prisma.Actor$ruleModificationsArgs<ExtArgs>
   trustMemberships?: boolean | Prisma.Actor$trustMembershipsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Actor$auditLogsArgs<ExtArgs>
+  exceptionVotes?: boolean | Prisma.Actor$exceptionVotesArgs<ExtArgs>
+  createdAssetTemplates?: boolean | Prisma.Actor$createdAssetTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.ActorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actor"]>
 
@@ -1390,6 +1716,8 @@ export type ActorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   ruleModifications?: boolean | Prisma.Actor$ruleModificationsArgs<ExtArgs>
   trustMemberships?: boolean | Prisma.Actor$trustMembershipsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Actor$auditLogsArgs<ExtArgs>
+  exceptionVotes?: boolean | Prisma.Actor$exceptionVotesArgs<ExtArgs>
+  createdAssetTemplates?: boolean | Prisma.Actor$createdAssetTemplatesArgs<ExtArgs>
   _count?: boolean | Prisma.ActorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ActorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1404,6 +1732,8 @@ export type $ActorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     ruleModifications: Prisma.$RuleModificationPayload<ExtArgs>[]
     trustMemberships: Prisma.$ActorTrustPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    exceptionVotes: Prisma.$ExceptionVotePayload<ExtArgs>[]
+    createdAssetTemplates: Prisma.$AssetTemplatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1819,6 +2149,8 @@ export interface Prisma__ActorClient<T, Null = never, ExtArgs extends runtime.Ty
   ruleModifications<T extends Prisma.Actor$ruleModificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$ruleModificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RuleModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trustMemberships<T extends Prisma.Actor$trustMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$trustMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActorTrustPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Actor$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  exceptionVotes<T extends Prisma.Actor$exceptionVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$exceptionVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExceptionVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAssetTemplates<T extends Prisma.Actor$createdAssetTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$createdAssetTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2390,6 +2722,54 @@ export type Actor$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * Actor.exceptionVotes
+ */
+export type Actor$exceptionVotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExceptionVote
+   */
+  select?: Prisma.ExceptionVoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExceptionVote
+   */
+  omit?: Prisma.ExceptionVoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExceptionVoteInclude<ExtArgs> | null
+  where?: Prisma.ExceptionVoteWhereInput
+  orderBy?: Prisma.ExceptionVoteOrderByWithRelationInput | Prisma.ExceptionVoteOrderByWithRelationInput[]
+  cursor?: Prisma.ExceptionVoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExceptionVoteScalarFieldEnum | Prisma.ExceptionVoteScalarFieldEnum[]
+}
+
+/**
+ * Actor.createdAssetTemplates
+ */
+export type Actor$createdAssetTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssetTemplate
+   */
+  select?: Prisma.AssetTemplateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssetTemplate
+   */
+  omit?: Prisma.AssetTemplateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetTemplateInclude<ExtArgs> | null
+  where?: Prisma.AssetTemplateWhereInput
+  orderBy?: Prisma.AssetTemplateOrderByWithRelationInput | Prisma.AssetTemplateOrderByWithRelationInput[]
+  cursor?: Prisma.AssetTemplateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssetTemplateScalarFieldEnum | Prisma.AssetTemplateScalarFieldEnum[]
 }
 
 /**

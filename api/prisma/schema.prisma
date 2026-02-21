@@ -13,61 +13,63 @@ datasource db {
 
 // Roles de actores en el sistema
 enum ActorRole {
-  SUPER_ADMIN     // Superusuario - puede hacer todo, gestionar usuarios y reglas
-  FIDUCIARIO      // Reporta activos, recibe alertas
-  COMITE_TECNICO  // Aprueba excepciones, modifica reglas
-  AUDITOR         // Solo lectura, consulta historial
-  REGULADOR       // Solo lectura, verifica cumplimiento
-  BENEFICIARIO    // Fideicomisario - solo lectura, recibe alertas sobre sus fideicomisos
+  SUPER_ADMIN // Superusuario - puede hacer todo, gestionar usuarios y reglas
+  FIDUCIARIO // Reporta activos, recibe alertas
+  COMITE_TECNICO // Aprueba excepciones, modifica reglas
+  AUDITOR // Solo lectura, consulta historial
+  REGULADOR // Solo lectura, verifica cumplimiento
+  BENEFICIARIO // Fideicomisario - solo lectura, recibe alertas sobre sus fideicomisos
 }
 
 // Tipos de activos según el contrato
 enum AssetType {
-  GovernmentBond      // Bonos federales o instrumentos de renta fija
-  MortgageLoan        // Préstamos hipotecarios
-  InsuranceReserve    // Reservas de seguros
-  CNBVApproved        // Valores aprobados por CNBV
-  SocialHousing       // Vivienda social
+  GovernmentBond // Bonos federales o instrumentos de renta fija
+  MortgageLoan // Préstamos hipotecarios
+  InsuranceReserve // Reservas de seguros
+  CNBVApproved // Valores aprobados por CNBV
+  SocialHousing // Vivienda social
 }
 
 // Estado de cumplimiento de un activo
 enum ComplianceStatus {
-  COMPLIANT           // Cumple todas las reglas
-  NON_COMPLIANT       // No cumple alguna regla
-  PENDING_REVIEW      // Requiere revisión del Comité Técnico
-  EXCEPTION_APPROVED  // Excepción aprobada por Comité Técnico
+  COMPLIANT // Cumple todas las reglas
+  NON_COMPLIANT // No cumple alguna regla
+  PENDING_REVIEW // Requiere revisión del Comité Técnico
+  EXCEPTION_APPROVED // Excepción aprobada por Comité Técnico
 }
 
 // Actor del sistema (Fiduciario, Comité Técnico, Auditor, Regulador, Super Admin)
 model Actor {
-  id                 String    @id @default(uuid())
-  name               String?
-  email              String?   @unique // Email para autenticación
-  passwordHash       String?   // Hash de contraseña (bcrypt)
-  role               ActorRole
-  isSuperAdmin       Boolean   @default(false) // Flag para superusuario (no puede ser eliminado)
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  id           String    @id @default(uuid())
+  name         String?
+  email        String?   @unique // Email para autenticación
+  passwordHash String? // Hash de contraseña (bcrypt)
+  role         ActorRole
+  isSuperAdmin Boolean   @default(false) // Flag para superusuario (no puede ser eliminado)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   // Identidad principal (SSI) - Opcional
-  primaryDid         String?   @unique
-  
+  primaryDid String? @unique
+
   // Identidades alternativas (fallbacks) - Opcionales
-  ethereumAddress    String?   @unique
-  polkadotAccountId  String?   @unique
-  ensName            String?
-  
+  ethereumAddress   String? @unique
+  polkadotAccountId String? @unique
+  ensName           String?
+
   // Proof of Personhood (almacenado como JSON)
-  popCredentials     Json?
-  
+  popCredentials Json?
+
   // Relaciones
-  registeredAssets   Asset[]
-  beneficiaryAssets  Asset[]       @relation("BeneficiaryAssets") // Activos asociados como beneficiario
-  alerts             Alert[]
-  ruleModifications  RuleModification[]
-  trustMemberships   ActorTrust[]  // Pertenencia a fideicomisos
-  auditLogs          AuditLog[]    // Logs de auditoría
-  
+  registeredAssets      Asset[]
+  beneficiaryAssets     Asset[]            @relation("BeneficiaryAssets") // Activos asociados como beneficiario
+  alerts                Alert[]
+  ruleModifications     RuleModification[]
+  trustMemberships      ActorTrust[] // Pertenencia a fideicomisos
+  auditLogs             AuditLog[] // Logs de auditoría
+  exceptionVotes        ExceptionVote[]    @relation("ExceptionVotes") // Votaciones de excepciones
+  createdAssetTemplates AssetTemplate[] // Plantillas de activos creadas por este actor
+
   @@index([primaryDid])
   @@index([ethereumAddress])
   @@index([email])
@@ -77,40 +79,41 @@ model Actor {
 
 // Activo registrado en el fideicomiso
 model Asset {
-  id                String          @id @default(uuid())
-  trustId           String          // ID del fideicomiso (ej. "10045")
-  assetType         AssetType
-  valueMxn          Decimal         @db.Decimal(18, 2) // Monto en MXN
-  
+  id        String    @id @default(uuid())
+  trustId   String // ID del fideicomiso (ej. "10045")
+  assetType AssetType
+  valueMxn  Decimal   @db.Decimal(18, 2) // Monto en MXN
+
   // Metadatos del activo
-  description       String?
-  documentHash      String?         // Hash del documento PDF adjunto
-  registeredAt      DateTime        @default(now())
-  
+  description  String?
+  documentHash String? // Hash del documento PDF adjunto
+  registeredAt DateTime @default(now())
+
   // Estado de cumplimiento
-  complianceStatus  ComplianceStatus
-  compliant         Boolean         // true si cumple todas las reglas
-  
+  complianceStatus ComplianceStatus
+  compliant        Boolean // true si cumple todas las reglas
+
   // Validación de reglas (almacenado como JSON para flexibilidad)
-  validationResults Json?            // Resultados detallados de cada regla
-  
+  validationResults Json? // Resultados detallados de cada regla
+
   // Evidencia blockchain
-  vcHash            String?         // Hash del Verifiable Credential
-  blockchainTxHash  String?         // Hash de la transacción en blockchain
-  blockchainNetwork String?         // Red utilizada (ej. "polygon-zkevm")
+  vcHash            String? // Hash del Verifiable Credential
+  blockchainTxHash  String? // Hash de la transacción en blockchain
+  blockchainNetwork String? // Red utilizada (ej. "polygon-zkevm")
   anchoredAt        DateTime?
-  
+
   // Actor que registró el activo
-  registeredBy      String          // Actor.id
-  actor             Actor            @relation(fields: [registeredBy], references: [id])
-  
+  registeredBy String // Actor.id
+  actor        Actor  @relation(fields: [registeredBy], references: [id])
+
   // Beneficiario asociado (opcional, para préstamos hipotecarios y vivienda social)
-  beneficiaryId     String?         // Actor.id del beneficiario (solo si aplica)
-  beneficiary       Actor?          @relation("BeneficiaryAssets", fields: [beneficiaryId], references: [id])
-  
+  beneficiaryId String? // Actor.id del beneficiario (solo si aplica)
+  beneficiary   Actor?  @relation("BeneficiaryAssets", fields: [beneficiaryId], references: [id])
+
   // Relaciones
-  alerts            Alert[]
-  
+  alerts         Alert[]
+  exceptionVotes ExceptionVote[] // Votaciones de excepciones para este activo
+
   @@index([trustId])
   @@index([assetType])
   @@index([registeredBy])
@@ -121,26 +124,26 @@ model Asset {
 
 // Alertas generadas por incumplimiento y eventos del sistema
 model Alert {
-  id                String    @id @default(uuid())
-  assetId           String?   // Opcional para alertas no relacionadas con activos específicos
-  asset             Asset?    @relation(fields: [assetId], references: [id])
-  
-  actorId           String    // Actor que debe recibir la alerta
-  actor             Actor     @relation(fields: [actorId], references: [id])
-  
-  message           String
-  severity          String    // "warning", "error", "info", "critical"
-  
+  id      String  @id @default(uuid())
+  assetId String? // Opcional para alertas no relacionadas con activos específicos
+  asset   Asset?  @relation(fields: [assetId], references: [id])
+
+  actorId String // Actor que debe recibir la alerta
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
+  message  String
+  severity String // "warning", "error", "info", "critical"
+
   // Campos para alertas avanzadas
-  alertType         String?   // "EXPIRATION", "PAYMENT", "COMPLIANCE", "MEETING", "DOCUMENT"
-  alertSubtype      String?   // Subtipo específico (ej. "BOND_MATURITY", "FIDUCIARIO_FEE_DUE")
-  metadata          Json?     // Datos adicionales específicos del tipo de alerta
-  
-  acknowledged      Boolean   @default(false)
-  acknowledgedAt    DateTime?
-  
-  createdAt         DateTime  @default(now())
-  
+  alertType    String? // "EXPIRATION", "PAYMENT", "COMPLIANCE", "MEETING", "DOCUMENT"
+  alertSubtype String? // Subtipo específico (ej. "BOND_MATURITY", "FIDUCIARIO_FEE_DUE")
+  metadata     Json? // Datos adicionales específicos del tipo de alerta
+
+  acknowledged   Boolean   @default(false)
+  acknowledgedAt DateTime?
+
+  createdAt DateTime @default(now())
+
   @@index([assetId])
   @@index([actorId])
   @@index([acknowledged])
@@ -150,69 +153,74 @@ model Alert {
 
 // Modificaciones de reglas por el Comité Técnico
 model RuleModification {
-  id                String    @id @default(uuid())
-  trustId           String
-  ruleName          String    // Nombre de la regla modificada
-  previousValue     Json?     // Valor anterior
-  newValue          Json      // Nuevo valor
-  reason            String?
-  
-  approvedBy        String    // Actor.id del miembro del Comité que aprobó
-  actor             Actor      @relation(fields: [approvedBy], references: [id])
-  
-  createdAt         DateTime  @default(now())
-  
+  id            String  @id @default(uuid())
+  trustId       String
+  ruleName      String // Nombre de la regla modificada
+  previousValue Json? // Valor anterior
+  newValue      Json // Nuevo valor
+  reason        String?
+
+  approvedBy String // Actor.id del miembro del Comité que aprobó
+  actor      Actor  @relation(fields: [approvedBy], references: [id])
+
+  createdAt DateTime @default(now())
+
   @@index([trustId])
   @@index([approvedBy])
 }
 
 // Configuración de fideicomiso
 model Trust {
-  id                String    @id @default(uuid())
-  trustId           String    @unique // ID del contrato (ej. "10045")
-  name              String?
-  
+  id      String  @id @default(uuid())
+  trustId String  @unique // ID del contrato (ej. "10045")
+  name    String?
+
   // Patrimonio inicial
-  initialCapital    Decimal   @db.Decimal(18, 2)
-  
+  initialCapital Decimal @db.Decimal(18, 2)
+
   // Límites de inversión (configurables)
-  bondLimitPercent  Decimal   @default(30) @db.Decimal(5, 2) // 30% para bonos
-  otherLimitPercent Decimal   @default(70) @db.Decimal(5, 2) // 70% para otros
-  
+  bondLimitPercent  Decimal @default(30) @db.Decimal(5, 2) // 30% para bonos
+  otherLimitPercent Decimal @default(70) @db.Decimal(5, 2) // 70% para otros
+
   // Información de partes involucradas
-  fideicomitenteName    String?   // Nombre del fideicomitente (quien aporta los bienes)
-  fideicomitenteRFC     String?   // RFC del fideicomitente
-  fiduciarioName         String?   // Nombre de la institución fiduciaria (banco)
-  fiduciarioRFC          String?   // RFC del fiduciario
-  
+  fideicomitenteName String? // Nombre del fideicomitente (quien aporta los bienes)
+  fideicomitenteRFC  String? // RFC del fideicomitente
+  fiduciarioName     String? // Nombre de la institución fiduciaria (banco)
+  fiduciarioRFC      String? // RFC del fiduciario
+
   // Plazos y vigencia
-  constitutionDate       DateTime? // Fecha de constitución del contrato
-  expirationDate         DateTime? // Fecha de vencimiento calculada
-  maxTermYears           Int?      // Plazo máximo en años (30, 50, 70)
-  termType               String?   // 'STANDARD' (30 años), 'FOREIGN' (50 años), 'DISABILITY' (70 años)
-  
+  constitutionDate DateTime? // Fecha de constitución del contrato
+  expirationDate   DateTime? // Fecha de vencimiento calculada
+  maxTermYears     Int? // Plazo máximo en años (30, 50, 70)
+  termType         String? // 'STANDARD' (30 años), 'FOREIGN' (50 años), 'DISABILITY' (70 años)
+
+  // Consenso Comité Técnico
+  requiresConsensus Boolean @default(false) // Si true, excepciones requieren mayoría (2 de 3)
+
   // Obligaciones fiscales
-  rfc                    String?   // RFC del fideicomiso
-  satRegistrationNumber  String?   // Número de registro ante SAT
-  satRegisteredAt        DateTime? // Fecha de registro ante SAT
-  
+  rfc                   String? // RFC del fideicomiso
+  satRegistrationNumber String? // Número de registro ante SAT
+  satRegisteredAt       DateTime? // Fecha de registro ante SAT
+
   // Finalización
-  terminationDate        DateTime?
-  terminationType        String?   // 'EXPIRATION', 'CONDITION_MET', 'EARLY_TERMINATION'
-  terminationReason      String?
-  transmissionCompleted  Boolean   @default(false)
-  
+  terminationDate       DateTime?
+  terminationType       String? // 'EXPIRATION', 'CONDITION_MET', 'EARLY_TERMINATION'
+  terminationReason     String?
+  transmissionCompleted Boolean   @default(false)
+
   // Relaciones
   fiduciarioFee     FiduciarioFee?
-  members           ActorTrust[]  // Usuarios asignados a este fideicomiso
+  members           ActorTrust[] // Usuarios asignados a este fideicomiso
   comiteSessions    ComiteSession[] // Sesiones del Comité Técnico
   monthlyStatements MonthlyStatement[] // Estados de cuenta mensuales
-  
+  exceptionVotes    ExceptionVote[] // Votaciones de excepciones
+
   // Estado
-  active            Boolean   @default(true)
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
+  active         Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  assetTemplates AssetTemplate[]
+
   @@index([trustId])
   @@index([expirationDate])
   @@index([active])
@@ -220,41 +228,41 @@ model Trust {
 
 // Estados de Cuenta Mensuales según Cláusula Décima
 model MonthlyStatement {
-  id                String    @id @default(uuid())
-  trustId           String
-  trust             Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
-  
+  id      String @id @default(uuid())
+  trustId String
+  trust   Trust  @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+
   // Período del estado de cuenta
-  year              Int
-  month             Int       // 1-12
-  
+  year  Int
+  month Int // 1-12
+
   // Información del estado de cuenta
-  statementDate     DateTime  @default(now()) // Fecha de emisión
-  periodStart       DateTime  // Inicio del período
-  periodEnd         DateTime  // Fin del período
-  
+  statementDate DateTime @default(now()) // Fecha de emisión
+  periodStart   DateTime // Inicio del período
+  periodEnd     DateTime // Fin del período
+
   // Contenido
-  summary           Json      // Resumen del patrimonio, activos, pasivos
-  assets            Json      // Lista de activos al cierre del período
-  transactions      Json?     // Transacciones del período
-  
+  summary      Json // Resumen del patrimonio, activos, pasivos
+  assets       Json // Lista de activos al cierre del período
+  transactions Json? // Transacciones del período
+
   // Documento
-  documentUrl       String?   // URL del PDF del estado de cuenta
-  documentHash      String?   // Hash del documento para integridad
-  
+  documentUrl  String? // URL del PDF del estado de cuenta
+  documentHash String? // Hash del documento para integridad
+
   // Aprobación del Comité Técnico
-  status            String    @default("PENDING") // 'PENDING', 'APPROVED', 'OBSERVED', 'TACITLY_APPROVED'
-  submittedAt       DateTime  @default(now())
-  reviewedAt        DateTime?
-  reviewedBy        String?   // Actor.id del miembro del Comité que revisó
-  observations      String?   // Observaciones del Comité
-  
+  status       String    @default("PENDING") // 'PENDING', 'APPROVED', 'OBSERVED', 'TACITLY_APPROVED'
+  submittedAt  DateTime  @default(now())
+  reviewedAt   DateTime?
+  reviewedBy   String? // Actor.id del miembro del Comité que revisó
+  observations String? // Observaciones del Comité
+
   // Auto-aprobación tácita (10 días hábiles sin observaciones)
   tacitlyApprovedAt DateTime?
-  
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([trustId, year, month])
   @@index([trustId])
   @@index([year, month])
@@ -264,38 +272,38 @@ model MonthlyStatement {
 
 // Sesiones del Comité Técnico según Cláusula Sexta
 model ComiteSession {
-  id                String    @id @default(uuid())
-  trustId           String
-  trust             Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
-  
-  sessionDate       DateTime
-  sessionType       String    // 'QUARTERLY', 'EXTRAORDINARY', 'SPECIAL'
-  
+  id      String @id @default(uuid())
+  trustId String
+  trust   Trust  @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+
+  sessionDate DateTime
+  sessionType String // 'QUARTERLY', 'EXTRAORDINARY', 'SPECIAL'
+
   // Asistencia
-  attendees         String[]   // Array de Actor.id
-  quorum            Boolean   @default(false) // true si hay mayoría (2 de 3 miembros)
-  
+  attendees String[] // Array de Actor.id
+  quorum    Boolean  @default(false) // true si hay mayoría (2 de 3 miembros)
+
   // Agenda y decisiones
-  agenda            Json?      // Items de la agenda
-  decisions         Json?      // Decisiones tomadas
-  approvedItems     String[]   // IDs de activos/presupuestos aprobados
-  
+  agenda        Json? // Items de la agenda
+  decisions     Json? // Decisiones tomadas
+  approvedItems String[] // IDs de activos/presupuestos aprobados
+
   // Acta
-  minutes           String?    // Texto del acta
-  minutesUrl        String?    // URL del documento del acta
-  minutesHash       String?    // Hash del documento para integridad
-  
+  minutes     String? // Texto del acta
+  minutesUrl  String? // URL del documento del acta
+  minutesHash String? // Hash del documento para integridad
+
   // Estado
-  status            String    @default("SCHEDULED") // 'SCHEDULED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'
-  
+  status String @default("SCHEDULED") // 'SCHEDULED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'
+
   // Organización
-  scheduledBy       String?    // Actor.id que agendó la reunión
-  location          String?    // Lugar de la reunión (presencial/virtual)
-  meetingLink       String?    // Link para reunión virtual
-  
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  
+  scheduledBy String? // Actor.id que agendó la reunión
+  location    String? // Lugar de la reunión (presencial/virtual)
+  meetingLink String? // Link para reunión virtual
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([trustId])
   @@index([sessionDate])
   @@index([status])
@@ -304,44 +312,44 @@ model ComiteSession {
 
 // Honorarios del Fiduciario según Cláusula Decima Segunda
 model FiduciarioFee {
-  id                String    @id @default(uuid())
-  trustId           String
-  trust             Trust?    @relation(fields: [trustId], references: [trustId])
-  
+  id      String @id @default(uuid())
+  trustId String
+  trust   Trust? @relation(fields: [trustId], references: [trustId])
+
   // Tipos de honorarios según contrato
-  studyFee          Decimal   @default(5000) @db.Decimal(18, 2) // Por estudio y aceptación ($5,000 una vez)
-  annualFee         Decimal   @default(18000) @db.Decimal(18, 2) // Por manejo anual ($18,000)
-  modificationFee   Decimal   @default(5000) @db.Decimal(18, 2) // Por modificación ($5,000)
-  
+  studyFee        Decimal @default(5000) @db.Decimal(18, 2) // Por estudio y aceptación ($5,000 una vez)
+  annualFee       Decimal @default(18000) @db.Decimal(18, 2) // Por manejo anual ($18,000)
+  modificationFee Decimal @default(5000) @db.Decimal(18, 2) // Por modificación ($5,000)
+
   // Estado de pagos
-  studyFeePaid      Boolean   @default(false)
-  studyFeePaidAt    DateTime?
-  
+  studyFeePaid   Boolean   @default(false)
+  studyFeePaidAt DateTime?
+
   // Pagos mensuales del honorario anual (proporcional)
-  monthlyPayments   MonthlyFeePayment[]
-  
+  monthlyPayments MonthlyFeePayment[]
+
   // Estado general
-  allFeesPaid       Boolean   @default(false) // true si todos los honorarios están pagos
-  lastUpdated       DateTime  @default(now())
-  
-  @@index([trustId])
+  allFeesPaid Boolean  @default(false) // true si todos los honorarios están pagos
+  lastUpdated DateTime @default(now())
+
   @@unique([trustId])
+  @@index([trustId])
 }
 
 // Pagos mensuales del honorario anual
 model MonthlyFeePayment {
-  id                String    @id @default(uuid())
-  fiduciarioFeeId   String
-  fiduciarioFee     FiduciarioFee @relation(fields: [fiduciarioFeeId], references: [id], onDelete: Cascade)
-  
-  month             Int       // Mes (1-12)
-  year              Int       // Año
-  amount            Decimal   @db.Decimal(18, 2) // Monto proporcional mensual
-  paid              Boolean   @default(false)
-  paidAt            DateTime?
-  
-  createdAt         DateTime  @default(now())
-  
+  id              String        @id @default(uuid())
+  fiduciarioFeeId String
+  fiduciarioFee   FiduciarioFee @relation(fields: [fiduciarioFeeId], references: [id], onDelete: Cascade)
+
+  month  Int // Mes (1-12)
+  year   Int // Año
+  amount Decimal   @db.Decimal(18, 2) // Monto proporcional mensual
+  paid   Boolean   @default(false)
+  paidAt DateTime?
+
+  createdAt DateTime @default(now())
+
   @@unique([fiduciarioFeeId, year, month])
   @@index([fiduciarioFeeId])
 }
@@ -349,24 +357,24 @@ model MonthlyFeePayment {
 // Relación entre Actores y Fideicomisos
 // Permite que un usuario pertenezca a múltiples fideicomisos con diferentes roles
 model ActorTrust {
-  id          String    @id @default(uuid())
-  actorId     String
-  actor       Actor     @relation(fields: [actorId], references: [id], onDelete: Cascade)
-  trustId     String
-  trust       Trust     @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
-  
+  id      String @id @default(uuid())
+  actorId String
+  actor   Actor  @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  trustId String
+  trust   Trust  @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+
   // Rol específico dentro del fideicomiso
   // Un mismo actor puede tener diferentes roles en diferentes fideicomisos
   // Ejemplo: FIDUCIARIO en trust A, BENEFICIARIO en trust B
   roleInTrust ActorRole
-  
+
   // Fechas
-  assignedAt  DateTime  @default(now())
-  revokedAt   DateTime?
-  
+  assignedAt DateTime  @default(now())
+  revokedAt  DateTime?
+
   // Estado
-  active      Boolean   @default(true)
-  
+  active Boolean @default(true)
+
   @@unique([actorId, trustId])
   @@index([actorId])
   @@index([trustId])
@@ -376,35 +384,106 @@ model ActorTrust {
 
 // Logs de auditoría para acciones críticas
 model AuditLog {
-  id                String    @id @default(uuid())
-  actorId           String    // Actor que realizó la acción (puede ser UUID especial para sistema)
-  actor             Actor?     @relation(fields: [actorId], references: [id], onDelete: SetNull)
-  
+  id      String @id @default(uuid())
+  actorId String // Actor que realizó la acción (puede ser UUID especial para sistema)
+  actor   Actor? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
   // Tipo de acción realizada
-  action            String    // "ASSET_REGISTERED", "EXCEPTION_APPROVED", "EXCEPTION_REJECTED", "RULE_MODIFIED", "USER_CREATED", "USER_UPDATED", "USER_DELETED", "LOGIN", "LOGOUT", etc.
-  
+  action String // "ASSET_REGISTERED", "EXCEPTION_APPROVED", "EXCEPTION_REJECTED", "RULE_MODIFIED", "USER_CREATED", "USER_UPDATED", "USER_DELETED", "LOGIN", "LOGOUT", etc.
+
   // Entidad afectada
-  entityType        String?   // "Asset", "Trust", "Actor", "Alert", etc.
-  entityId          String?   // ID de la entidad afectada
-  
+  entityType String? // "Asset", "Trust", "Actor", "Alert", etc.
+  entityId   String? // ID de la entidad afectada
+
   // Contexto
-  trustId           String?   // Fideicomiso relacionado (si aplica)
-  description       String    // Descripción legible de la acción
-  
+  trustId     String? // Fideicomiso relacionado (si aplica)
+  description String // Descripción legible de la acción
+
   // Detalles adicionales (JSON)
-  metadata          Json?     // Información adicional específica de la acción
-  
+  metadata Json? // Información adicional específica de la acción
+
   // Información de seguridad
-  ipAddress         String?   // IP desde donde se realizó la acción
-  userAgent         String?   // User agent del navegador/cliente
-  
+  ipAddress String? // IP desde donde se realizó la acción
+  userAgent String? // User agent del navegador/cliente
+
   // Timestamp
-  createdAt         DateTime  @default(now())
-  
+  createdAt DateTime @default(now())
+
   @@index([actorId])
   @@index([action])
   @@index([entityType])
   @@index([entityId])
   @@index([trustId])
   @@index([createdAt])
+}
+
+// Votaciones de excepciones para activos que requieren consenso del Comité Técnico
+model ExceptionVote {
+  id      String @id @default(uuid())
+  assetId String
+  asset   Asset  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  trustId String
+  trust   Trust  @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+
+  // Miembro del Comité Técnico que vota
+  voterId String // Actor.id del miembro del Comité
+  voter   Actor  @relation("ExceptionVotes", fields: [voterId], references: [id])
+
+  // Voto
+  vote   String // 'APPROVE' o 'REJECT'
+  reason String? // Razón del voto (opcional)
+
+  // Metadatos
+  ipAddress String? // IP desde donde se votó
+  userAgent String? // User agent del navegador/cliente
+
+  createdAt DateTime @default(now())
+
+  @@unique([assetId, voterId]) // Un miembro solo puede votar una vez por activo
+  @@index([assetId])
+  @@index([trustId])
+  @@index([voterId])
+  @@index([vote])
+  @@index([createdAt])
+}
+
+// Plantillas para pre-llenar formularios de activos por tipo
+model AssetTemplate {
+  id String @id @default(uuid())
+
+  // Tipo de activo al que aplica esta plantilla
+  assetType AssetType
+
+  // Fideicomiso específico (null = plantilla global)
+  trustId String? // Si es null, es una plantilla global
+  trust   Trust?  @relation(fields: [trustId], references: [trustId], onDelete: Cascade)
+
+  // Nombre de la plantilla
+  name        String // Ej: "Bono Gubernamental Estándar", "Préstamo Hipotecario Vivienda Social"
+  description String? // Descripción opcional
+
+  // Campos predefinidos (almacenados como JSON para flexibilidad)
+  // Para GovernmentBond: { description, documentHash }
+  // Para MortgageLoan: { description, mortgageData: { termYears, hasMortgageGuarantee, hasLifeInsurance, hasFireInsurance, interestRate } }
+  // Para otros tipos: { description, ... }
+  defaultFields Json // Campos por defecto según el tipo de activo
+
+  // Metadatos
+  isDefault Boolean @default(false) // Si es la plantilla por defecto para este tipo
+  isActive  Boolean @default(true)
+
+  // Creador de la plantilla
+  createdBy String // Actor.id
+  creator   Actor  @relation(fields: [createdBy], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([assetType, trustId, name]) // No puede haber dos plantillas con el mismo nombre para el mismo tipo y fideicomiso
+  @@index([assetType])
+  @@index([trustId])
+  @@index([isDefault])
+  @@index([isActive])
+  @@index([createdBy])
 }

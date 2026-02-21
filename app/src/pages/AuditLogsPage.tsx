@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { auditLogsApi, trustsApi } from '../lib/api';
+import { useState, useEffect } from 'react';
+import { auditLogsApi } from '../lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '../components/ui/dialog';
 import { useAuth } from '../contexts/AuthContext';
+import { useTrustSelection } from '../contexts/TrustSelectionContext';
 import { 
   Clock, 
   User, 
@@ -51,12 +52,21 @@ const ENTITY_TYPE_LABELS: Record<string, string> = {
 
 export function AuditLogsPage() {
   const { actor } = useAuth();
+  const { selectedTrustId: globalTrustId, trusts, hasMultipleTrusts, setSelectedTrustId: setGlobalTrustId } = useTrustSelection();
   const [selectedAction, setSelectedAction] = useState<string>('');
   const [selectedEntityType, setSelectedEntityType] = useState<string>('');
-  const [selectedTrustId, setSelectedTrustId] = useState<string>('');
+  // Usar el trustId global como valor por defecto, pero permitir filtrado local
+  const [selectedTrustId, setSelectedTrustId] = useState<string>(globalTrustId || '');
   const [page, setPage] = useState(0);
   const [selectedLog, setSelectedLog] = useState<any | null>(null);
   const limit = 20;
+
+  // Sincronizar con el trustId global cuando cambia
+  useEffect(() => {
+    if (globalTrustId && !selectedTrustId) {
+      setSelectedTrustId(globalTrustId);
+    }
+  }, [globalTrustId, selectedTrustId]);
 
   // Construir filtros
   const filters: any = {
@@ -72,14 +82,7 @@ export function AuditLogsPage() {
   // COMITE_TECNICO y FIDUCIARIO verán todos los logs de activos + sus propios logs
   // cuando no se especifica entityType
 
-  // Obtener lista de fideicomisos para el dropdown
-  const { data: trustsData } = useQuery({
-    queryKey: ['trusts'],
-    queryFn: () => trustsApi.list(),
-    enabled: !!actor,
-  });
-
-  const trusts = trustsData || [];
+  // Los trusts ya vienen del contexto TrustSelectionContext
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['auditLogs', filters],
@@ -216,7 +219,12 @@ export function AuditLogsPage() {
               <select
                 value={selectedTrustId}
                 onChange={(e) => {
-                  setSelectedTrustId(e.target.value);
+                  const newTrustId = e.target.value;
+                  setSelectedTrustId(newTrustId);
+                  // Actualizar también el contexto global si se selecciona un fideicomiso específico
+                  if (newTrustId) {
+                    setGlobalTrustId(newTrustId);
+                  }
                   setPage(0);
                 }}
                 className="w-full p-2 border rounded-md"

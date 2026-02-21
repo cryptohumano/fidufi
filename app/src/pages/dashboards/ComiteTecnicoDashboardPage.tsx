@@ -10,28 +10,35 @@ import { Button } from '../../components/ui/button';
 import { ProtectedRoute } from '../../components/layout/ProtectedRoute';
 import { FileText, AlertCircle, TrendingUp, Plus, Eye, Settings, Building2, Activity, Clock, User } from 'lucide-react';
 import { ComiteSessionsCalendar } from '../../components/comite/ComiteSessionsCalendar';
+import { useTrustSelection } from '../../contexts/TrustSelectionContext';
 
 function ComiteTecnicoDashboard() {
+  const { trusts, selectedTrustId, setSelectedTrustId, isLoading: isLoadingTrusts, hasMultipleTrusts } = useTrustSelection();
+
   const { data: assetsData } = useQuery({
-    queryKey: ['assets', '10045'],
-    queryFn: () => assetsApi.list('10045', { limit: 10 }),
+    queryKey: ['assets', selectedTrustId],
+    queryFn: () => assetsApi.list(selectedTrustId, { limit: 10 }),
+    enabled: !!selectedTrustId,
   });
 
   const { data: alertsData } = useQuery({
-    queryKey: ['alerts'],
-    queryFn: () => alertsApi.list(undefined, { acknowledged: false, limit: 10 }),
+    queryKey: ['alerts', selectedTrustId],
+    queryFn: () => alertsApi.list(selectedTrustId, { acknowledged: false, limit: 10 }),
+    enabled: !!selectedTrustId,
   });
 
   const { data: trustSummary } = useQuery({
-    queryKey: ['trust', '10045', 'summary'],
-    queryFn: () => trustsApi.getSummary('10045'),
+    queryKey: ['trust', selectedTrustId, 'summary'],
+    queryFn: () => trustsApi.getSummary(selectedTrustId),
+    enabled: !!selectedTrustId,
   });
 
   // Logs de auditoría recientes (logs de activos y propios del comité técnico)
   // Se actualiza automáticamente cada 30 segundos
   const { data: recentLogsData } = useQuery({
-    queryKey: ['auditLogs', 'recent', 'comite-tecnico'],
-    queryFn: () => auditLogsApi.list({ limit: 10 }),
+    queryKey: ['auditLogs', 'recent', 'comite-tecnico', selectedTrustId],
+    queryFn: () => auditLogsApi.list({ trustId: selectedTrustId, limit: 10 }),
+    enabled: !!selectedTrustId,
     refetchInterval: 30000, // Actualizar cada 30 segundos
   });
 
@@ -48,13 +55,69 @@ function ComiteTecnicoDashboard() {
   const compliantAssets = assets.filter((a: any) => a.compliant);
   const nonCompliantAssets = assets.filter((a: any) => !a.compliant);
 
+  if (isLoadingTrusts) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <Card className="p-8 text-center">
+          <p className="text-muted-foreground">Cargando fideicomisos...</p>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!selectedTrustId) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <Card className="p-8 text-center">
+          <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h1 className="text-2xl font-bold mb-2">No hay fideicomisos asignados</h1>
+          <p className="text-muted-foreground">
+            No tienes acceso a ningún fideicomiso. Contacta al administrador para que te asigne a uno.
+          </p>
+        </Card>
+      </div>
+    );
+  }
+
+  const selectedTrust = trusts.find(t => t.trustId === selectedTrustId);
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Dashboard - Comité Técnico</h1>
-        <p className="text-muted-foreground">
-          Supervisa el cumplimiento del fideicomiso y aprueba excepciones
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Dashboard - Comité Técnico</h1>
+            <p className="text-muted-foreground">
+              Supervisa el cumplimiento del fideicomiso y aprueba excepciones
+            </p>
+          </div>
+          {hasMultipleTrusts && (
+            <div className="flex items-center gap-2">
+              <label htmlFor="trust-select" className="text-sm font-medium">
+                Fideicomiso:
+              </label>
+              <select
+                id="trust-select"
+                value={selectedTrustId}
+                onChange={(e) => setSelectedTrustId(e.target.value)}
+                className="px-3 py-2 border rounded-md bg-background"
+              >
+                {trusts.map((trust) => (
+                  <option key={trust.trustId} value={trust.trustId}>
+                    {trust.name || trust.trustId}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+        {selectedTrust && (
+          <div className="mb-4 p-4 bg-muted rounded-md">
+            <p className="text-sm text-muted-foreground">
+              <strong>Fideicomiso:</strong> {selectedTrust.name || selectedTrust.trustId}
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="grid md:grid-cols-4 gap-6 mb-8">
@@ -93,7 +156,7 @@ function ComiteTecnicoDashboard() {
 
       {/* Calendario de Reuniones */}
       <div className="mb-8">
-        <ComiteSessionsCalendar trustId="10045" showCreateButton={true} />
+        <ComiteSessionsCalendar trustId={selectedTrustId} showCreateButton={true} />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -121,13 +184,13 @@ function ComiteTecnicoDashboard() {
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/trusts/10045">
+              <Link to={`/trusts/${selectedTrustId}`}>
                 <FileText className="h-4 w-4 mr-2" />
                 Ver Detalles del Fideicomiso
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/trusts/10045/organization">
+              <Link to={`/trusts/${selectedTrustId}/organization`}>
                 <Building2 className="h-4 w-4 mr-2" />
                 Ver Estructura Organizacional
               </Link>

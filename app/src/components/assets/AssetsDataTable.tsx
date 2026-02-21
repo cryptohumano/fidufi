@@ -22,6 +22,7 @@ import { ExceptionApprovalDialog } from "./ExceptionApprovalDialog";
 // Tipo extendido para incluir relaciones
 export interface Asset {
   id: string;
+  trustId: string;
   assetType: string;
   valueMxn: string;
   description: string | null;

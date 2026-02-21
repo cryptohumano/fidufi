@@ -13,6 +13,8 @@ import actorTrustRouter from './routes/actorTrust';
 import auditLogsRouter from './routes/auditLogs';
 import comiteSessionsRouter from './routes/comiteSessions';
 import monthlyStatementsRouter from './routes/monthlyStatements';
+import exceptionVotesRouter from './routes/exceptionVotes';
+import assetTemplatesRouter from './routes/assetTemplates';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -44,6 +46,8 @@ app.use('/api/actor-trust', actorTrustRouter);
 app.use('/api/audit-logs', auditLogsRouter);
 app.use('/api/comite-sessions', comiteSessionsRouter);
 app.use('/api/monthly-statements', monthlyStatementsRouter);
+app.use('/api/exception-votes', exceptionVotesRouter);
+app.use('/api/asset-templates', assetTemplatesRouter);
 
 // Root endpoint
 app.get('/', (req, res) => {

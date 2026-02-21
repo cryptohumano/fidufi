@@ -11,11 +11,13 @@ import { Badge } from '../components/ui/badge';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { FileText, Calendar, CheckCircle2, AlertCircle, Clock, Plus, Eye } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useTrustSelection } from '../contexts/TrustSelectionContext';
 
 function MonthlyStatementsList() {
   const { trustId } = useParams<{ trustId: string }>();
   const { actor } = useAuth();
-  const trustIdToUse = trustId || '10045';
+  const { selectedTrustId } = useTrustSelection();
+  const trustIdToUse = trustId || selectedTrustId || '';
 
   const { data: statementsData, isLoading } = useQuery({
     queryKey: ['monthly-statements', trustIdToUse],

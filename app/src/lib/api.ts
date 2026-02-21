@@ -224,6 +224,10 @@ export const trustsApi = {
     initialCapital: number;
     bondLimitPercent?: number;
     otherLimitPercent?: number;
+    constitutionDate?: string; // Fecha de constitución (YYYY-MM-DD)
+    maxTermYears?: number; // Plazo máximo en años (1-99)
+    termType?: 'STANDARD' | 'FOREIGN' | 'DISABILITY'; // Tipo de plazo
+    requiresConsensus?: boolean; // Si requiere mayoría para aprobar excepciones
   }) => {
     const response = await api.post('/api/trusts', data);
     return response.data;
@@ -271,7 +275,7 @@ export const trustsApi = {
 };
 
 export const alertsApi = {
-  list: async (actorId?: string, filters?: {
+  list: async (trustId?: string, filters?: {
     acknowledged?: boolean;
     limit?: number;
     offset?: number;
@@ -280,7 +284,7 @@ export const alertsApi = {
     severity?: string;
   }) => {
     const params = new URLSearchParams();
-    if (actorId) params.append('actorId', actorId);
+    if (trustId) params.append('trustId', trustId);
     if (filters) {
       Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined) params.append(key, String(value));
@@ -513,6 +517,81 @@ export const monthlyStatementsApi = {
   
   generatePrevious: async (trustId: string) => {
     const response = await api.post(`/api/monthly-statements/trust/${trustId}/generate-previous`);
+    return response.data;
+  },
+};
+
+export const exceptionVotesApi = {
+  vote: async (data: {
+    assetId: string;
+    vote: 'APPROVE' | 'REJECT';
+    reason?: string;
+  }) => {
+    const response = await api.post('/api/exception-votes', data);
+    return response.data;
+  },
+  
+  getStatus: async (assetId: string) => {
+    const response = await api.get(`/api/exception-votes/asset/${assetId}`);
+    return response.data;
+  },
+};
+
+export const assetTemplatesApi = {
+  list: async (filters?: {
+    assetType?: string;
+    trustId?: string | null;
+    isActive?: boolean;
+    isDefault?: boolean;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+    const response = await api.get(`/api/asset-templates?${params}`);
+    return response.data;
+  },
+  
+  getById: async (id: string) => {
+    const response = await api.get(`/api/asset-templates/${id}`);
+    return response.data;
+  },
+  
+  getDefault: async (assetType: string, trustId?: string) => {
+    const params = trustId ? `?trustId=${trustId}` : '';
+    const response = await api.get(`/api/asset-templates/default/${assetType}${params}`);
+    return response.data;
+  },
+  
+  create: async (data: {
+    assetType: string;
+    trustId?: string | null;
+    name: string;
+    description?: string;
+    defaultFields: Record<string, any>;
+    isDefault?: boolean;
+  }) => {
+    const response = await api.post('/api/asset-templates', data);
+    return response.data;
+  },
+  
+  update: async (id: string, data: {
+    name?: string;
+    description?: string;
+    defaultFields?: Record<string, any>;
+    isDefault?: boolean;
+    isActive?: boolean;
+  }) => {
+    const response = await api.put(`/api/asset-templates/${id}`, data);
+    return response.data;
+  },
+  
+  delete: async (id: string) => {
+    const response = await api.delete(`/api/asset-templates/${id}`);
     return response.data;
   },
 };

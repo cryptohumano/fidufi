@@ -206,6 +206,11 @@ yarn workspace @fidufi/app dev    # Frontend en :3000
 - [x] Filtrado automático de activos por rol
 - [x] Migraciones de base de datos
 - [x] Seed script con datos de prueba
+- [x] Sistema de consenso para Comité Técnico (votaciones por excepción, mayoría 2 de 3)
+- [x] Plantillas de activos por tipo (backend: AssetTemplate, servicio y rutas)
+- [x] Contexto global de selección de fideicomiso (TrustSelectionContext) con auto-selección
+- [x] Formulario de fideicomisos con duración (constitutionDate, maxTermYears, termType, expirationDate)
+- [x] Diálogo de aprobación de excepciones con contexto del fideicomiso y estado de votaciones
 
 ### 🚧 En Desarrollo
 
@@ -264,60 +269,10 @@ Ver [docs/CREDENCIALES_USUARIOS.md](docs/CREDENCIALES_USUARIOS.md) para credenci
 
 ## 📚 Documentación
 
+- [Changelog](docs/CHANGELOG.md) – Cambios recientes y estado actual
 - [Guía de Desarrollo](GUIA_DESARROLLO.md)
 - [Plan de Implementación](docs/PLAN_IMPLEMENTACION.md)
-- [Asociación de Activos y Roles](docs/ASOCIACION_ACTIVOS_ROLES.md)
-- [Arquitectura Multi-Fideicomiso](docs/ARQUITECTURA_MULTI_FIDEICOMISO.md)
-- [API Documentation](api/API_DOCS.md)
-
-## 🤝 Contribuir
-
-Este es un proyecto en desarrollo activo. Las contribuciones son bienvenidas.
-
-## 🚀 Inicio Rápido
-
-### Prerrequisitos
-
-- Node.js 20+
-- PostgreSQL 16+
-- Corepack habilitado (`corepack enable`)
-
-### Instalación
-
-```bash
-# Clonar repositorio
-git clone https://github.com/cryptohumano/fidufi.git
-cd fidufi
-
-# Instalar dependencias
-yarn install
-
-# Configurar variables de entorno
-cp api/.env.example api/.env
-cp app/.env.example app/.env
-# Editar .env con tus credenciales de PostgreSQL
-
-# Configurar base de datos
-cd api
-yarn prisma generate
-yarn prisma migrate dev
-yarn prisma db seed
-
-# Iniciar desarrollo
-cd ..
-yarn dev
-```
-
-El backend estará en `http://localhost:3001` y el frontend en `http://localhost:3000`.
-
-### Credenciales de Prueba
-
-Ver [docs/CREDENCIALES_USUARIOS.md](docs/CREDENCIALES_USUARIOS.md) para credenciales de usuarios de prueba.
-
-## 📚 Documentación
-
-- [Guía de Desarrollo](GUIA_DESARROLLO.md)
-- [Plan de Implementación](docs/PLAN_IMPLEMENTACION.md)
+- [Cambios Post-Reunión](docs/CAMBIOS_POST_REUNION.md)
 - [Asociación de Activos y Roles](docs/ASOCIACION_ACTIVOS_ROLES.md)
 - [Arquitectura Multi-Fideicomiso](docs/ARQUITECTURA_MULTI_FIDEICOMISO.md)
 - [API Documentation](api/API_DOCS.md)

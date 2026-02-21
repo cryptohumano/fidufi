@@ -172,6 +172,42 @@ export async function createTrust(data: TrustData) {
     throw new Error(`El fideicomiso ${trustId} ya existe`);
   }
 
+  // Calcular fecha de expiración si se proporciona fecha de constitución y plazo máximo
+  let expirationDate: Date | undefined;
+  if (data.constitutionDate && data.maxTermYears) {
+    const constitutionDateObj = typeof data.constitutionDate === 'string' 
+      ? new Date(data.constitutionDate) 
+      : data.constitutionDate;
+    
+    // Validar que la fecha sea válida
+    if (!isNaN(constitutionDateObj.getTime())) {
+      expirationDate = new Date(constitutionDateObj);
+      expirationDate.setFullYear(expirationDate.getFullYear() + data.maxTermYears);
+    }
+  }
+
+  // Validar tipo de plazo y ajustar si es necesario
+  let finalTermType = data.termType || 'STANDARD';
+  let finalMaxTermYears = data.maxTermYears || 30;
+
+  // Ajustar según tipo de plazo si no se especificó maxTermYears
+  if (!data.maxTermYears) {
+    if (finalTermType === 'FOREIGN') {
+      finalMaxTermYears = 50;
+    } else if (finalTermType === 'DISABILITY') {
+      finalMaxTermYears = 70;
+    }
+  }
+
+  // Validar que maxTermYears no exceda el máximo permitido según termType
+  if (finalTermType === 'STANDARD' && finalMaxTermYears > 30) {
+    finalMaxTermYears = 30;
+  } else if (finalTermType === 'FOREIGN' && finalMaxTermYears > 50) {
+    finalMaxTermYears = 50;
+  } else if (finalTermType === 'DISABILITY' && finalMaxTermYears > 70) {
+    finalMaxTermYears = 70;
+  }
+
   console.log('💾 Creando registro en base de datos...');
   const trust = await prisma.trust.create({
     data: {
@@ -184,6 +220,14 @@ export async function createTrust(data: TrustData) {
       otherLimitPercent: data.otherLimitPercent 
         ? new Decimal(data.otherLimitPercent) 
         : new Decimal(70),
+      // Plazos y vigencia
+      constitutionDate: data.constitutionDate 
+        ? (typeof data.constitutionDate === 'string' ? new Date(data.constitutionDate) : data.constitutionDate)
+        : new Date(),
+      expirationDate: expirationDate,
+      maxTermYears: finalMaxTermYears,
+      termType: finalTermType,
+      requiresConsensus: data.requiresConsensus || false,
     },
   });
   console.log('✅ Fideicomiso creado:', trust.trustId);

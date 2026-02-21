@@ -63,9 +63,13 @@ export function TrustsManagementPage() {
     mutationFn: (data: { actorId: string; trustId: string; roleInTrust: string }) =>
       actorTrustApi.assignActor(data),
     onSuccess: () => {
+      // Invalidar todas las queries relacionadas para que se actualicen los dashboards
       queryClient.invalidateQueries({ queryKey: ['trusts'] });
       queryClient.invalidateQueries({ queryKey: ['actor-trust'] });
       queryClient.invalidateQueries({ queryKey: ['trust-actors', selectedTrust] });
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
+      queryClient.invalidateQueries({ queryKey: ['alerts'] });
+      queryClient.invalidateQueries({ queryKey: ['auditLogs'] });
       // No cerrar el diálogo para permitir múltiples asignaciones
     },
   });
@@ -202,16 +206,23 @@ function CreateTrustDialog({
     initialCapital: '',
     bondLimitPercent: '30',
     otherLimitPercent: '70',
+    constitutionDate: '',
+    maxTermYears: '30',
+    termType: 'STANDARD' as 'STANDARD' | 'FOREIGN' | 'DISABILITY',
   });
 
   // Resetear formulario cuando se abre el diálogo
   useEffect(() => {
     if (open) {
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
       setFormData({
         name: '',
         initialCapital: '',
         bondLimitPercent: '30',
         otherLimitPercent: '70',
+        constitutionDate: today,
+        maxTermYears: '30',
+        termType: 'STANDARD',
       });
     }
   }, [open]);
@@ -231,12 +242,28 @@ function CreateTrustDialog({
       return;
     }
     
+    // Validar fecha de constitución
+    if (!formData.constitutionDate) {
+      alert('Por favor ingrese la fecha de constitución');
+      return;
+    }
+
+    const maxTermYearsValue = parseInt(formData.maxTermYears);
+    if (isNaN(maxTermYearsValue) || maxTermYearsValue < 1 || maxTermYearsValue > 99) {
+      alert('El plazo máximo debe estar entre 1 y 99 años');
+      return;
+    }
+
     onCreate({
       // trustId se genera automáticamente en el backend
       name: formData.name || undefined,
       initialCapital: initialCapitalValue,
       bondLimitPercent: formData.bondLimitPercent ? parseFloat(formData.bondLimitPercent) : undefined,
       otherLimitPercent: formData.otherLimitPercent ? parseFloat(formData.otherLimitPercent) : undefined,
+      constitutionDate: formData.constitutionDate,
+      maxTermYears: maxTermYearsValue,
+      termType: formData.termType,
+      requiresConsensus: formData.requiresConsensus,
     });
   };
 
@@ -304,6 +331,88 @@ function CreateTrustDialog({
                 className="w-full p-2 border rounded-md"
                 placeholder="70"
               />
+            </div>
+          </div>
+
+          <div className="border-t pt-4 space-y-4">
+            <h3 className="text-sm font-semibold text-muted-foreground">Plazos y Vigencia</h3>
+            
+            <div>
+              <label className="text-sm font-medium mb-2 block">
+                Fecha de Constitución <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="date"
+                value={formData.constitutionDate}
+                onChange={(e) => setFormData({ ...formData, constitutionDate: e.target.value })}
+                required
+                className="w-full p-2 border rounded-md"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Fecha en que se constituye el contrato de fideicomiso
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-2 block">
+                  Plazo Máximo (años) <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="99"
+                  value={formData.maxTermYears}
+                  onChange={(e) => setFormData({ ...formData, maxTermYears: e.target.value })}
+                  required
+                  className="w-full p-2 border rounded-md"
+                  placeholder="30"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Máximo: 99 años
+                </p>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">
+                  Tipo de Plazo <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={formData.termType}
+                  onChange={(e) => setFormData({ ...formData, termType: e.target.value as any })}
+                  required
+                  className="w-full p-2 border rounded-md"
+                >
+                  <option value="STANDARD">Estándar (30 años)</option>
+                  <option value="FOREIGN">Zona Restringida (50 años)</option>
+                  <option value="DISABILITY">Incapacidad (70 años)</option>
+                </select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {formData.termType === 'STANDARD' && 'Plazo estándar para fideicomisos nacionales'}
+                  {formData.termType === 'FOREIGN' && 'Plazo extendido para fideicomisos con extranjeros'}
+                  {formData.termType === 'DISABILITY' && 'Plazo extendido para casos de incapacidad'}
+                </p>
+              </div>
+            </div>
+
+            <div className="border-t pt-4">
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="requiresConsensus"
+                  checked={formData.requiresConsensus}
+                  onChange={(e) => setFormData({ ...formData, requiresConsensus: e.target.checked })}
+                  className="mt-1"
+                />
+                <div>
+                  <label htmlFor="requiresConsensus" className="text-sm font-medium block">
+                    Requiere Consenso del Comité Técnico
+                  </label>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Si está activado, las excepciones requieren mayoría (2 de 3 miembros) para ser aprobadas.
+                    Si está desactivado, un solo miembro puede aprobar/rechazar excepciones.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

@@ -5,30 +5,82 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { assetsApi, RegisterAssetData, trustsApi, actorTrustApi } from '../lib/api';
+import { assetsApi, RegisterAssetData, trustsApi, actorTrustApi, assetTemplatesApi } from '../lib/api';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
 import { ProtectedRoute } from '../components/layout/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
-import { CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertCircle, FileText } from 'lucide-react';
 
 function RegisterAssetForm() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { actor } = useAuth();
   const [formData, setFormData] = useState<RegisterAssetData>({
-    trustId: '10045',
+    trustId: '',
     assetType: 'GovernmentBond',
     valueMxn: 0,
     description: '',
     beneficiaryId: undefined,
   });
 
-  // Obtener información del fideicomiso
+  // Obtener fideicomisos a los que el usuario tiene acceso
+  const { data: trusts } = useQuery({
+    queryKey: ['trusts'],
+    queryFn: () => trustsApi.list(),
+    enabled: !!actor,
+  });
+
+  // Si solo hay un fideicomiso, seleccionarlo automáticamente
+  useEffect(() => {
+    if (trusts && trusts.length === 1 && !formData.trustId) {
+      setFormData({ ...formData, trustId: trusts[0].trustId });
+    } else if (trusts && trusts.length > 0 && !formData.trustId) {
+      // Si hay múltiples, seleccionar el primero por defecto
+      setFormData({ ...formData, trustId: trusts[0].trustId });
+    }
+  }, [trusts]);
+
+  // Obtener plantilla por defecto cuando cambia el tipo de activo o el fideicomiso
+  const { data: defaultTemplate } = useQuery({
+    queryKey: ['asset-template', 'default', formData.assetType, formData.trustId],
+    queryFn: () => assetTemplatesApi.getDefault(formData.assetType, formData.trustId),
+    enabled: !!formData.assetType && !!formData.trustId,
+  });
+
+  // Aplicar plantilla cuando se carga o cambia
+  useEffect(() => {
+    if (defaultTemplate && defaultTemplate.defaultFields) {
+      const templateFields = defaultTemplate.defaultFields as Record<string, any>;
+      
+      // Aplicar campos de la plantilla, pero solo si el campo está vacío o es 0
+      const updatedData: Partial<RegisterAssetData> = {};
+      
+      if (templateFields.description && !formData.description) {
+        updatedData.description = templateFields.description;
+      }
+      
+      if (templateFields.valueMxn && formData.valueMxn === 0) {
+        updatedData.valueMxn = templateFields.valueMxn;
+      }
+      
+      if (templateFields.mortgageData && formData.assetType === 'MortgageLoan') {
+        // Para préstamos hipotecarios, aplicar datos de mortgageData si están disponibles
+        // Nota: Esto requeriría campos adicionales en el formulario que aún no están implementados
+      }
+      
+      if (Object.keys(updatedData).length > 0) {
+        setFormData({ ...formData, ...updatedData });
+      }
+    }
+  }, [defaultTemplate]);
+
+  // Obtener información del fideicomiso seleccionado
   const { data: trust } = useQuery({
     queryKey: ['trust', formData.trustId],
     queryFn: () => trustsApi.getById(formData.trustId),
+    enabled: !!formData.trustId,
   });
 
   // Obtener beneficiarios del fideicomiso (para préstamos hipotecarios y vivienda social)
@@ -102,33 +154,77 @@ function RegisterAssetForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="trustId" className="block text-sm font-medium mb-2">
-              ID del Fideicomiso
+              Fideicomiso <span className="text-red-500">*</span>
             </label>
-            <Input
-              id="trustId"
-              value={formData.trustId}
-              onChange={(e) => setFormData({ ...formData, trustId: e.target.value })}
-              required
-            />
+            {trusts && trusts.length === 1 ? (
+              // Si solo hay un fideicomiso, mostrarlo como texto (no editable)
+              <div className="p-3 bg-muted rounded-md">
+                <p className="text-sm font-medium">{trusts[0].name || trusts[0].trustId}</p>
+                <p className="text-xs text-muted-foreground">ID: {trusts[0].trustId}</p>
+                <input type="hidden" value={formData.trustId} />
+              </div>
+            ) : (
+              // Si hay múltiples fideicomisos, mostrar dropdown
+              <select
+                id="trustId"
+                value={formData.trustId}
+                onChange={(e) => setFormData({ ...formData, trustId: e.target.value })}
+                className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                required
+              >
+                <option value="">Seleccionar fideicomiso</option>
+                {trusts?.map((trust: any) => (
+                  <option key={trust.trustId} value={trust.trustId}>
+                    {trust.name || trust.trustId} {trust.name && `(${trust.trustId})`}
+                  </option>
+                ))}
+              </select>
+            )}
+            {trusts && trusts.length > 1 && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Selecciona el fideicomiso al que pertenece este activo
+              </p>
+            )}
           </div>
 
           <div>
             <label htmlFor="assetType" className="block text-sm font-medium mb-2">
               Tipo de Activo
             </label>
-            <select
-              id="assetType"
-              value={formData.assetType}
-              onChange={(e) => setFormData({ ...formData, assetType: e.target.value as any })}
-              className="w-full px-3 py-2 border border-input rounded-md bg-background"
-              required
-            >
-              <option value="GovernmentBond">Bono Gubernamental</option>
-              <option value="MortgageLoan">Préstamo Hipotecario</option>
-              <option value="InsuranceReserve">Reserva de Seguros</option>
-              <option value="CNBVApproved">Valor Aprobado por CNBV</option>
-              <option value="SocialHousing">Vivienda Social</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <select
+                id="assetType"
+                value={formData.assetType}
+                onChange={(e) => {
+                  // Resetear campos cuando cambia el tipo
+                  setFormData({
+                    ...formData,
+                    assetType: e.target.value as any,
+                    description: '',
+                    valueMxn: 0,
+                  });
+                }}
+                className="flex-1 px-3 py-2 border border-input rounded-md bg-background"
+                required
+              >
+                <option value="GovernmentBond">Bono Gubernamental</option>
+                <option value="MortgageLoan">Préstamo Hipotecario</option>
+                <option value="InsuranceReserve">Reserva de Seguros</option>
+                <option value="CNBVApproved">Valor Aprobado por CNBV</option>
+                <option value="SocialHousing">Vivienda Social</option>
+              </select>
+              {defaultTemplate && (
+                <div className="flex items-center gap-1 text-xs text-muted-foreground" title={`Plantilla: ${defaultTemplate.name}`}>
+                  <FileText className="h-4 w-4" />
+                  <span className="hidden sm:inline">Plantilla aplicada</span>
+                </div>
+              )}
+            </div>
+            {defaultTemplate && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Plantilla "{defaultTemplate.name}" aplicada. Los campos se han pre-llenado con valores por defecto.
+              </p>
+            )}
           </div>
 
           <div>
