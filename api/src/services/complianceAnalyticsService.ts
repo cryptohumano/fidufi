@@ -123,8 +123,8 @@ export async function getComplianceAnalytics(trustId: string): Promise<Complianc
     .reduce((sum, a) => sum.add(a.valueMxn), new Decimal(0));
 
   // Calcular límites
-  const bondLimitAmount = trust.initialCapital.mul(trust.bondLimitPercent).div(100);
-  const otherLimitAmount = trust.initialCapital.mul(trust.otherLimitPercent).div(100);
+  const bondLimitAmount = trust.bondLimitPercent != null ? trust.initialCapital.mul(trust.bondLimitPercent).div(100) : new Decimal(0);
+  const otherLimitAmount = trust.otherLimitPercent != null ? trust.initialCapital.mul(trust.otherLimitPercent).div(100) : new Decimal(0);
 
   const bondPercent = trust.initialCapital.gt(0)
     ? bondInvestment.div(trust.initialCapital).mul(100).toNumber()
@@ -297,7 +297,7 @@ export async function projectCompliance(
       ? newBondInvestment.div(trust.initialCapital).mul(100).toNumber()
       : 0;
     
-    const bondLimitPercent = trust.bondLimitPercent.toNumber();
+    const bondLimitPercent = (trust.bondLimitPercent?.toNumber() ?? 0);
     wouldExceedBondLimit = newBondPercent > bondLimitPercent;
     
     if (wouldExceedBondLimit) {
@@ -311,7 +311,7 @@ export async function projectCompliance(
       ? newOtherInvestment.div(trust.initialCapital).mul(100).toNumber()
       : 0;
     
-    const otherLimitPercent = trust.otherLimitPercent.toNumber();
+    const otherLimitPercent = (trust.otherLimitPercent?.toNumber() ?? 0);
     wouldExceedOtherLimit = newOtherPercent > otherLimitPercent;
     
     if (wouldExceedOtherLimit) {

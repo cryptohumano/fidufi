@@ -37,7 +37,7 @@ export async function getSaleProcessesByTrust(
     const membership = await prisma.actorTrust.findUnique({
       where: { actorId_trustId: { actorId: opts.callerActorId, trustId } },
     });
-    if (membership?.active && membership.roleInTrust === ActorRole.ADQUIRENTE) {
+    if (membership?.active && (membership.roleInTrust as string) === 'ADQUIRENTE') {
       where.OR = [
         { buyerActorId: opts.callerActorId },
         { reservations: { some: { interestedActorId: opts.callerActorId } } },

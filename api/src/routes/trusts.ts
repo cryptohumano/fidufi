@@ -80,7 +80,7 @@ router.post('/', authenticate, requireSuperAdmin, async (req, res) => {
 
     console.log('📥 Recibiendo petición para crear fideicomiso:', {
       body: req.body,
-      user: req.user.email,
+      user: (req.user as any)?.email ?? req.user?.actor?.id,
     });
 
     const {
@@ -222,8 +222,8 @@ router.post('/', authenticate, requireSuperAdmin, async (req, res) => {
     }
 
     // Asegurar que la respuesta incluya trustTypeRef para que el frontend muestre tipo y moneda
-    let responseTrust = trust;
-    if (!trust.trustTypeRef && trust.trustTypeId) {
+    let responseTrust: any = trust;
+    if (!(trust as any).trustTypeRef && trust.trustTypeId) {
       const typeRow = await getTrustTypeById(trust.trustTypeId);
       if (typeRow) responseTrust = { ...trust, trustTypeRef: typeRow };
     }
@@ -442,24 +442,16 @@ router.get('/:trustId/parties', async (req, res) => {
     const parties = await getTrustParties(trustId);
     
     // Serializar fechas para JSON
+    const toParty = (m: { assignedAt?: Date; [k: string]: unknown }) => ({
+      ...m,
+      assignedAt: m.assignedAt instanceof Date ? m.assignedAt.toISOString() : (m as any).assignedAt,
+    });
     res.json({
       ...parties,
-      comiteTecnico: parties.comiteTecnico.map(m => ({
-        ...m,
-        assignedAt: m.assignedAt.toISOString(),
-      })),
-      beneficiarios: parties.beneficiarios.map(b => ({
-        ...b,
-        assignedAt: b.assignedAt.toISOString(),
-      })),
-      auditores: parties.auditores.map(a => ({
-        ...a,
-        assignedAt: a.assignedAt.toISOString(),
-      })),
-      reguladores: parties.reguladores.map(r => ({
-        ...r,
-        assignedAt: r.assignedAt.toISOString(),
-      })),
+      comiteTecnico: parties.comiteTecnico.map(toParty),
+      beneficiarios: parties.beneficiarios.map(toParty),
+      auditores: parties.auditores.map(toParty),
+      reguladores: parties.reguladores.map(toParty),
     });
   } catch (error: any) {
     res.status(404).json({ error: error.message });

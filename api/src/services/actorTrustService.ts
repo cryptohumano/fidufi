@@ -9,6 +9,7 @@ export interface AssignActorToTrustData {
   actorId: string;
   trustId: string;
   roleInTrust: ActorRole;
+  partyType?: string;
 }
 
 /**
@@ -198,16 +199,12 @@ export async function revokeActorFromTrust(actorId: string, trustId: string) {
   });
 }
 
-// Iteración 10: equivalencias de rol (Admin/Operador fiduciario = Fiduciario para permisos)
-const FIDUCIARIO_EQUIVALENTS: ActorRole[] = [
-  ActorRole.FIDUCIARIO,
-  ActorRole.FIDUCIARIO_ADMIN,
-  ActorRole.FIDUCIARIO_OPERATOR,
-];
+// Equivalencias de rol: solo FIDUCIARIO está en el enum
+const FIDUCIARIO_EQUIVALENTS: ActorRole[] = [ActorRole.FIDUCIARIO];
 
 function expandRoleEquivalents(roles: ActorRole[]): ActorRole[] {
   const set = new Set(roles);
-  if (roles.some((r) => r === ActorRole.FIDUCIARIO || r === ActorRole.FIDUCIARIO_ADMIN || r === ActorRole.FIDUCIARIO_OPERATOR)) {
+  if (roles.some((r) => r === ActorRole.FIDUCIARIO)) {
     FIDUCIARIO_EQUIVALENTS.forEach((r) => set.add(r));
   }
   return Array.from(set);

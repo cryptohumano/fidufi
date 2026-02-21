@@ -19,6 +19,7 @@ import {
 import { validateFiduciarioFeesPaid, type FiduciarioFeeStatus } from '../rules/fiduciarioFeeRules';
 import { getTrust } from './trustService';
 import { getActorById } from './actorService';
+import { createAuditLog, AuditAction, EntityType } from './auditLogService';
 import { AlertType, AlertSubtype } from './alertGenerationService';
 
 export interface RegisterAssetData {
@@ -152,8 +153,8 @@ export async function registerAsset(data: RegisterAssetData): Promise<AssetRegis
       assetType: data.assetType,
       valueMxn: new Decimal(data.valueMxn),
     },
-    bondLimitPercent: trust.bondLimitPercent.toNumber(),
-    otherLimitPercent: trust.otherLimitPercent.toNumber(),
+    bondLimitPercent: (trust.bondLimitPercent ?? new Decimal(0)).toNumber(),
+    otherLimitPercent: (trust.otherLimitPercent ?? new Decimal(0)).toNumber(),
   };
 
   const investmentResults = validateInvestmentRules(investmentContext);
@@ -570,7 +571,7 @@ export async function approveException(
   approvedBy: string,
   reason?: string,
   requestInfo?: { ipAddress?: string; userAgent?: string }
-): Promise<{ asset: any; alert: any }> {
+): Promise<{ asset: any; alert: any; voteResult?: any }> {
   // 1. Verificar que el activo existe
   const asset = await prisma.asset.findUnique({
     where: { id: assetId },
@@ -786,7 +787,7 @@ export async function rejectException(
   rejectedBy: string,
   reason?: string,
   requestInfo?: { ipAddress?: string; userAgent?: string }
-): Promise<{ asset: any; alert: any }> {
+): Promise<{ asset: any; alert: any; voteResult?: any }> {
   // 1. Verificar que el activo existe
   const asset = await prisma.asset.findUnique({
     where: { id: assetId },
@@ -864,6 +865,7 @@ export async function rejectException(
 
     return {
       asset: updatedAsset,
+      alert: null,
       voteResult,
     };
   }

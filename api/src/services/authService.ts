@@ -13,6 +13,7 @@ import { createAuditLog, AuditAction, EntityType } from './auditLogService';
 export interface LoginData {
   email: string;
   password: string;
+  location?: { latitude?: number; longitude?: number; accuracy?: number } | null;
 }
 
 export interface RegisterData {

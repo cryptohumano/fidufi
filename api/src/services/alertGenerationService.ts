@@ -208,8 +208,8 @@ export async function generateComplianceLimitAlerts(trustId: string): Promise<nu
     .reduce((sum, a) => sum.plus(a.valueMxn), new Decimal(0));
 
   const totalInvested = bondTotal.plus(otherTotal);
-  const bondLimit = trust.initialCapital.times(trust.bondLimitPercent).div(100);
-  const otherLimit = trust.initialCapital.times(trust.otherLimitPercent).div(100);
+  const bondLimit = trust.bondLimitPercent != null ? trust.initialCapital.times(trust.bondLimitPercent).div(100) : new Decimal(0);
+  const otherLimit = trust.otherLimitPercent != null ? trust.initialCapital.times(trust.otherLimitPercent).div(100) : new Decimal(0);
 
   // Verificar límite de bonos
   const bondPercentage = bondTotal.div(trust.initialCapital).times(100);

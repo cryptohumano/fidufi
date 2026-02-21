@@ -1,6 +1,6 @@
 import { prisma } from '../lib/prisma';
-import { Prisma } from '../generated/prisma/internal/prismaNamespace';
-import { Decimal } from 'decimal.js';
+import type { Prisma } from '../generated/prisma/client';
+import { Decimal } from '../generated/prisma/internal/prismaNamespace';
 import { getTrust } from './trustService';
 import { getActorById } from './actorService';
 import { ActorRole } from '../generated/prisma/enums';

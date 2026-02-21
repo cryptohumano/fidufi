@@ -105,9 +105,9 @@ export function authorize(...allowedRolesOrArray: (ActorRole | ActorRole[])[]): 
     } else {
       rolesArray = allowedRolesOrArray as ActorRole[];
     }
-    // Iteración 10: equivalencias (FIDUCIARIO_ADMIN / FIDUCIARIO_OPERATOR cuentan como FIDUCIARIO)
-    if (rolesArray.includes(ActorRole.FIDUCIARIO) || rolesArray.includes(ActorRole.FIDUCIARIO_ADMIN) || rolesArray.includes(ActorRole.FIDUCIARIO_OPERATOR)) {
-      rolesArray = [...new Set([...rolesArray, ActorRole.FIDUCIARIO, ActorRole.FIDUCIARIO_ADMIN, ActorRole.FIDUCIARIO_OPERATOR])];
+    // Equivalencias: solo FIDUCIARIO está en el enum; Admin/Operador se tratan como FIDUCIARIO
+    if (rolesArray.includes(ActorRole.FIDUCIARIO)) {
+      rolesArray = [...new Set([...rolesArray, ActorRole.FIDUCIARIO])];
     }
 
     if (!rolesArray.includes(req.user.role)) {

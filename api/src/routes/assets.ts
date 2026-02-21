@@ -25,7 +25,7 @@ router.post('/register', authenticate, authorize(ActorRole.FIDUCIARIO, ActorRole
       registeredBy: req.user.actorId,
       // Pasar información de la request para logging
       requestInfo: {
-        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        ipAddress: req.ip || req.connection?.remoteAddress || (typeof (req.headers['x-forwarded-for']) === 'string' ? req.headers['x-forwarded-for'] : Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : '')?.split(',')[0],
         userAgent: req.headers['user-agent'],
       },
     });
@@ -149,7 +149,7 @@ router.put('/:id/approve-exception', authenticate, authorize(ActorRole.COMITE_TE
       req.user.actorId,
       reason,
       {
-        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        ipAddress: req.ip || req.connection?.remoteAddress || (typeof (req.headers['x-forwarded-for']) === 'string' ? req.headers['x-forwarded-for'] : Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : '')?.split(',')[0],
         userAgent: req.headers['user-agent'],
       }
     );
@@ -181,7 +181,7 @@ router.put('/:id/reject-exception', authenticate, authorize(ActorRole.COMITE_TEC
       req.user.actorId,
       reason,
       {
-        ipAddress: req.ip || req.connection?.remoteAddress || req.headers['x-forwarded-for']?.split(',')[0],
+        ipAddress: req.ip || req.connection?.remoteAddress || (typeof (req.headers['x-forwarded-for']) === 'string' ? req.headers['x-forwarded-for'] : Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : '')?.split(',')[0],
         userAgent: req.headers['user-agent'],
       }
     );
