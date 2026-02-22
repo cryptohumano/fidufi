@@ -50,5 +50,6 @@ export default defineConfig({
   preview: {
     port: Number(process.env.PORT) || 3000,
     host: true, // 0.0.0.0 para aceptar conexiones externas en el contenedor
+    allowedHosts: ['fidufiapp-production.up.railway.app', '.railway.app'],
   },
 });

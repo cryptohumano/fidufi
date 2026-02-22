@@ -56,14 +56,33 @@ Si despliegas también el frontend en Railway (en lugar de Vercel):
   **No uses** `yarn workspace @fidufi/app dev`: ese es el servidor de desarrollo. En producción debe usarse `start`, que sirve el build con `vite preview`.
 - **Watch Paths**: `app/**`
 
-### 1.5 Dominio público (API)
+### 1.5 Dominio público (API y App)
 
-En el servicio API → **Settings** → **Networking** → **Generate Domain**. Anota la URL (p. ej. `https://fidufi-api-production-xxxx.up.railway.app`).
+**Dónde ver o crear el dominio:** en cada servicio (API y App por separado):
+
+1. Clic en el **servicio** (API o App) en el dashboard del proyecto.
+2. Pestaña **Settings** (Configuración).
+3. Baja hasta **Networking** / **Public Networking**.
+4. Si no hay URL: **Generate Domain**. Railway asigna una URL tipo `https://nombre-servicio-xxxx.up.railway.app`.
+5. La URL aparece ahí mismo; puedes copiarla.
+
+Hazlo para el servicio **API** y, si desplegaste el front en Railway, también para el **App**. Anota la URL del API (p. ej. `https://fidufi-api-production-xxxx.up.railway.app`) para usarla en el frontend como `VITE_API_URL`.
 
 Comprueba:
 
 - `https://TU-DOMINIO/health` → debe devolver `{"status":"ok",...}`.
 - Que `DATABASE_URL` esté definida y que las migraciones se apliquen (revisa los logs del primer deploy).
+
+### 1.6 Si ves "DATABASE_URL no está definida"
+
+El contenedor de la API falla al arrancar porque no tiene la variable. En Railway:
+
+1. Entra al **servicio de la API** (el que hace build/start del backend), no al de Postgres.
+2. Pestaña **Variables** → **"+ New Variable"** o **"Raw Editor"**.
+3. Añade **`DATABASE_URL`**:
+   - **Opción A:** Si tienes Postgres en el mismo proyecto, usa **"Add reference"** / **"Connect"** y elige la variable `DATABASE_URL` del servicio PostgreSQL.
+   - **Opción B:** Entra al servicio **PostgreSQL** → **Variables**, copia el valor de `DATABASE_URL`, y en el servicio API crea una variable `DATABASE_URL` con ese valor.
+4. Guarda; Railway redesplegará y el contenedor debería arrancar.
 
 ---
 
